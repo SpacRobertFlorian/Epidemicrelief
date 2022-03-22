@@ -17,9 +17,5 @@ spring:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
   mvc:
     view:
-
-
-
-
       prefix: /WEB-INF/jsp/pages/
       suffix: .jsp

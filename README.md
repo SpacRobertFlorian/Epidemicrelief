@@ -37,5 +37,5 @@ The application will not start without a working connection to the database.
 2 Options:
 
 * Form terminal: `gradle bootRun`
-* From IDE: Run main run configuration
+* From IDE: Run your main run configuration (Launcher)
 * Open the following url in your browser: http://localhost:8081/
