@@ -1,6 +1,6 @@
 <%@ taglib prefix="template" tagdir="/WEB-INF/tags/template" %>
 
-<template:pageTemplate title="Add Household">
+<template:pageTemplate title="Epidemic Relief">
 
     <nav class="navbar navbar-dark bg-dark">
         <ul class="navbar-nav mr-auto">
