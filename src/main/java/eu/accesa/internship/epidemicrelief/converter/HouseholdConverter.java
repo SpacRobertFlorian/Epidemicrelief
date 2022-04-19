@@ -3,9 +3,7 @@ package eu.accesa.internship.epidemicrelief.converter;
 import eu.accesa.internship.epidemicrelief.data.HouseholdData;
 import eu.accesa.internship.epidemicrelief.model.Household;
 import org.springframework.lang.NonNull;
-import org.springframework.stereotype.Component;
 
-@Component
 public class HouseholdConverter {
 
     @NonNull

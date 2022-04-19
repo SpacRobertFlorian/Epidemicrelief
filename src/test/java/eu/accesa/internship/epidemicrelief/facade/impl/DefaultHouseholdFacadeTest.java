@@ -1,8 +1,7 @@
-package eu.accesa.hyaka.epidemicrelief.facade.impl;
+package eu.accesa.internship.epidemicrelief.facade.impl;
 
 import eu.accesa.internship.epidemicrelief.converter.HouseholdConverter;
 import eu.accesa.internship.epidemicrelief.data.HouseholdData;
-import eu.accesa.internship.epidemicrelief.facade.impl.DefaultHouseholdFacade;
 import eu.accesa.internship.epidemicrelief.model.Household;
 import eu.accesa.internship.epidemicrelief.service.HouseholdService;
 import org.junit.Before;

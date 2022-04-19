@@ -1,23 +1,19 @@
 package eu.accesa.internship.epidemicrelief.service.impl;
 
-import eu.accesa.internship.epidemicrelief.dao.HouseholdRepository;
+import eu.accesa.internship.epidemicrelief.repository.HouseholdRepository;
 import eu.accesa.internship.epidemicrelief.model.Household;
 import eu.accesa.internship.epidemicrelief.service.HouseholdService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
-import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-@Service
 public class DefaultHouseholdService implements HouseholdService {
 
     private final HouseholdRepository householdRepository;
 
-    @Autowired
     public DefaultHouseholdService(HouseholdRepository householdRepository) {
         this.householdRepository = householdRepository;
     }
