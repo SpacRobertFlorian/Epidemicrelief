@@ -2,7 +2,7 @@
 
 ## Abstract
 
-Sample Spring Boot application using JSP as template engine and MySql as data source.
+Sample Spring Boot application using JSP as template engine and MySql as data source, abstracted over Spring Data JPA.
 Application will be further developed during the Accesa internship.
 
 ## Requirements
@@ -28,9 +28,9 @@ Open the project in IntelliJ using File -> Open -> select dir of this project
 
 The application will not start without a working connection to the database.
 
-* In src/main/resources/application.yml file, change your DB settings (username, password) to reflect those on your local environment
 * Create a database schema named "edpidemicrelief" using UTF-8 charset and default collation. We recommend using MySQL Workbench to accomplish this.
-* Once the server starts, it will automatically generate the required tables in your schema.
+* In src/main/resources/application.yml file, change your DB settings (username, password) to reflect those on your local environment
+* Once the server starts, it will automatically generate the required missing tables in your schema.
 
 ## Running the application
 
