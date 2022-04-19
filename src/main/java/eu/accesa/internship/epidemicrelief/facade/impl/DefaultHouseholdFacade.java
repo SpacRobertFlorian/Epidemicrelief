@@ -4,22 +4,17 @@ import eu.accesa.internship.epidemicrelief.converter.HouseholdConverter;
 import eu.accesa.internship.epidemicrelief.data.HouseholdData;
 import eu.accesa.internship.epidemicrelief.facade.HouseholdFacade;
 import eu.accesa.internship.epidemicrelief.service.HouseholdService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
-import org.springframework.lang.Nullable;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@Component
 public class DefaultHouseholdFacade implements HouseholdFacade {
 
     private final HouseholdService householdService;
     private final HouseholdConverter householdConverter;
 
-    @Autowired
     public DefaultHouseholdFacade(HouseholdService householdService, HouseholdConverter householdConverter) {
         this.householdService = householdService;
         this.householdConverter = householdConverter;
