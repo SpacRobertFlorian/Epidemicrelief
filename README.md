@@ -8,16 +8,13 @@ Application will be further developed during the Accesa internship.
 ## Requirements
 
 * Java 11
-* Gradle
 * MySql database
 
-### Java and Gradle installation
+### Java installation
 
-To install Java and Gradle, on Windows OS you can use Chocolatey package manager to install: https://chocolatey.org
+To install Java, on Windows OS you can use Chocolatey package manager to install: https://chocolatey.org
 
     choco install adoptopenjdk11
-
-    choco install gradle
 
 ## IDE
 
@@ -36,6 +33,6 @@ The application will not start without a working connection to the database.
 
 2 Options:
 
-* Form terminal: `gradle bootRun`
+* Form terminal: `./gradlew bootRun`
 * From IDE: Run your main run configuration (Launcher)
 * Open the following url in your browser: http://localhost:8081/
