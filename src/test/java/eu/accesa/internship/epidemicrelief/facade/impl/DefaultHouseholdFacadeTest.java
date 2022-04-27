@@ -64,8 +64,8 @@ public class DefaultHouseholdFacadeTest {
 
         householdFacade.addHousehold(householdData);
 
-        verify(householdService, times(1)).addHousehold(household);
-        verify(householdConverter, times(1)).to(householdData);
-        verify(householdConverter, times(0)).from(household);
+        verify(householdService).addHousehold(household);
+        verify(householdConverter).to(householdData);
+        verify(householdConverter, never()).from(household);
     }
 }
