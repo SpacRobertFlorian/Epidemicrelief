@@ -7,6 +7,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="/households/">Households</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/products/">Products</a>
+            </li>
         </ul>
     </nav>
     <div class="text-center">

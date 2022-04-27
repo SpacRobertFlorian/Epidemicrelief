@@ -9,4 +9,10 @@
         <constructor-arg name="householdRepository" ref="householdRepository"/>
     </bean>
 
+    <alias name="defaultProductService" alias="productService" />
+    <bean id="defaultProductService"
+          class="eu.accesa.internship.epidemicrelief.service.impl.DefaultProductService">
+        <constructor-arg name="productRepository" ref="productRepository"/>
+    </bean>
+
 </beans>

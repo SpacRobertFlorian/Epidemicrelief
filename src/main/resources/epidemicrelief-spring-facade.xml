@@ -10,4 +10,11 @@
         <constructor-arg name="householdConverter" ref="householdConverter"/>
     </bean>
 
+    <alias name="defaultProductFacade" alias="productFacade" />
+    <bean id="defaultProductFacade"
+          class="eu.accesa.internship.epidemicrelief.facade.impl.DefaultProductFacade">
+        <constructor-arg name="productService" ref="productService"/>
+        <constructor-arg name="productConverter" ref="productConverter"/>
+    </bean>
+
 </beans>

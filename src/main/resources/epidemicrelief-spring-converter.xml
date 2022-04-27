@@ -7,4 +7,8 @@
     <bean id="defaultHouseholdConverter"
           class="eu.accesa.internship.epidemicrelief.converter.HouseholdConverter"/>
 
+    <alias name="defaultProductConverter" alias="productConverter"/>
+    <bean id="defaultProductConverter"
+          class="eu.accesa.internship.epidemicrelief.converter.ProductConverter"/>
+
 </beans>
