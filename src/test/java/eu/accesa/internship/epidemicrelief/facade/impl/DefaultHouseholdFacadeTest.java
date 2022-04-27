@@ -13,7 +13,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class DefaultHouseholdFacadeTest {
 
@@ -54,5 +54,18 @@ public class DefaultHouseholdFacadeTest {
 
         assertTrue(returnedHouseHold.isPresent());
         assertSame(householdData, returnedHouseHold.get());
+    }
+
+    @Test
+    public void givenValidHousehold_whenAddHousehold_saveHousehold() {
+        Household household = new Household();
+        HouseholdData householdData = new HouseholdData();
+        when(householdConverter.to(householdData)).thenReturn(household);
+
+        householdFacade.addHousehold(householdData);
+
+        verify(householdService, times(1)).addHousehold(household);
+        verify(householdConverter, times(1)).to(householdData);
+        verify(householdConverter, times(0)).from(household);
     }
 }
