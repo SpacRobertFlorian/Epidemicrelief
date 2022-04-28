@@ -1,6 +1,6 @@
 package eu.accesa.internship.epidemicrelief.controller;
 
-import eu.accesa.internship.epidemicrelief.data.ProductCategory;
+import eu.accesa.internship.epidemicrelief.enums.ProductCategory;
 import eu.accesa.internship.epidemicrelief.data.ProductData;
 import eu.accesa.internship.epidemicrelief.facade.ProductFacade;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -25,7 +25,7 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label for="stock" class="col-form-label">Stock</label>
-                            <input type="text" name="stock" id="stock" class="form-control" placeholder="Stock">
+                            <input type="number" name="stock" id="stock" class="form-control" placeholder="Stock">
                         </div>
                     </div>
                     <div class="row">

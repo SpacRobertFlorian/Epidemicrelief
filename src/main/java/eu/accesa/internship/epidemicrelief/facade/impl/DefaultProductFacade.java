@@ -1,11 +1,9 @@
 package eu.accesa.internship.epidemicrelief.facade.impl;
 
-import eu.accesa.internship.epidemicrelief.converter.HouseholdConverter;
 import eu.accesa.internship.epidemicrelief.converter.ProductConverter;
 import eu.accesa.internship.epidemicrelief.data.ProductData;
 import eu.accesa.internship.epidemicrelief.facade.ProductFacade;
 import eu.accesa.internship.epidemicrelief.service.ProductService;
-import eu.accesa.internship.epidemicrelief.service.impl.DefaultHouseholdService;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -21,7 +19,6 @@ public class DefaultProductFacade implements ProductFacade {
         this.productService = productService;
         this.productConverter = productConverter;
     }
-
 
     @NotNull
     @Override

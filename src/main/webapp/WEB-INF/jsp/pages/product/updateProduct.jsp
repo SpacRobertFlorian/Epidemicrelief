@@ -17,11 +17,11 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label for="stock" class="col-form-label">Stock</label>
-                            <input type="text" name="stock" id="stock" class="form-control" value="${product.stock}"
+                            <input type="number" name="stock" id="stock" class="form-control" value="${product.stock}"
                                    placeholder="Stock">
                         </div>
                         <label for="name" class="col-form-label">Category
-                            <select name="category">
+                            <select name="productCategory">
                                 <c:forEach items="${categories}" var="entry">
                                     <option value="${entry}">${entry}</option>
                                 </c:forEach>

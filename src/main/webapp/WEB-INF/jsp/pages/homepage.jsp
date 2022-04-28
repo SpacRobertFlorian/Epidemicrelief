@@ -3,12 +3,13 @@
 <template:pageTemplate title="Epidemic Relief">
 
     <nav class="navbar navbar-dark bg-dark">
-        <ul class="navbar-nav mr-auto">
+<%--        <ul class="navbar-nav mr-auto">--%>
+            <ul class="nav justify-content-center">
             <li class="nav-item">
-                <a class="nav-link" href="/households/">Households</a>
+                <a class="navbar-brand" href="/households/">Households</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/products/">Products</a>
+                <a class="navbar-brand" href="/products/">Products</a>
             </li>
         </ul>
     </nav>
