@@ -17,6 +17,7 @@ import java.util.Optional;
 @RequestMapping("/products")
 public class ProductController {
     private final ProductFacade productFacade;
+
     @Autowired
     public ProductController(ProductFacade productFacade) {
         this.productFacade = productFacade;
@@ -60,8 +61,8 @@ public class ProductController {
 
     @PostMapping("/update")
     public String updateProduct(@Valid ProductData productData, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            return "product/updateProduct";
+        if (result.hasErrors() || productData.getStock() < 0) {
+            return "redirect:/products/edit/" + productData.getId();
         }
         this.productFacade.updateProduct(productData);
         model.addAttribute("product", this.productFacade.getProducts());
