@@ -12,13 +12,17 @@ import java.util.Optional;
 public interface ProductService {
 
     /**
+     * Get a list of Products
+     *
      * @return list of all products
      */
     List<Product> getAllProducts();
 
     /**
+     * Get a Product by id
+     *
      * @param id
-     * @return an Optional containing the matching products if it exists; empty Optional otherwise
+     * @return an {@link Optional} containing the matching products if it exists; {@link  Optional#empty}
      */
     @NotNull
     Optional<Product> getById(long id);

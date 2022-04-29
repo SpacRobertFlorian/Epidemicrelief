@@ -12,11 +12,13 @@ import java.util.Optional;
  */
 public interface ProductFacade {
     /**
+     * Get a list of ProductData
+     *
      * @return list of all products
      */
     List<ProductData> getProducts();
-
     /**
+     * Get a ProductData by id
      * @param id
      * @return an Optional containing the matching products if it exists; empty Optional otherwise
      */
@@ -38,7 +40,7 @@ public interface ProductFacade {
     void updateProduct(@NotNull ProductData productData);
 
     /**
-     * Delete the given
+     * Delete the given product
      *
      * @param id id of the product to be deleted
      */

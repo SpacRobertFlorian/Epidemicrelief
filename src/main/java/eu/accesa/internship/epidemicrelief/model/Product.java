@@ -9,6 +9,8 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    //TODO Task 3
+    // Make Name to be unique (unique = true)
     @Column
     private String name;
     @Column

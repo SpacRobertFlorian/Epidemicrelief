@@ -17,7 +17,6 @@ import java.util.Optional;
 @RequestMapping("/products")
 public class ProductController {
     private final ProductFacade productFacade;
-
     @Autowired
     public ProductController(ProductFacade productFacade) {
         this.productFacade = productFacade;
@@ -26,7 +25,6 @@ public class ProductController {
     @GetMapping
     public String getAllProducts(Model model) {
         model.addAttribute("products", productFacade.getProducts());
-
         return "product/productList";
     }
 
@@ -36,11 +34,13 @@ public class ProductController {
         return "product/addProduct";
     }
 
+    //TODO Task 3
+    // Validate stock to be greater then 1
     @PostMapping(value = "/save")
     public String addProduct(@Valid ProductData productData, BindingResult result, Model model) {
-        if (result.hasErrors()) {
+        if (result.hasErrors() || productData.getStock() < 0) {
 
-            return "product/addProduct";
+            return "redirect:/products/new";
         }
         this.productFacade.addProduct(productData);
         model.addAttribute("products", this.productFacade.getProducts());
