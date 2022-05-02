@@ -30,7 +30,8 @@ public class DefaultProductFacade implements ProductFacade {
     }
 
     @Override
-    public @NotNull Optional<ProductData> getById(long id) {
+    @NotNull
+    public Optional<ProductData> getById(long id) {
         return this.productService.getById(id).map(productConverter::from);
     }
 
