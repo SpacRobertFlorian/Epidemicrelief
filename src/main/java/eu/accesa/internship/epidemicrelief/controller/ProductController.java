@@ -44,7 +44,6 @@ public class ProductController {
             return "redirect:/products/new";
         }
         this.productFacade.addProduct(productData);
-        model.addAttribute("products", this.productFacade.getProducts());
         return "redirect:/products";
     }
 
