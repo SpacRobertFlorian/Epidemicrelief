@@ -46,8 +46,8 @@ public class HouseholdControllerIntegrationTest {
     @Test
     public void givenValidHouseholdData_whenSaveHousehold_thenPerformPost() throws Exception {
         mockMvc.perform(post(SAVE_HOUSEHOLD_URL)
-                .params(fillParameters())
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED))
+                        .params(fillParameters())
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED))
                 .andExpect(status().is3xxRedirection());
     }
 

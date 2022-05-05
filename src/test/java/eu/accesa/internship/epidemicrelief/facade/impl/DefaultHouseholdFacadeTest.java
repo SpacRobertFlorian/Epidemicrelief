@@ -6,6 +6,7 @@ import eu.accesa.internship.epidemicrelief.model.Household;
 import eu.accesa.internship.epidemicrelief.service.HouseholdService;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -30,7 +31,6 @@ public class DefaultHouseholdFacadeTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-
         householdFacade = new DefaultHouseholdFacade(householdService, householdConverter);
     }
 
@@ -47,6 +47,7 @@ public class DefaultHouseholdFacadeTest {
     public void givenExistingHousehold_whenGetById_expectHouseholdConvertedToData() {
         Household household = new Household();
         HouseholdData householdData = new HouseholdData();
+
         when(householdService.getById(HOUSEHOLD_ID)).thenReturn(Optional.of(household));
         when(householdConverter.from(household)).thenReturn(householdData);
 

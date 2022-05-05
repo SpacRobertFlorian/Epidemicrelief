@@ -3,7 +3,6 @@ package eu.accesa.internship.epidemicrelief.service.impl;
 import eu.accesa.internship.epidemicrelief.model.Product;
 import eu.accesa.internship.epidemicrelief.repository.ProductRepository;
 import eu.accesa.internship.epidemicrelief.service.ProductService;
-import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.constraints.NotNull;

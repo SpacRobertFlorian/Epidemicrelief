@@ -43,7 +43,6 @@ public class ProductController {
 
             return "redirect:/products/new";
         }
-        this.productFacade.addProduct(productData);
         return "redirect:/products";
     }
 
@@ -63,14 +62,13 @@ public class ProductController {
         if (result.hasErrors() || productData.getStock() < 0) {
             return "redirect:/products/edit/" + productData.getId();
         }
-        this.productFacade.updateProduct(productData);
-        model.addAttribute("product", this.productFacade.getProducts());
+        productFacade.updateProduct(productData);
         return "redirect:/products";
     }
 
     @GetMapping("/delete/{id}")
     public String deleteProduct(@PathVariable("id") long id) {
-        this.productFacade.deleteProduct(id);
+        productFacade.deleteProduct(id);
         return "redirect:/products";
     }
 
