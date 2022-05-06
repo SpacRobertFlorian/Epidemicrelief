@@ -4,33 +4,34 @@ import eu.accesa.internship.epidemicrelief.converter.ProductConverter;
 import eu.accesa.internship.epidemicrelief.data.ProductData;
 import eu.accesa.internship.epidemicrelief.model.Product;
 import eu.accesa.internship.epidemicrelief.service.ProductService;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+import static org.mockito.MockitoAnnotations.initMocks;
 
-@RunWith(MockitoJUnitRunner.class)
 public class DefaultProductFacadeTest {
 
     private static final long PRODUCT_ID = 1L;
-    @InjectMocks
     private DefaultProductFacade productFacade;
     @Mock
     private ProductService productService;
     @Mock
     private ProductConverter productConverter;
 
+    @Before
+    public void setUp() {
+        initMocks(this);
+        productFacade = new DefaultProductFacade(productService, productConverter);
+    }
 
     @Test
     public void giveNonExistingProduct_whenGetById_expectEmptyResult() {
@@ -45,6 +46,7 @@ public class DefaultProductFacadeTest {
     public void giveExistingProduct_whenGetById_expectedProductConvertedToData() {
         Product product = new Product();
         ProductData productData = new ProductData();
+
         when(productService.getById(PRODUCT_ID)).thenReturn(Optional.of(product));
         when(productConverter.from(product)).thenReturn(productData);
 
@@ -54,7 +56,6 @@ public class DefaultProductFacadeTest {
         assertSame(productData, returnedProduct.get());
     }
 
-    //TODO ARGUMENTCAPTOR nu merge ceva da cu virgula
     @Test
     public void givenValidProduct_whenAddProduct_saveProduct() {
         Product product = new Product();

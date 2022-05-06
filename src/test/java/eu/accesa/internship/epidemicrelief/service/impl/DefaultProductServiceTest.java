@@ -20,18 +20,23 @@ import java.util.Optional;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
+import static org.mockito.MockitoAnnotations.initMocks;
 
-@RunWith(MockitoJUnitRunner.class)
 public class DefaultProductServiceTest {
 
     private static final long PRODUCT_ID = 1L;
     @Mock
     private ProductRepository productRepository;
-    @InjectMocks
     private DefaultProductService productService;
 
     @Mock
     private Product product;
+
+    @Before
+    public void setUp() {
+        initMocks(this);
+        productService = new DefaultProductService(productRepository);
+    }
 
     @Test
     public void getAllProducts() {
