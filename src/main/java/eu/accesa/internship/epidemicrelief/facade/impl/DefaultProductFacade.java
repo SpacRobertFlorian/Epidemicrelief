@@ -2,6 +2,7 @@ package eu.accesa.internship.epidemicrelief.facade.impl;
 
 import eu.accesa.internship.epidemicrelief.converter.ProductConverter;
 import eu.accesa.internship.epidemicrelief.data.ProductData;
+import eu.accesa.internship.epidemicrelief.enums.ProductCategory;
 import eu.accesa.internship.epidemicrelief.facade.ProductFacade;
 import eu.accesa.internship.epidemicrelief.service.ProductService;
 
@@ -48,5 +49,13 @@ public class DefaultProductFacade implements ProductFacade {
     @Override
     public void deleteProduct(long id) {
         this.productService.deleteProduct(id);
+    }
+
+    @Override
+    public List<ProductData> getByCategory(ProductCategory productCategory) {
+        return this.productService.getByCategory(productCategory)
+                .stream()
+                .map(productConverter::from)
+                .collect(Collectors.toList());
     }
 }

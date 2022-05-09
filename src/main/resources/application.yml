@@ -19,3 +19,5 @@ spring:
     view:
       prefix: /WEB-INF/jsp/pages/
       suffix: .jsp
+key:
+  my.threshold: 50

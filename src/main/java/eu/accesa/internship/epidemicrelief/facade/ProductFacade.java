@@ -1,6 +1,7 @@
 package eu.accesa.internship.epidemicrelief.facade;
 
 import eu.accesa.internship.epidemicrelief.data.ProductData;
+import eu.accesa.internship.epidemicrelief.enums.ProductCategory;
 import eu.accesa.internship.epidemicrelief.model.Product;
 
 import javax.validation.constraints.NotEmpty;
@@ -19,9 +20,11 @@ public interface ProductFacade {
      */
     @NotNull
     List<ProductData> getProducts();
+
     /**
      * Get a ProductData by id
-     * @param id
+     *
+     * @param id id of the product to be search by
      * @return an Optional containing the matching products if it exists; empty Optional otherwise
      */
     @NotNull
@@ -47,4 +50,7 @@ public interface ProductFacade {
      * @param id id of the product to be deleted
      */
     void deleteProduct(long id);
+
+    @NotNull
+    List<ProductData> getByCategory(ProductCategory productCategory);
 }

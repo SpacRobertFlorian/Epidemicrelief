@@ -2,17 +2,7 @@
 
 <template:pageTemplate title="Epidemic Relief">
 
-    <nav class="navbar navbar-dark bg-dark">
-<%--        <ul class="navbar-nav mr-auto">--%>
-            <ul class="nav justify-content-center">
-            <li class="nav-item">
-                <a class="navbar-brand" href="/households/">Households</a>
-            </li>
-            <li class="nav-item">
-                <a class="navbar-brand" href="/products/">Products</a>
-            </li>
-        </ul>
-    </nav>
+
     <div class="text-center">
         <h1 class="my-2">Epidemic Relief</h1>
         <div class="py-4">Helping households whose members have caught a virus and need to isolate get access to the

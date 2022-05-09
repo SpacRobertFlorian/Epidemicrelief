@@ -1,4 +1,4 @@
-<style><%@include file="/WEB-INF/jsp/pages/error/error400/404.css"%></style>
+<style><%@include file="/WEB-INF/jsp/pages/error/404.css"%></style>
 <body>
 <section class="notFound">
     <div class="img">

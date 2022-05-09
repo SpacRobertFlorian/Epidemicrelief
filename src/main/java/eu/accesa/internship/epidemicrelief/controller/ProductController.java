@@ -4,6 +4,7 @@ import eu.accesa.internship.epidemicrelief.enums.ProductCategory;
 import eu.accesa.internship.epidemicrelief.data.ProductData;
 import eu.accesa.internship.epidemicrelief.facade.ProductFacade;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,12 +12,16 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.Optional;
 
 @Controller
 @RequestMapping("/products")
 public class ProductController {
     private final ProductFacade productFacade;
+
+    @Value("${key.my.threshold}")
+    private int threshold;
 
     @Autowired
     public ProductController(ProductFacade productFacade) {
@@ -26,7 +31,29 @@ public class ProductController {
     @GetMapping
     public String getAllProducts(Model model) {
         model.addAttribute("products", productFacade.getProducts());
+        model.addAttribute("categories", Arrays.asList(ProductCategory.values()));
+        model.addAttribute("threshold", threshold);
         return "product/productList";
+    }
+
+    @GetMapping("/500")
+    public String get500Error(){
+        return "500";
+    }
+    @GetMapping("/category/{category}")
+    public String getAllProductsFilteredByCategory(Model model, @PathVariable("category") String category) {
+        model.addAttribute("products", productFacade.getByCategory(ProductCategory.valueOf(category.toUpperCase(Locale.ROOT))));
+        model.addAttribute("categories", Arrays.asList(ProductCategory.values()));
+        model.addAttribute("threshold", threshold);
+        return "product/productList";
+    }
+
+    @PostMapping
+    public String getProductsFilteredByCategory(ProductCategory productCategory, Model model) {
+        if (productCategory == null) {
+            return "redirect:/products";
+        }
+        return "redirect:/products/category/" + productCategory.toString();
     }
 
     @GetMapping("/new")
@@ -43,6 +70,7 @@ public class ProductController {
 
             return "redirect:/products/new";
         }
+        productFacade.addProduct(productData);
         return "redirect:/products";
     }
 

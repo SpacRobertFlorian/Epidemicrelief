@@ -1,5 +1,6 @@
 package eu.accesa.internship.epidemicrelief.service.impl;
 
+import eu.accesa.internship.epidemicrelief.enums.ProductCategory;
 import eu.accesa.internship.epidemicrelief.model.Product;
 import eu.accesa.internship.epidemicrelief.repository.ProductRepository;
 import eu.accesa.internship.epidemicrelief.service.ProductService;
@@ -60,5 +61,10 @@ public class DefaultProductService implements ProductService {
         } else {
             productRepository.delete(product.get());
         }
+    }
+
+    @Override
+    public List<Product> getByCategory(ProductCategory productCategory) {
+        return productRepository.findAllByProductCategory(productCategory);
     }
 }

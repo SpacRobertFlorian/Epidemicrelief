@@ -1,5 +1,6 @@
 package eu.accesa.internship.epidemicrelief.repository;
 
+import eu.accesa.internship.epidemicrelief.enums.ProductCategory;
 import eu.accesa.internship.epidemicrelief.model.Product;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -21,4 +22,7 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
     @NotNull
     @Override
     List<Product> findAll();
+
+    @NotNull
+    List<Product> findAllByProductCategory(ProductCategory productCategory);
 }

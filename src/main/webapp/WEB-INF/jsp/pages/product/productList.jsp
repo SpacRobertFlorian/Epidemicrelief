@@ -3,6 +3,19 @@
 
 <template:pageTemplate title="Products">
 
+    <form action="/products/" method="post">
+        Select a Category:&nbsp;
+        <label>
+            <select name="productCategory">
+                <c:forEach items="${categories}" var="entry">
+                    <option value="${entry}">${entry}</option>
+                </c:forEach>
+            </select>
+        </label>
+        <br/><br/>
+        <input type="submit" class="btn btn-primary" value="Submit" />
+    </form>
+
     <div class="row pl-5">
         <div class="col-md-6">
             <h2 class="my-5">Products</h2>
@@ -22,7 +35,17 @@
                         <tr>
                             <td>${product.name}</td>
                             <td>${product.productCategory}</td>
-                            <td>${product.stock}</td>
+<%--                            <td>${product.stock}</td>--%>
+                            <c:choose>
+                                <c:when test="${product.stock < threshold}">
+                                    <td style="color:red;">${product.stock}</td>
+                                    <br />
+                                </c:when>
+                                <c:otherwise>
+                                    <td>${product.stock}</td>
+                                    <br />
+                                </c:otherwise>
+                            </c:choose>
                             <td><a href="/products/edit/${product.id}/" class="btn btn-secondary"><i
                                     class="fas fa-user-edit ml-2"></i></a></td>
                             <td><a href="/products/delete/${product.id}/" class="btn btn-secondary"><i

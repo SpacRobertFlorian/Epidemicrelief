@@ -1,5 +1,7 @@
 package eu.accesa.internship.epidemicrelief.service;
 
+import eu.accesa.internship.epidemicrelief.data.ProductData;
+import eu.accesa.internship.epidemicrelief.enums.ProductCategory;
 import eu.accesa.internship.epidemicrelief.model.Product;
 
 import javax.validation.constraints.NotNull;
@@ -47,4 +49,11 @@ public interface ProductService {
      * @param id id of the product to be deleted
      */
     void deleteProduct(long id);
+
+    /**
+     * Get a list of Products filtered by category
+     * @param productCategory is the category to be filtered
+     * @return list of products
+     */
+    List<Product> getByCategory(ProductCategory productCategory);
 }
