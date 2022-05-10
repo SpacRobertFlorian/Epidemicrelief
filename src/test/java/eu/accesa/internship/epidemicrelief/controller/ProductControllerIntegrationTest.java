@@ -34,13 +34,11 @@ public class ProductControllerIntegrationTest {
     private static final String GET_NEW_PRODUCT = "/products/new";
     private static final String NAME_PARAMETER = "name";
     private static final String NAME_PARAMETER_VALUE = "Paracetamol";
-    private static final String NAME_INVALID_PARAMETER_VALUE = null;
     private static final String STOCK_PARAMETER = "stock";
     private static final String STOCK_PARAMETER_VALUE = "20";
     private static final String STOCK_INVALID_PARAMETER_VALUE = "-1";
     private static final String CATEGORY_PARAMETER = "product_category";
     private static final String CATEGORY_PARAMETER_VALUE = "product_category";
-    private static final String CATEGORY_INVALID_PARAMETER_VALUE = null;
 
 
     @Autowired
@@ -98,9 +96,9 @@ public class ProductControllerIntegrationTest {
 
     private MultiValueMap<String, String> fillInvalidParameters() {
         MultiValueMap<String, String> params = new HttpHeaders();
-        params.add(NAME_PARAMETER, NAME_INVALID_PARAMETER_VALUE);
+        params.add(NAME_PARAMETER, null);
         params.add(STOCK_PARAMETER, STOCK_INVALID_PARAMETER_VALUE);
-        params.add(CATEGORY_PARAMETER, CATEGORY_INVALID_PARAMETER_VALUE);
+        params.add(CATEGORY_PARAMETER, null);
 
         return params;
     }

@@ -38,7 +38,7 @@ public class ProductController {
 
     @GetMapping("/500")
     public String get500Error(){
-        return "500";
+        return "error/internalserver/500";
     }
     @GetMapping("/category/{category}")
     public String getAllProductsFilteredByCategory(Model model, @PathVariable("category") String category) {

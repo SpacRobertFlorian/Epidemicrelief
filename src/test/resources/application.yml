@@ -13,3 +13,5 @@ spring:
         format_sql: true
         user_sql_comments: true
         dialect: org.hibernate.dialect.H2Dialect
+key:
+  my.threshold: 50

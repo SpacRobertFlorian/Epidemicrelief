@@ -1,4 +1,7 @@
-<style><%@include file="/WEB-INF/jsp/pages/error/404.css"%></style>
+<%@ page language="java" isErrorPage="true" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<style>
+    <%@include file="404.css"%>
+</style>
 <body>
 <section class="notFound">
     <div class="img">

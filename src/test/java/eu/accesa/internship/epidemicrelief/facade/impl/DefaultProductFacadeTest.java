@@ -99,7 +99,7 @@ public class DefaultProductFacadeTest {
     }
 
     @Test
-    public void getAllProducts_thenAllProductsConvertedToData() {
+    public void givenNothing_whenGetAllProducts_thenAllProductsConvertedToData() {
         List<Product> productList = Mockito.spy(new ArrayList<>());
         Product product = new Product();
 
