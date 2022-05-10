@@ -1,14 +1,18 @@
 package eu.accesa.internship.epidemicrelief.controller;
 
-import eu.accesa.internship.epidemicrelief.enums.ProductCategory;
 import eu.accesa.internship.epidemicrelief.data.ProductData;
+import eu.accesa.internship.epidemicrelief.enums.ProductCategory;
+import eu.accesa.internship.epidemicrelief.exception.CustomException;
 import eu.accesa.internship.epidemicrelief.facade.ProductFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 import java.util.Arrays;
@@ -36,16 +40,18 @@ public class ProductController {
         return "product/productList";
     }
 
-    @GetMapping("/500")
-    public String get500Error(){
-        return "error/internalserver/500";
-    }
+
     @GetMapping("/category/{category}")
     public String getAllProductsFilteredByCategory(Model model, @PathVariable("category") String category) {
-        model.addAttribute("products", productFacade.getByCategory(ProductCategory.valueOf(category.toUpperCase(Locale.ROOT))));
-        model.addAttribute("categories", Arrays.asList(ProductCategory.values()));
-        model.addAttribute("threshold", threshold);
-        return "product/productList";
+        try {
+            ProductCategory x = ProductCategory.valueOf(category.toUpperCase(Locale.ROOT));
+            model.addAttribute("products", productFacade.getByCategory(x));
+            model.addAttribute("categories", Arrays.asList(ProductCategory.values()));
+            model.addAttribute("threshold", threshold);
+            return "product/productList";
+        } catch (IllegalArgumentException e) {
+            throw new CustomException(e.getMessage());
+        }
     }
 
     @PostMapping
@@ -62,7 +68,7 @@ public class ProductController {
         return "product/addProduct";
     }
 
-    //TODO Task 3
+    //TODO Task 5
     // Validate stock to be greater then 1
     @PostMapping(value = "/save")
     public String addProduct(@Valid ProductData productData, BindingResult result, Model model) {
@@ -78,7 +84,8 @@ public class ProductController {
     public String getUpdateProductForm(@PathVariable("id") long id, Model model) {
         Optional<ProductData> productData = this.productFacade.getById(id);
         if (productData.isEmpty()) {
-            throw new IllegalArgumentException("No product exists for id " + id);
+
+            throw new CustomException("No product exists for id " + id);
         }
         model.addAttribute("categories", Arrays.asList(ProductCategory.values()));
         model.addAttribute("product", productData.get());

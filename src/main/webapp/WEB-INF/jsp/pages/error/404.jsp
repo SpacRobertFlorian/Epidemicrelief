@@ -1,6 +1,6 @@
 <%@ page language="java" isErrorPage="true" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <style>
-    <%@include file="404.css"%>
+    <%@include file="notfound/404.css"%>
 </style>
 <body>
 <section class="notFound">

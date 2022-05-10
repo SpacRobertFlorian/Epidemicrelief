@@ -1,30 +1,26 @@
 package eu.accesa.internship.epidemicrelief.service.impl;
 
+import eu.accesa.internship.epidemicrelief.enums.ProductCategory;
 import eu.accesa.internship.epidemicrelief.model.Product;
 import eu.accesa.internship.epidemicrelief.repository.ProductRepository;
-import eu.accesa.internship.epidemicrelief.service.ProductService;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 public class DefaultProductServiceTest {
 
     private static final long PRODUCT_ID = 1L;
+    private static final ProductCategory PRODUCT_CATEGORY = ProductCategory.DRINKS;
     @Mock
     private ProductRepository productRepository;
     private DefaultProductService productService;
@@ -127,4 +123,21 @@ public class DefaultProductServiceTest {
         verify(productRepository).delete(product);
     }
 
+    @Test
+    public void givenValidCategory_whenGetByCategory_getListOfProducts() {
+        List<Product> productList = new ArrayList<>();
+        List<Product> spyList = spy(productList);
+
+        Product product1 = new Product();
+        Product spyProduct = spy(product1);
+
+        spyProduct.setProductCategory(PRODUCT_CATEGORY);
+        spyList.add(spyProduct);
+
+        when(productRepository.findAllByProductCategory(PRODUCT_CATEGORY)).thenReturn(spyList);
+
+        productService.getByCategory(PRODUCT_CATEGORY);
+
+        verify(productRepository).findAllByProductCategory(PRODUCT_CATEGORY);
+    }
 }

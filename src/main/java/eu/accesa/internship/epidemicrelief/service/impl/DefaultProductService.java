@@ -46,7 +46,7 @@ public class DefaultProductService implements ProductService {
 
         Optional<Product> productOptional = productRepository.findById(product.getId());
         if (productOptional.isEmpty()) {
-            throw new EntityNotFoundException("Unable to find household to update; id: " + product.getId());
+            throw new EntityNotFoundException("Unable to find product to update; id: " + product.getId());
         }
 
         productRepository.save(product);
@@ -57,7 +57,7 @@ public class DefaultProductService implements ProductService {
         Optional<Product> product = productRepository.findById(id);
 
         if (product.isEmpty()) {
-            throw new EntityNotFoundException("Unable to find household to update; id: " + id);
+            throw new EntityNotFoundException("Unable to find product to update; id: " + id);
         } else {
             productRepository.delete(product.get());
         }

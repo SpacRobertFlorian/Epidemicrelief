@@ -3,9 +3,11 @@ package eu.accesa.internship.epidemicrelief.facade.impl;
 import eu.accesa.internship.epidemicrelief.converter.ProductConverter;
 import eu.accesa.internship.epidemicrelief.data.ProductData;
 import eu.accesa.internship.epidemicrelief.enums.ProductCategory;
+import eu.accesa.internship.epidemicrelief.exception.CustomException;
 import eu.accesa.internship.epidemicrelief.facade.ProductFacade;
 import eu.accesa.internship.epidemicrelief.service.ProductService;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
@@ -38,17 +40,29 @@ public class DefaultProductFacade implements ProductFacade {
 
     @Override
     public void addProduct(@NotNull ProductData productData) {
-        productService.addProduct(productConverter.to(productData));
+        try {
+            productService.addProduct(productConverter.to(productData));
+        } catch (IllegalArgumentException e) {
+            throw new CustomException(e.getMessage());
+        }
     }
 
     @Override
     public void updateProduct(@NotNull ProductData productData) {
-        productService.updateProduct(productConverter.to(productData));
+        try {
+            productService.updateProduct(productConverter.to(productData));
+        } catch (EntityNotFoundException e) {
+            throw new CustomException(e.getMessage());
+        }
     }
 
     @Override
     public void deleteProduct(long id) {
-        this.productService.deleteProduct(id);
+        try {
+            this.productService.deleteProduct(id);
+        } catch (EntityNotFoundException e) {
+            throw new CustomException(e.getMessage());
+        }
     }
 
     @Override

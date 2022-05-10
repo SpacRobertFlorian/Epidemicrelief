@@ -2,6 +2,7 @@ package eu.accesa.internship.epidemicrelief.facade.impl;
 
 import eu.accesa.internship.epidemicrelief.converter.ProductConverter;
 import eu.accesa.internship.epidemicrelief.data.ProductData;
+import eu.accesa.internship.epidemicrelief.enums.ProductCategory;
 import eu.accesa.internship.epidemicrelief.model.Product;
 import eu.accesa.internship.epidemicrelief.service.ProductService;
 import org.junit.Before;
@@ -21,6 +22,7 @@ import static org.mockito.MockitoAnnotations.initMocks;
 public class DefaultProductFacadeTest {
 
     private static final long PRODUCT_ID = 1L;
+    private static final ProductCategory PRODUCT_CATEGORY = ProductCategory.DRINKS;
     private DefaultProductFacade productFacade;
     @Mock
     private ProductService productService;
@@ -116,4 +118,20 @@ public class DefaultProductFacadeTest {
         verifyNoMoreInteractions(productConverter);
     }
 
+    @Test
+    public void givenProductCategory_whenGetByCategory_thenGetListOfProducts() {
+        List<Product> productList = Mockito.spy(new ArrayList<>());
+        Product product = new Product();
+        product.setProductCategory(PRODUCT_CATEGORY);
+
+        productList.add(product);
+
+        when(productService.getByCategory(PRODUCT_CATEGORY)).thenReturn(productList);
+
+        productFacade.getByCategory(PRODUCT_CATEGORY);
+
+        verify(productService).getByCategory(PRODUCT_CATEGORY);
+        verify(productConverter).from(product);
+        verifyNoMoreInteractions(productConverter);
+    }
 }
