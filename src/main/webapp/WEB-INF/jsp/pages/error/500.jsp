@@ -1,5 +1,5 @@
 <style>
-    <%@include file="500.css"%>
+    <%@include file="internalserver/500.css"%>
 </style>
 <div class="error-500" data-text="Oh no! Our spaghetti code is not working properly. ${error}. We will be back soon!">
     <spaguetti>

@@ -33,6 +33,9 @@ public class DefaultProductFacadeTest {
     public void setUp() {
         initMocks(this);
         productFacade = new DefaultProductFacade(productService, productConverter);
+        //TODO scot ce este comun aici
+        //ex  Product product = new Product();
+        //        ProductData productData = new ProductData();
     }
 
     @Test
@@ -122,13 +125,18 @@ public class DefaultProductFacadeTest {
     public void givenProductCategory_whenGetByCategory_thenGetListOfProducts() {
         List<Product> productList = Mockito.spy(new ArrayList<>());
         Product product = new Product();
-        product.setProductCategory(PRODUCT_CATEGORY);
+        ProductData productData = new ProductData();
 
+        product.setProductCategory(PRODUCT_CATEGORY);
         productList.add(product);
 
         when(productService.getByCategory(PRODUCT_CATEGORY)).thenReturn(productList);
+        when(productConverter.from(product)).thenReturn(productData);
 
-        productFacade.getByCategory(PRODUCT_CATEGORY);
+        List<ProductData> byCategory = productFacade.getByCategory(PRODUCT_CATEGORY);
+
+        assertEquals(1, byCategory.size());
+        assertEquals(productData, byCategory.get(0));
 
         verify(productService).getByCategory(PRODUCT_CATEGORY);
         verify(productConverter).from(product);

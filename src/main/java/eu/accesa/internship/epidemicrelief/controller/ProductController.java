@@ -16,15 +16,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 import java.util.Arrays;
-import java.util.Locale;
 import java.util.Optional;
 
 @Controller
 @RequestMapping("/products")
 public class ProductController {
     private final ProductFacade productFacade;
-
-    @Value("${key.my.threshold}")
+    private static final String PRODUCT_LIST_JSP = "product/productList";
+    private static final String PRODUCTS_URL = "redirect:/products";
+    @Value("${minim.stock.threshold}")
     private int threshold;
 
     @Autowired
@@ -37,29 +37,29 @@ public class ProductController {
         model.addAttribute("products", productFacade.getProducts());
         model.addAttribute("categories", Arrays.asList(ProductCategory.values()));
         model.addAttribute("threshold", threshold);
-        return "product/productList";
+        return PRODUCT_LIST_JSP;
     }
-
 
     @GetMapping("/category/{category}")
     public String getAllProductsFilteredByCategory(Model model, @PathVariable("category") String category) {
         try {
-            ProductCategory x = ProductCategory.valueOf(category.toUpperCase(Locale.ROOT));
+            ProductCategory x = ProductCategory.valueOf(category.toUpperCase());
             model.addAttribute("products", productFacade.getByCategory(x));
             model.addAttribute("categories", Arrays.asList(ProductCategory.values()));
             model.addAttribute("threshold", threshold);
-            return "product/productList";
+            return PRODUCT_LIST_JSP;
+
         } catch (IllegalArgumentException e) {
-            throw new CustomException(e.getMessage());
+            throw new CustomException(e.getMessage(), e);
         }
     }
 
     @PostMapping
     public String getProductsFilteredByCategory(ProductCategory productCategory, Model model) {
         if (productCategory == null) {
-            return "redirect:/products";
+            return PRODUCTS_URL;
         }
-        return "redirect:/products/category/" + productCategory.toString();
+        return PRODUCTS_URL + "/category/" + productCategory;
     }
 
     @GetMapping("/new")
@@ -74,10 +74,10 @@ public class ProductController {
     public String addProduct(@Valid ProductData productData, BindingResult result, Model model) {
         if (result.hasErrors() || productData.getStock() < 0) {
 
-            return "redirect:/products/new";
+            return PRODUCTS_URL + "/new";
         }
         productFacade.addProduct(productData);
-        return "redirect:/products";
+        return PRODUCTS_URL;
     }
 
     @GetMapping("/edit/{id}")
@@ -95,16 +95,16 @@ public class ProductController {
     @PostMapping("/update")
     public String updateProduct(@Valid ProductData productData, BindingResult result, Model model) {
         if (result.hasErrors() || productData.getStock() < 0) {
-            return "redirect:/products/edit/" + productData.getId();
+            return PRODUCTS_URL + "/edit/" + productData.getId();
         }
         productFacade.updateProduct(productData);
-        return "redirect:/products";
+        return PRODUCTS_URL;
     }
 
     @GetMapping("/delete/{id}")
     public String deleteProduct(@PathVariable("id") long id) {
         productFacade.deleteProduct(id);
-        return "redirect:/products";
+        return PRODUCTS_URL;
     }
 
 }
