@@ -1,10 +1,9 @@
 package eu.accesa.internship.epidemicrelief.facade;
 
 import eu.accesa.internship.epidemicrelief.data.ProductData;
-import eu.accesa.internship.epidemicrelief.enums.ProductCategory;
+import eu.accesa.internship.epidemicrelief.utils.enums.ProductCategory;
 import eu.accesa.internship.epidemicrelief.model.Product;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;

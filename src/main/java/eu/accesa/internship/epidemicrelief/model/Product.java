@@ -1,6 +1,6 @@
 package eu.accesa.internship.epidemicrelief.model;
 
-import eu.accesa.internship.epidemicrelief.enums.ProductCategory;
+import eu.accesa.internship.epidemicrelief.utils.enums.ProductCategory;
 
 import javax.persistence.*;
 import java.util.List;

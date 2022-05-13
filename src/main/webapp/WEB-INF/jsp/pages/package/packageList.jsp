@@ -14,6 +14,7 @@
                 <tr>
                     <th>Representative</th>
                     <th>Phone</th>
+                    <th>Status</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
@@ -23,8 +24,11 @@
                     <tr>
                         <td>${household.representative}</td>
                         <td>${household.phone}</td>
-                        <td><a href="/packages/create/${household.id}/" class="btn btn-secondary"><i
+                        <td>${status}</td>
+                        <td><a href="/packages/deliver/${household.id}/" class="btn btn-secondary"><i
                                 class="fa fa-paper-plane" aria-hidden="true"></i>
+                        </a>
+                        </td>
                     </tr>
                 </c:forEach>
                 </tbody>

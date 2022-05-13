@@ -1,10 +1,7 @@
 package eu.accesa.internship.epidemicrelief.data;
 
 
-import eu.accesa.internship.epidemicrelief.enums.ProductCategory;
-
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
+import eu.accesa.internship.epidemicrelief.utils.enums.ProductCategory;
 
 public class ProductData {
     private Long id;

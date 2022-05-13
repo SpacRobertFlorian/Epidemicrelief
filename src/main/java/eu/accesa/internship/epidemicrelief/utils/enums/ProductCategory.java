@@ -1,4 +1,4 @@
-package eu.accesa.internship.epidemicrelief.enums;
+package eu.accesa.internship.epidemicrelief.utils.enums;
 
 public enum ProductCategory {
     FOOD("Food"), DRINKS("Drinks"), MEDICINE("Medicine");

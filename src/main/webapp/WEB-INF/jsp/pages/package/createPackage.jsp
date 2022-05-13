@@ -37,9 +37,23 @@
                 </div>
                 </tbody>
             </table>
-            <form action="/packages/fill/" method="get">
-                <input type="submit" class="btn btn-primary" value="Fill"/>
-            </form>
+            <c:choose>
+                <c:when test="${status =='Not created'}">
+                <form action="/packages/deliver/${idHousehold}" method="post">
+                    <input type="submit" class="btn btn-primary" value="Create"/>
+                </form>
+                </c:when>
+                <c:when test="${status =='Create'}">
+                    <form action="/packages/deliver/${idHousehold}" method="post">
+                        <input type="submit" class="btn btn-primary" value="Ready"/>
+                    </form>
+                </c:when>
+                <c:when test="${status =='Ready'}">
+                    <form action="/packages/deliver/${idHousehold}" method="post">
+                        <input type="submit" class="btn btn-primary" value="Delivered"/>
+                    </form>
+                </c:when>
+            </c:choose>
         </div>
     </div>
 

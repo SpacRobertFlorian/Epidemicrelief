@@ -1,8 +1,5 @@
 package eu.accesa.internship.epidemicrelief.model;
 
-import eu.accesa.internship.epidemicrelief.enums.PackageStatus;
-import eu.accesa.internship.epidemicrelief.enums.ProductCategory;
-
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -14,8 +11,7 @@ public class Package {
     private Long id;
 
     @Column
-    @Enumerated(EnumType.STRING)
-    private PackageStatus packageStatus;
+    private String packageStatus;
 
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Household.class)
     private Household household;
