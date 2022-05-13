@@ -1,6 +1,7 @@
 package eu.accesa.internship.epidemicrelief.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Household {
@@ -14,6 +15,9 @@ public class Household {
 
     @Column(name = "number_of_people")
     private int numberOfPeople;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "household", cascade = CascadeType.ALL)
+    private List<Package> packages;
 
     @Column
     private String phone;

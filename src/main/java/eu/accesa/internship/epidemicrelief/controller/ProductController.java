@@ -28,7 +28,7 @@ public class ProductController {
     private int threshold;
 
     @Autowired
-    public ProductController(ProductFacade productFacade) {
+    public ProductController(ProductFacade   productFacade) {
         this.productFacade = productFacade;
     }
 

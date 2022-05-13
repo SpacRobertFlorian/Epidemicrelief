@@ -3,21 +3,23 @@ package eu.accesa.internship.epidemicrelief.model;
 import eu.accesa.internship.epidemicrelief.enums.ProductCategory;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    //TODO Task 3
-    // Make Name to be unique (unique = true)
-    @Column
+    @Column(unique = true)
     private String name;
     @Column
     private int stock;
     @Column
     @Enumerated(EnumType.STRING)
     private ProductCategory productCategory;
+
+    @ManyToMany(fetch = FetchType.LAZY,mappedBy = "products")
+    private List<Package> packages;
 
     public Long getId() {
         return id;
