@@ -27,7 +27,7 @@ public class Package {
 
     @Column
     @Enumerated(EnumType.STRING)
-    private EnumPackageStatus status;
+    private EnumPackageStatus status = EnumPackageStatus.NOT_CREATED;
 
 
     public Long getId() {

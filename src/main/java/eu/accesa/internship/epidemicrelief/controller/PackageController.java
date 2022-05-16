@@ -54,17 +54,16 @@ public class PackageController {
         model.addAttribute("threshold", threshold);
         model.addAttribute("dateThreshold", dateThreshold);
         model.addAttribute("idHousehold", idHousehold);
-        if (packageOptional.isPresent()) {
-            Package packageStatus = packageOptional.get();
-            model.addAttribute("status", packageStatus.getStatus().toString());
-            model.addAttribute("difDate", DAYS.between(LocalDate.now(), packageOptional.get().getDeliveredDate()));
+        model.addAttribute("status", NOT_CREATED);
 
-        } else {
-            model.addAttribute("status", NOT_CREATED.toString());
-            model.addAttribute("difDate", 0);
+        if (packageOptional.isEmpty() || packageOptional.get().getDeliveredDate() == null) {
+            return "package/createPackage";
         }
 
-        //TODO problema cand un household nu are pachet
+        Package packageStatus = packageOptional.get();
+        model.addAttribute("status", packageStatus.getStatus().toString());
+        model.addAttribute("difDate", DAYS.between(LocalDate.now(), packageOptional.get().getDeliveredDate()));
+
         return "package/createPackage";
     }
 
@@ -75,11 +74,13 @@ public class PackageController {
             packageService.createPackage(Long.valueOf(idHousehold));
             return "redirect:/packages/deliver/" + idHousehold;
         }
+
         Package packageStatus = packageOptional.get();
         packageStatus.setStatus(packageStatus.getStatus().next());
         packageService.updatePackage(packageStatus);
 
         if (EnumPackageStatus.READY.equals(packageStatus.getStatus())) {
+            //fill
             return "redirect:/packages/deliver/" + idHousehold;
         }
 
