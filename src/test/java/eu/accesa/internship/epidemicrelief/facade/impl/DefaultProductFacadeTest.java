@@ -33,9 +33,6 @@ public class DefaultProductFacadeTest {
     public void setUp() {
         initMocks(this);
         productFacade = new DefaultProductFacade(productService, productConverter);
-        //TODO scot ce este comun aici
-        //ex  Product product = new Product();
-        //        ProductData productData = new ProductData();
     }
 
     @Test

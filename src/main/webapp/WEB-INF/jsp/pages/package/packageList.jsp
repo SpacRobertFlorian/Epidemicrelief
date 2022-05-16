@@ -24,7 +24,7 @@
                     <tr>
                         <td>${household.representative}</td>
                         <td>${household.phone}</td>
-                        <td>${status}</td>
+                        <td>${household.status}</td>
                         <td><a href="/packages/deliver/${household.id}/" class="btn btn-secondary"><i
                                 class="fa fa-paper-plane" aria-hidden="true"></i>
                         </a>

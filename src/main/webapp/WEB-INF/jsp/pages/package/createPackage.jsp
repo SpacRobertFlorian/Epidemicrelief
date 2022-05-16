@@ -38,17 +38,19 @@
                 </tbody>
             </table>
             <c:choose>
-                <c:when test="${status =='Not created'}">
-                <form action="/packages/deliver/${idHousehold}" method="post">
-                    <input type="submit" class="btn btn-primary" value="Create"/>
-                </form>
+                <c:when test="${status =='NOT_CREATED'}">
+                    <c:when test="${difDate > dateThreshold}">
+                        <form action="/packages/deliver/${idHousehold}" method="post">
+                            <input type="submit" class="btn btn-primary" value="Create"/>
+                        </form>
+                    </c:when>
                 </c:when>
-                <c:when test="${status =='Create'}">
+                <c:when test="${status =='CREATED'}">
                     <form action="/packages/deliver/${idHousehold}" method="post">
                         <input type="submit" class="btn btn-primary" value="Ready"/>
                     </form>
                 </c:when>
-                <c:when test="${status =='Ready'}">
+                <c:when test="${status =='READY'}">
                     <form action="/packages/deliver/${idHousehold}" method="post">
                         <input type="submit" class="btn btn-primary" value="Delivered"/>
                     </form>

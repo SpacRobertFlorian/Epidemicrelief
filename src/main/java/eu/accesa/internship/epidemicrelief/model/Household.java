@@ -1,7 +1,9 @@
 package eu.accesa.internship.epidemicrelief.model;
 
 import javax.persistence.*;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 public class Household {
@@ -52,6 +54,19 @@ public class Household {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public List<Package> getPackages() {
+        return packages;
+    }
+
+    public Optional<Package> getLatestPackage() {
+        packages.sort((x, y) -> x.getCreatedDate().compareTo(y.getCreatedDate()));
+        if (packages.size() > 0) {
+            return Optional.of(packages.get(0));
+        } else {
+            return Optional.empty();
+        }
     }
 }
 

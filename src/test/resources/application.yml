@@ -14,5 +14,6 @@ spring:
         user_sql_comments: true
         dialect: org.hibernate.dialect.H2Dialect
 minim:
-  stock:
-    threshold: 50
+  threshold:
+    stock: 50
+    date: 30

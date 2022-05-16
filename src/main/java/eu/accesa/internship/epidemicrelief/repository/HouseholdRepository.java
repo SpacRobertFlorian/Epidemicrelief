@@ -5,6 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Repository;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -23,5 +24,4 @@ public interface HouseholdRepository extends CrudRepository<Household, Long> {
     @NonNull
     @Override
     List<Household> findAll();
-
 }
