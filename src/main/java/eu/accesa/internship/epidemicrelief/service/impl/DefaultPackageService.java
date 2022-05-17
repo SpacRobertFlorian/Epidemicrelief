@@ -1,5 +1,7 @@
 package eu.accesa.internship.epidemicrelief.service.impl;
 
+import eu.accesa.internship.epidemicrelief.entity.*;
+import eu.accesa.internship.epidemicrelief.entity.visitor.ProductVisitor;
 import eu.accesa.internship.epidemicrelief.model.Household;
 import eu.accesa.internship.epidemicrelief.model.Package;
 import eu.accesa.internship.epidemicrelief.repository.HouseholdRepository;
@@ -12,9 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class DefaultPackageService implements PackageService {
@@ -34,14 +34,27 @@ public class DefaultPackageService implements PackageService {
     }
 
     @Override
-    public void fillPackage() {
+    public void fillPackage(Package aPackage) {
+        ProductVisitor productVisitor = new ProductVisitor();
+        Household household = aPackage.getHousehold();
+        List<HouseholdMembers> members = new LinkedList<>();
+
+
+        members.add(new Family(household.getNumberOfPeople()));
+        members.add(new Child(household.getNumberOfChildren()));
+        members.add(new Vegan(household.getNumberOfVegans()));
+        members.add(new NonVegan(household.getNumberOfNonVegans()));
+
+//        for(HouseholdMembers householdMembers:members){
+//            householdMembers.
+//        }
     }
 
     @Override
     public Optional<Package> getPackage(Long idHousehold) {
         Optional<Household> household = householdRepository.findById(idHousehold);
         if (household.isPresent()) {
-            Optional<Package> packageOptional = packageRepository.findTopByHouseholdOrderByHouseholdDesc(household.get());
+            Optional<Package> packageOptional = household.get().getLatestPackage();
 
             if (packageOptional.isPresent()) {
                 return packageOptional;

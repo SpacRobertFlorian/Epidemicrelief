@@ -17,6 +17,26 @@
                             <label for="phone" class="col-form-label">Phone</label>
                             <input type="text" name="phone" id="phone" class="form-control" placeholder="Phone">
                         </div>
+                        <div class="form-group col-md-6">
+                            <label for="numberOfPeople" class="col-form-label">People</label>
+                            <input type="number" name="numberOfPeople" id="numberOfPeople" class="form-control"
+                                   placeholder="People">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="numberOfChildren" class="col-form-label">Children</label>
+                            <input type="number" name="numberOfChildren" id="numberOfChildren" class="form-control"
+                                   placeholder="Children">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="numberOfVegans" class="col-form-label">Vegans</label>
+                            <input type="number" name="numberOfVegans" id="numberOfVegans" class="form-control"
+                                   placeholder="Vegans">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="numberOfNonVegans" class="col-form-label">Non Vegans</label>
+                            <input type="number" name="numberOfNonVegans" id="numberOfNonVegans" class="form-control"
+                                   placeholder="Non Vegans">
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 mt-5">

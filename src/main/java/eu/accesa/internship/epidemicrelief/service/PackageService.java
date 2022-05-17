@@ -17,7 +17,7 @@ public interface PackageService {
     /**
      * Fill package wit products
      */
-    void fillPackage();
+    void fillPackage(Package aPackage);
 
     Optional<Package> getPackage(Long id);
 

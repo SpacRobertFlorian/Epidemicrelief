@@ -22,4 +22,4 @@ spring:
 minim:
   stock:
     threshold: 50
-  date: 30
+  date: -1

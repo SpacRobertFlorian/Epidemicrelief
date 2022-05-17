@@ -55,14 +55,19 @@ public class PackageController {
         model.addAttribute("dateThreshold", dateThreshold);
         model.addAttribute("idHousehold", idHousehold);
         model.addAttribute("status", NOT_CREATED);
+        model.addAttribute("createDate", null);
 
-        if (packageOptional.isEmpty() || packageOptional.get().getDeliveredDate() == null) {
+        if (packageOptional.isEmpty()) {
             return "package/createPackage";
         }
 
         Package packageStatus = packageOptional.get();
+        model.addAttribute("createDate", packageStatus.getCreatedDate().toString());
         model.addAttribute("status", packageStatus.getStatus().toString());
-        model.addAttribute("difDate", DAYS.between(LocalDate.now(), packageOptional.get().getDeliveredDate()));
+
+        if (packageOptional.get().getDeliveredDate() != null) {
+            model.addAttribute("difDate", DAYS.between(LocalDate.now(), packageOptional.get().getDeliveredDate()));
+        }
 
         return "package/createPackage";
     }
@@ -70,7 +75,8 @@ public class PackageController {
     @PostMapping("/deliver/{idHousehold}")
     public String deliverPackage(@PathVariable String idHousehold, Model model) {
         Optional<Package> packageOptional = packageService.getPackage(Long.valueOf(idHousehold));
-        if (packageOptional.isEmpty()) {
+        if (packageOptional.isEmpty() || packageOptional.get().getDeliveredDate() != null &&
+                DAYS.between(LocalDate.now(), packageOptional.get().getDeliveredDate()) > dateThreshold) {
             packageService.createPackage(Long.valueOf(idHousehold));
             return "redirect:/packages/deliver/" + idHousehold;
         }
@@ -80,7 +86,7 @@ public class PackageController {
         packageService.updatePackage(packageStatus);
 
         if (EnumPackageStatus.READY.equals(packageStatus.getStatus())) {
-            //fill
+            packageService.fillPackage(packageOptional.get());
             return "redirect:/packages/deliver/" + idHousehold;
         }
 

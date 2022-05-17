@@ -3,6 +3,7 @@ package eu.accesa.internship.epidemicrelief.facade.impl;
 import eu.accesa.internship.epidemicrelief.converter.HouseholdConverter;
 import eu.accesa.internship.epidemicrelief.data.HouseholdData;
 import eu.accesa.internship.epidemicrelief.facade.HouseholdFacade;
+import eu.accesa.internship.epidemicrelief.model.Household;
 import eu.accesa.internship.epidemicrelief.service.HouseholdService;
 import org.springframework.lang.NonNull;
 
@@ -36,6 +37,7 @@ public class DefaultHouseholdFacade implements HouseholdFacade {
 
     @Override
     public void addHousehold(@NonNull HouseholdData household) {
+        Household household1 = householdConverter.to(household);
         householdService.addHousehold(householdConverter.to(household));
 
         // example of another potential call: countyHealthAuthorityService.informAboutHelpBeingGivenToHousehold(household.getId)

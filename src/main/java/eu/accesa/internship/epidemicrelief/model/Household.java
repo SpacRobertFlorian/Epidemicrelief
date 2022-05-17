@@ -1,9 +1,12 @@
 package eu.accesa.internship.epidemicrelief.model;
 
+import eu.accesa.internship.epidemicrelief.entity.HouseholdMembers;
+
 import javax.persistence.*;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Entity
 public class Household {
@@ -23,6 +26,43 @@ public class Household {
 
     @Column
     private String phone;
+    @Column
+    private int numberOfChildren;
+    @Column
+    private int numberOfVegans;
+    @Column
+    private int numberOfNonVegans;
+
+    public void setPackages(List<Package> packages) {
+        this.packages = packages;
+    }
+
+    public int getNumberOfChildren() {
+        return numberOfChildren;
+    }
+
+    public void setNumberOfChildren(int numberOfChildren) {
+        this.numberOfChildren = numberOfChildren;
+    }
+
+    public int getNumberOfVegans() {
+        return numberOfVegans;
+    }
+
+    public void setNumberOfVegans(int numberOfVegans) {
+        this.numberOfVegans = numberOfVegans;
+    }
+
+    public int getNumberOfNonVegans() {
+        return numberOfNonVegans;
+    }
+
+    public void setNumberOfNonVegans(int numberOfNonVegans) {
+        this.numberOfNonVegans = numberOfNonVegans;
+    }
+
+    //TODO
+    //private Set<HouseholdMembers> members;
 
     public Long getId() {
         return id;
@@ -61,12 +101,14 @@ public class Household {
     }
 
     public Optional<Package> getLatestPackage() {
-        packages.sort((x, y) -> x.getCreatedDate().compareTo(y.getCreatedDate()));
-        if (packages.size() > 0) {
-            return Optional.of(packages.get(0));
-        } else {
-            return Optional.empty();
+        if (packages != null) {
+            return Optional.of(packages.get(packages.size() - 1));
+//            packages.sort((x, y) -> x.getCreatedDate().compareTo(y.getCreatedDate()));
+//            if (packages.size() > 0) {
+//                return Optional.of(packages.get(0));
+//            }
         }
+        return Optional.empty();
     }
 }
 

@@ -4,12 +4,15 @@ import eu.accesa.internship.epidemicrelief.utils.enums.ProductCategory;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(unique = true)
+    private String uuid;
     @Column(unique = true)
     private String name;
     @Column
@@ -18,8 +21,24 @@ public class Product {
     @Enumerated(EnumType.STRING)
     private ProductCategory productCategory;
 
-    @ManyToMany(fetch = FetchType.LAZY,mappedBy = "products")
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "products")
     private List<Package> packages;
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public List<Package> getPackages() {
+        return packages;
+    }
+
+    public void setPackages(List<Package> packages) {
+        this.packages = packages;
+    }
 
     public Long getId() {
         return id;

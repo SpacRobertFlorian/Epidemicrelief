@@ -48,7 +48,7 @@ public class DefaultProductService implements ProductService {
         if (productOptional.isEmpty()) {
             throw new EntityNotFoundException("Unable to find product to update; id: " + product.getId());
         }
-
+        product.setUuid(productOptional.get().getUuid());
         productRepository.save(product);
     }
 

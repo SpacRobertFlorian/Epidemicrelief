@@ -3,11 +3,22 @@ package eu.accesa.internship.epidemicrelief.data;
 
 import eu.accesa.internship.epidemicrelief.utils.enums.ProductCategory;
 
+import java.util.UUID;
+
 public class ProductData {
     private Long id;
     private String name;
     private int stock;
     private ProductCategory productCategory;
+    private String uuid;
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
 
     public Long getId() {
         return id;

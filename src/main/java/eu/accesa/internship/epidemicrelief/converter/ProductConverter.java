@@ -26,6 +26,7 @@ public class ProductConverter {
         target.setProductCategory(source.getProductCategory());
         target.setName(source.getName());
         target.setStock(source.getStock());
+        target.setUuid(source.getUuid());
 
         return target;
     }
@@ -44,6 +45,7 @@ public class ProductConverter {
         target.setProductCategory(source.getProductCategory());
         target.setName(source.getName());
         target.setStock(source.getStock());
+        target.setUuid(source.getUuid());
 
         return target;
     }

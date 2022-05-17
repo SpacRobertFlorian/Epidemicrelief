@@ -39,7 +39,7 @@
             </table>
             <c:choose>
                 <c:when test="${status =='NOT_CREATED'}">
-                    <c:if test="${difDate > dateThreshold or difDate == null}">
+                    <c:if test="${difDate > dateThreshold or createDate == null }">
                         <form action="/packages/deliver/${idHousehold}" method="post">
                             <input type="submit" class="btn btn-primary" value="Create"/>
                         </form>
@@ -54,6 +54,13 @@
                     <form action="/packages/deliver/${idHousehold}" method="post">
                         <input type="submit" class="btn btn-primary" value="Delivered"/>
                     </form>
+                </c:when>
+                <c:when test="${status =='DELIVERED'}">
+                    <c:if test="${difDate > dateThreshold or createDate == null }">
+                        <form action="/packages/deliver/${idHousehold}" method="post">
+                            <input type="submit" class="btn btn-primary" value="Create"/>
+                        </form>
+                    </c:if>
                 </c:when>
             </c:choose>
         </div>

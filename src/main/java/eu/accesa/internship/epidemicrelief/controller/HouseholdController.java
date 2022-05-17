@@ -42,7 +42,6 @@ public class HouseholdController {
         if (result.hasErrors()) {
             return "household/addHousehold";
         }
-
         householdFacade.addHousehold(household);
         model.addAttribute("households", householdFacade.getHouseholds());
         return "redirect:/households";

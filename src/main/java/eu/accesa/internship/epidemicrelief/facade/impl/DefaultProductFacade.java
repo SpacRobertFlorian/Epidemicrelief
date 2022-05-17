@@ -2,15 +2,17 @@ package eu.accesa.internship.epidemicrelief.facade.impl;
 
 import eu.accesa.internship.epidemicrelief.converter.ProductConverter;
 import eu.accesa.internship.epidemicrelief.data.ProductData;
-import eu.accesa.internship.epidemicrelief.utils.enums.ProductCategory;
 import eu.accesa.internship.epidemicrelief.exception.CustomException;
 import eu.accesa.internship.epidemicrelief.facade.ProductFacade;
+import eu.accesa.internship.epidemicrelief.model.Product;
 import eu.accesa.internship.epidemicrelief.service.ProductService;
+import eu.accesa.internship.epidemicrelief.utils.enums.ProductCategory;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class DefaultProductFacade implements ProductFacade {
@@ -41,6 +43,7 @@ public class DefaultProductFacade implements ProductFacade {
     @Override
     public void addProduct(@NotNull ProductData productData) {
         try {
+            productData.setUuid(UUID.randomUUID().toString());
             productService.addProduct(productConverter.to(productData));
         } catch (IllegalArgumentException e) {
             throw new CustomException(e.getMessage());

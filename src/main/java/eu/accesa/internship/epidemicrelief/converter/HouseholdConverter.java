@@ -6,6 +6,8 @@ import eu.accesa.internship.epidemicrelief.model.Package;
 import eu.accesa.internship.epidemicrelief.utils.enums.EnumPackageStatus;
 import org.springframework.lang.NonNull;
 
+import java.util.Optional;
+
 public class HouseholdConverter {
 
     @NonNull
@@ -15,8 +17,12 @@ public class HouseholdConverter {
         target.setId(source.getId());
         target.setRepresentative(source.getRepresentative());
         target.setPhone(source.getPhone());
-        EnumPackageStatus status = source.getLatestPackage().map(Package::getStatus).orElse(EnumPackageStatus.NOT_CREATED);
-        target.setStatus(status);
+        Optional<Package> sourceStatus = source.getLatestPackage();
+        if (sourceStatus.isPresent()) {
+            target.setStatus(sourceStatus.get().getStatus());
+        } else {
+            target.setStatus(EnumPackageStatus.NOT_CREATED);
+        }
 
         return target;
     }
@@ -28,6 +34,10 @@ public class HouseholdConverter {
         target.setRepresentative(source.getRepresentative());
         target.setPhone(source.getPhone());
         target.setId(source.getId());
+        target.setNumberOfChildren(source.getNumberOfChildren());
+        target.setNumberOfNonVegans(source.getNumberOfNonVegans());
+        target.setNumberOfVegans(source.getNumberOfVegans());
+        target.setNumberOfPeople(source.getNumberOfPeople());
 
         return target;
     }
