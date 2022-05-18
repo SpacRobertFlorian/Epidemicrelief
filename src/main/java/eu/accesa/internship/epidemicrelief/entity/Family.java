@@ -6,10 +6,20 @@ import eu.accesa.internship.epidemicrelief.entity.visitor.model.ProductNecessity
 
 import java.util.List;
 
-public class Family extends HouseholdMembers implements Visitable {
+public class Family implements HouseholdMembers {
+
+    private int numberOfPersons;
 
     public Family(int numberOfPersons) {
-        super(numberOfPersons);
+        this.numberOfPersons = numberOfPersons;
+    }
+
+    public int getNumberOfPersons() {
+        return numberOfPersons;
+    }
+
+    public void setNumberOfPersons(int numberOfPersons) {
+        this.numberOfPersons = numberOfPersons;
     }
 
     @Override

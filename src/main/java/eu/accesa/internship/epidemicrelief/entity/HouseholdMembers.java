@@ -1,17 +1,12 @@
 package eu.accesa.internship.epidemicrelief.entity;
 
-public class HouseholdMembers {
-    protected int numberOfPersons;
+import eu.accesa.internship.epidemicrelief.entity.visitor.Visitable;
+import eu.accesa.internship.epidemicrelief.entity.visitor.Visitor;
+import eu.accesa.internship.epidemicrelief.entity.visitor.model.ProductNecessity;
 
-    public int getNumberOfPersons() {
-        return numberOfPersons;
-    }
+import java.util.List;
 
-    public void setNumberOfPersons(int numberOfPersons) {
-        this.numberOfPersons = numberOfPersons;
-    }
+public interface HouseholdMembers extends Visitable {
 
-    public HouseholdMembers(int numberOfPersons) {
-        this.numberOfPersons = numberOfPersons;
-    }
+    //List<ProductNecessity> productNecessityList(Visitor visitor);
 }

@@ -2,6 +2,7 @@ package eu.accesa.internship.epidemicrelief.service.impl;
 
 import eu.accesa.internship.epidemicrelief.entity.*;
 import eu.accesa.internship.epidemicrelief.entity.visitor.ProductVisitor;
+import eu.accesa.internship.epidemicrelief.entity.visitor.model.ProductNecessity;
 import eu.accesa.internship.epidemicrelief.model.Household;
 import eu.accesa.internship.epidemicrelief.model.Package;
 import eu.accesa.internship.epidemicrelief.repository.HouseholdRepository;
@@ -34,20 +35,21 @@ public class DefaultPackageService implements PackageService {
     }
 
     @Override
-    public void fillPackage(Package aPackage) {
+    public List<ProductNecessity> fillPackage(Package aPackage) {
         ProductVisitor productVisitor = new ProductVisitor();
         Household household = aPackage.getHousehold();
         List<HouseholdMembers> members = new LinkedList<>();
-
+        List<ProductNecessity> productNecessityList = new ArrayList<>();
 
         members.add(new Family(household.getNumberOfPeople()));
         members.add(new Child(household.getNumberOfChildren()));
         members.add(new Vegan(household.getNumberOfVegans()));
         members.add(new NonVegan(household.getNumberOfNonVegans()));
 
-//        for(HouseholdMembers householdMembers:members){
-//            householdMembers.
-//        }
+        for (HouseholdMembers householdMembers : members) {
+            productNecessityList.addAll(householdMembers.productNecessityList(productVisitor));
+        }
+        return productNecessityList;
     }
 
     @Override

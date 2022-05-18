@@ -1,5 +1,6 @@
 package eu.accesa.internship.epidemicrelief.service;
 
+import eu.accesa.internship.epidemicrelief.entity.visitor.model.ProductNecessity;
 import eu.accesa.internship.epidemicrelief.model.Package;
 
 import java.util.List;
@@ -16,8 +17,10 @@ public interface PackageService {
 
     /**
      * Fill package wit products
+     *
+     * @return
      */
-    void fillPackage(Package aPackage);
+    List<ProductNecessity> fillPackage(Package aPackage);
 
     Optional<Package> getPackage(Long id);
 

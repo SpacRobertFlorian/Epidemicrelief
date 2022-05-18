@@ -1,5 +1,6 @@
 package eu.accesa.internship.epidemicrelief.controller;
 
+import eu.accesa.internship.epidemicrelief.entity.visitor.model.ProductNecessity;
 import eu.accesa.internship.epidemicrelief.facade.HouseholdFacade;
 import eu.accesa.internship.epidemicrelief.facade.ProductFacade;
 import eu.accesa.internship.epidemicrelief.model.Package;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import static eu.accesa.internship.epidemicrelief.utils.enums.EnumPackageStatus.NOT_CREATED;
@@ -66,7 +68,7 @@ public class PackageController {
         model.addAttribute("status", packageStatus.getStatus().toString());
 
         if (packageOptional.get().getDeliveredDate() != null) {
-            model.addAttribute("difDate", DAYS.between(LocalDate.now(), packageOptional.get().getDeliveredDate()));
+            model.addAttribute("difDate", DAYS.between(packageOptional.get().getDeliveredDate(), LocalDate.now()));
         }
 
         return "package/createPackage";
@@ -86,7 +88,8 @@ public class PackageController {
         packageService.updatePackage(packageStatus);
 
         if (EnumPackageStatus.READY.equals(packageStatus.getStatus())) {
-            packageService.fillPackage(packageOptional.get());
+            List<ProductNecessity> productNecessityList = packageService.fillPackage(packageOptional.get());
+            //TODO sa verific lista daca exista stock pentru toate
             return "redirect:/packages/deliver/" + idHousehold;
         }
 

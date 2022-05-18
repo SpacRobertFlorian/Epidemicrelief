@@ -6,9 +6,19 @@ import eu.accesa.internship.epidemicrelief.entity.visitor.model.ProductNecessity
 
 import java.util.List;
 
-public class NonVegan extends HouseholdMembers implements Visitable {
+public class NonVegan implements HouseholdMembers {
+    private int numberOfPersons;
+
     public NonVegan(int numberOfPersons) {
-        super(numberOfPersons);
+        this.numberOfPersons = numberOfPersons;
+    }
+
+    public int getNumberOfPersons() {
+        return numberOfPersons;
+    }
+
+    public void setNumberOfPersons(int numberOfPersons) {
+        this.numberOfPersons = numberOfPersons;
     }
 
     @Override
