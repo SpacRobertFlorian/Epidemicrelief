@@ -4,7 +4,6 @@ import eu.accesa.internship.epidemicrelief.converter.ProductConverter;
 import eu.accesa.internship.epidemicrelief.data.ProductData;
 import eu.accesa.internship.epidemicrelief.exception.CustomException;
 import eu.accesa.internship.epidemicrelief.facade.ProductFacade;
-import eu.accesa.internship.epidemicrelief.model.Product;
 import eu.accesa.internship.epidemicrelief.service.ProductService;
 import eu.accesa.internship.epidemicrelief.utils.enums.ProductCategory;
 
@@ -43,7 +42,8 @@ public class DefaultProductFacade implements ProductFacade {
     @Override
     public void addProduct(@NotNull ProductData productData) {
         try {
-            productData.setUuid(UUID.randomUUID().toString());
+            UUID uuid = UUID.randomUUID();
+            productData.setUuid(uuid.toString());
             productService.addProduct(productConverter.to(productData));
         } catch (IllegalArgumentException e) {
             throw new CustomException(e.getMessage());

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Repository that handles {@link Product} entities
@@ -25,4 +26,10 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
 
     @NotNull
     List<Product> findAllByProductCategory(ProductCategory productCategory);
+
+    @NotNull
+    Optional<Product> findByUuid(String uuid);
+    Optional<Product> findProductByUuid(String uuid);
+
+
 }

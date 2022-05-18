@@ -61,8 +61,6 @@ public class Household {
         this.numberOfNonVegans = numberOfNonVegans;
     }
 
-    //TODO
-    //private Set<HouseholdMembers> members;
 
     public Long getId() {
         return id;
@@ -102,7 +100,9 @@ public class Household {
 
     public Optional<Package> getLatestPackage() {
         if (packages != null) {
-            return Optional.of(packages.get(packages.size() - 1));
+            if (packages.size() > 0) {
+                return Optional.of(packages.get(packages.size() - 1));
+            }
 //            packages.sort((x, y) -> x.getCreatedDate().compareTo(y.getCreatedDate()));
 //            if (packages.size() > 0) {
 //                return Optional.of(packages.get(0));

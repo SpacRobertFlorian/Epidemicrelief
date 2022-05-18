@@ -1,6 +1,5 @@
 package eu.accesa.internship.epidemicrelief.controller;
 
-import eu.accesa.internship.epidemicrelief.entity.visitor.model.ProductNecessity;
 import eu.accesa.internship.epidemicrelief.facade.HouseholdFacade;
 import eu.accesa.internship.epidemicrelief.facade.ProductFacade;
 import eu.accesa.internship.epidemicrelief.model.Package;
@@ -16,8 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 import static eu.accesa.internship.epidemicrelief.utils.enums.EnumPackageStatus.NOT_CREATED;
@@ -52,7 +49,6 @@ public class PackageController {
     public String getPackage(@PathVariable String idHousehold, Model model) {
         Optional<Package> packageOptional = packageService.getPackage(Long.valueOf(idHousehold));
 
-        model.addAttribute("products", productFacade.getProducts());
         model.addAttribute("threshold", threshold);
         model.addAttribute("dateThreshold", dateThreshold);
         model.addAttribute("idHousehold", idHousehold);
@@ -63,6 +59,8 @@ public class PackageController {
             return "package/createPackage";
         }
 
+        //TODO sa vad de ce nu imi afiseaza toate produsele dupa update
+        model.addAttribute("products", packageOptional.get().getProducts());
         Package packageStatus = packageOptional.get();
         model.addAttribute("createDate", packageStatus.getCreatedDate().toString());
         model.addAttribute("status", packageStatus.getStatus().toString());
@@ -75,8 +73,9 @@ public class PackageController {
     }
 
     @PostMapping("/deliver/{idHousehold}")
-    public String deliverPackage(@PathVariable String idHousehold, Model model) {
+    public String handlePackage(@PathVariable String idHousehold, Model model) {
         Optional<Package> packageOptional = packageService.getPackage(Long.valueOf(idHousehold));
+
         if (packageOptional.isEmpty() || packageOptional.get().getDeliveredDate() != null &&
                 DAYS.between(LocalDate.now(), packageOptional.get().getDeliveredDate()) > dateThreshold) {
             packageService.createPackage(Long.valueOf(idHousehold));
@@ -88,8 +87,7 @@ public class PackageController {
         packageService.updatePackage(packageStatus);
 
         if (EnumPackageStatus.READY.equals(packageStatus.getStatus())) {
-            List<ProductNecessity> productNecessityList = packageService.fillPackage(packageOptional.get());
-            //TODO sa verific lista daca exista stock pentru toate
+            packageService.fillPackage(packageOptional.get());
             return "redirect:/packages/deliver/" + idHousehold;
         }
 

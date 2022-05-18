@@ -1,6 +1,7 @@
 package eu.accesa.internship.epidemicrelief.model;
 
 import eu.accesa.internship.epidemicrelief.utils.enums.ProductCategory;
+import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,7 +12,8 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column(unique = true)
+    //TODO sa vad daca se face binary scot acel varchar si numele din uuid in codProdus
+    @Column(unique = true, columnDefinition = "VARCHAR(255)")
     private String uuid;
     @Column(unique = true)
     private String name;
@@ -23,6 +25,18 @@ public class Product {
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "products")
     private List<Package> packages;
+
+    public Product(@NotNull Product p) {
+        id = p.getId();
+        uuid = p.getUuid();
+        name = p.getName();
+        stock = p.getStock();
+        productCategory = p.getProductCategory();
+    }
+
+    public Product() {
+
+    }
 
     public String getUuid() {
         return uuid;
