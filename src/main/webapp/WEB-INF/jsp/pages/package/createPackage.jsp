@@ -16,7 +16,7 @@
                 </thead>
                 <tbody>
                 <div>
-                    <c:forEach items="${products}" var="product">
+                    <c:forEach items="${package.products}" var="product">
                         <tr>
                             <td>${product.name}</td>
                             <td>${product.productCategory}</td>
@@ -40,32 +40,32 @@
                 </tbody>
             </table>
             <c:choose>
-                <c:when test="${status =='NOT_CREATED'}">
-                    <c:if test="${difDate > dateThreshold or createDate == null }">
+                <c:when test="${package.status =='NOT_CREATED' or status == 'NOT_CREATED'}">
+                    <c:if test="${package.dateDiff > dateThreshold or package.createdDate == null }">
                         <form action="/packages/deliver/${idHousehold}" method="post">
                             <input type="submit" class="btn btn-primary" value="Create"/>
                         </form>
                     </c:if>
                 </c:when>
-                <c:when test="${status =='CREATED'}">
-                    <form action="/packages/deliver/${idHousehold}" method="post">
+                <c:when test="${package.status =='CREATED'}">
+                    <form action="/packages/deliver/${package.household.id}" method="post">
                         <input type="submit" class="btn btn-primary" value="Ready"/>
                     </form>
                 </c:when>
-                <c:when test="${status =='READY'}">
-                    <form action="/packages/deliver/${idHousehold}" method="post">
+                <c:when test="${package.status =='READY'}">
+                    <form action="/packages/deliver/${package.household.id}" method="post">
                         <input type="submit" class="btn btn-primary" value="Delivered"/>
                     </form>
-                    <form action="/packages/cancel/${idHousehold}" method="post">
+                    <form action="/packages/cancel/${package.household.id}" method="post">
                         <input type="submit" class="btn btn-primary" value="Cancel"/>
                     </form>
                 </c:when>
-                <c:when test="${status =='DELIVERED'}">
-                    <c:if test="${difDate > dateThreshold or createDate == null }">
-                        <form action="/packages/deliver/${idHousehold}" method="post">
+                <c:when test="${package.status =='DELIVERED'}">
+                    <c:if test="${package.diffDate > dateThreshold or package.createDate == null }">
+                        <form action="/packages/deliver/${package.household.id}" method="post">
                             <input type="submit" class="btn btn-primary" value="Create"/>
                         </form>
-                        <form action="/packages/cancel/${idHousehold}" method="post">
+                        <form action="/packages/cancel/${package.household.id}" method="post">
                             <input type="submit" class="btn btn-primary" value="Cancel"/>
                         </form>
                     </c:if>

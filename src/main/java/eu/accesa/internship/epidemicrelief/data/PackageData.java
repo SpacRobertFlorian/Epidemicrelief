@@ -1,0 +1,76 @@
+package eu.accesa.internship.epidemicrelief.data;
+
+import eu.accesa.internship.epidemicrelief.model.Household;
+import eu.accesa.internship.epidemicrelief.model.Product;
+import eu.accesa.internship.epidemicrelief.utils.enums.EnumPackageStatus;
+
+import java.time.LocalDate;
+import java.util.List;
+
+public class PackageData {
+
+    private Long id;
+    private Household household;
+    private List<Product> products;
+    private LocalDate deliveredDate;
+    private LocalDate createdDate;
+    private EnumPackageStatus status;
+
+    private Long dateDiff;
+
+    public Long getDateDiff() {
+        return dateDiff;
+    }
+
+    public void setDateDiff(Long dateDiff) {
+        this.dateDiff = dateDiff;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Household getHousehold() {
+        return household;
+    }
+
+    public void setHousehold(Household household) {
+        this.household = household;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+
+    public LocalDate getDeliveredDate() {
+        return deliveredDate;
+    }
+
+    public void setDeliveredDate(LocalDate deliveredDate) {
+        this.deliveredDate = deliveredDate;
+    }
+
+    public LocalDate getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDate createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public EnumPackageStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(EnumPackageStatus status) {
+        this.status = status;
+    }
+}

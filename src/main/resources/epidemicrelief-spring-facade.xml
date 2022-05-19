@@ -3,18 +3,25 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <alias name="defaultHouseholdFacade" alias="householdFacade" />
+    <alias name="defaultHouseholdFacade" alias="householdFacade"/>
     <bean id="defaultHouseholdFacade"
           class="eu.accesa.internship.epidemicrelief.facade.impl.DefaultHouseholdFacade">
         <constructor-arg name="householdService" ref="householdService"/>
         <constructor-arg name="householdConverter" ref="householdConverter"/>
     </bean>
 
-    <alias name="defaultProductFacade" alias="productFacade" />
+    <alias name="defaultProductFacade" alias="productFacade"/>
     <bean id="defaultProductFacade"
           class="eu.accesa.internship.epidemicrelief.facade.impl.DefaultProductFacade">
         <constructor-arg name="productService" ref="productService"/>
         <constructor-arg name="productConverter" ref="productConverter"/>
+    </bean>
+
+    <alias name="defaultPackageFacade" alias="packageFacade"/>
+    <bean id="defaultPackageFacade"
+          class="eu.accesa.internship.epidemicrelief.facade.impl.DefaultPackageFacade">
+        <constructor-arg name="packageService" ref="packageService"/>
+        <constructor-arg name="packageConverter" ref="packageConverter"/>
     </bean>
 
 </beans>

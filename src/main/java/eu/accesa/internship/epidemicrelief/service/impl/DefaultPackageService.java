@@ -11,7 +11,6 @@ import eu.accesa.internship.epidemicrelief.repository.PackageRepository;
 import eu.accesa.internship.epidemicrelief.repository.ProductRepository;
 import eu.accesa.internship.epidemicrelief.service.PackageService;
 import eu.accesa.internship.epidemicrelief.utils.enums.EnumPackageStatus;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -19,15 +18,14 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.*;
 
-@Service
 public class DefaultPackageService implements PackageService {
 
     private final PackageRepository packageRepository;
     private final ProductRepository productRepository;
     private final HouseholdRepository householdRepository;
 
-    @Autowired
     public DefaultPackageService(PackageRepository packageRepository, ProductRepository productRepository, HouseholdRepository householdRepository) {
+
         this.packageRepository = packageRepository;
         this.productRepository = productRepository;
         this.householdRepository = householdRepository;

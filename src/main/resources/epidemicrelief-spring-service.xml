@@ -15,10 +15,12 @@
         <constructor-arg name="productRepository" ref="productRepository"/>
     </bean>
 
-<!--    <alias name="defaultPackageService" alias="packageService"/>-->
-<!--    <bean id="defaultPackageService"-->
-<!--          class="eu.accesa.internship.epidemicrelief.service.impl.DefaultPackageService">-->
-<!--        <constructor-arg name="packageRepository" ref="packageRepository"/>-->
-<!--    </bean>-->
+    <alias name="defaultPackageService" alias="packageService"/>
+    <bean id="defaultPackageService"
+          class="eu.accesa.internship.epidemicrelief.service.impl.DefaultPackageService">
+        <constructor-arg name="packageRepository" ref="packageRepository"/>
+        <constructor-arg name="productRepository" ref="productRepository"/>
+        <constructor-arg name="householdRepository" ref="householdRepository"/>
+    </bean>
 
 </beans>
