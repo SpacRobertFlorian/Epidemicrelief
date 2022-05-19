@@ -51,9 +51,6 @@
                     <form action="/packages/deliver/${idHousehold}" method="post">
                         <input type="submit" class="btn btn-primary" value="Ready"/>
                     </form>
-                    <form action="/packages/deliver/${idHousehold}" method="post">
-                        <input type="submit" class="btn btn-primary" value="Cancel"/>
-                    </form>
                 </c:when>
                 <c:when test="${status =='READY'}">
                     <form action="/packages/deliver/${idHousehold}" method="post">
@@ -65,7 +62,7 @@
                 </c:when>
                 <c:when test="${status =='DELIVERED'}">
                     <c:if test="${difDate > dateThreshold or createDate == null }">
-                        <form action="/packages/cancel/${idHousehold}" method="post">
+                        <form action="/packages/deliver/${idHousehold}" method="post">
                             <input type="submit" class="btn btn-primary" value="Create"/>
                         </form>
                         <form action="/packages/cancel/${idHousehold}" method="post">

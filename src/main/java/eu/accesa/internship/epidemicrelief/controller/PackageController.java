@@ -71,6 +71,7 @@ public class PackageController {
         return "package/createPackage";
     }
 
+    //TODO FACADE PACKAGE
     @PostMapping("/deliver/{idHousehold}")
     public String handlePackage(@PathVariable String idHousehold, Model model) {
         Optional<Package> packageOptional = packageService.getPackage(Long.valueOf(idHousehold));
@@ -98,10 +99,17 @@ public class PackageController {
         //return "redirect:/packages/" + packageStatus.getStatus() + "/" + idHousehold;
     }
 
-    @PostMapping("/cancel/{idHousehold}")
-    public String cancelPackage(@PathVariable String idHousehold, Model model) {
-        Optional<Package> packageOptional = packageService.getPackage(Long.valueOf(idHousehold));
-        packageOptional.ifPresent(packageService::cancelPackage);
-        return "redirect:/packages/";
+    @GetMapping("/history")
+    public String getPackageHistory(Model model) {
+        model.addAttribute("households", householdFacade.getHouseholds());
+        return "package/packageHistory";
     }
+
+//    @PostMapping("/cancel/{idHousehold}")
+//    public String cancelPackage(@PathVariable String idHousehold, Model model) {
+//        Optional<Package> packageOptional = packageService.getPackage(Long.valueOf(idHousehold));
+//        if(packageOptional.isPresent() && packageOptional.get().getDeliveredDate()!=null)
+//            packageService.cancelPackage(packageOptional.get());
+//        return "redirect:/packages/";
+//    }
 }

@@ -23,6 +23,7 @@ public class HouseholdConverter {
         } else {
             target.setStatus(EnumPackageStatus.NOT_CREATED);
         }
+        target.setPackages(source.getPackages());
 
         return target;
     }

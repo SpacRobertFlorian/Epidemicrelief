@@ -9,5 +9,8 @@
         <li class="nav-item">
             <a class="navbar-brand" href="/packages/">Packages</a>
         </li>
+        <li class="nav-item">
+            <a class="navbar-brand" href="/packages/history/">Package History</a>
+        </li>
     </ul>
 </nav>

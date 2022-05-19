@@ -1,6 +1,9 @@
 package eu.accesa.internship.epidemicrelief.data;
 
+import eu.accesa.internship.epidemicrelief.model.Package;
 import eu.accesa.internship.epidemicrelief.utils.enums.EnumPackageStatus;
+
+import java.util.List;
 
 public class HouseholdData {
 
@@ -12,6 +15,16 @@ public class HouseholdData {
     private int numberOfChildren;
     private int numberOfVegans;
     private int numberOfNonVegans;
+
+    private List<Package> packages;
+
+    public List<Package> getPackages() {
+        return packages;
+    }
+
+    public void setPackages(List<Package> packages) {
+        this.packages = packages;
+    }
 
     public int getNumberOfPeople() {
         return numberOfPeople;
