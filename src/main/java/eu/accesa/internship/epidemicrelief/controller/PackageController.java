@@ -59,7 +59,6 @@ public class PackageController {
             return "package/createPackage";
         }
 
-        //TODO sa vad de ce nu imi afiseaza toate produsele dupa update
         model.addAttribute("products", packageOptional.get().getProducts());
         Package packageStatus = packageOptional.get();
         model.addAttribute("createDate", packageStatus.getCreatedDate().toString());
@@ -97,5 +96,12 @@ public class PackageController {
         }
         return "redirect:/packages/deliver/" + idHousehold;
         //return "redirect:/packages/" + packageStatus.getStatus() + "/" + idHousehold;
+    }
+
+    @PostMapping("/cancel/{idHousehold}")
+    public String cancelPackage(@PathVariable String idHousehold, Model model) {
+        Optional<Package> packageOptional = packageService.getPackage(Long.valueOf(idHousehold));
+        packageOptional.ifPresent(packageService::cancelPackage);
+        return "redirect:/packages/";
     }
 }

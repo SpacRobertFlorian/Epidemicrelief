@@ -32,4 +32,5 @@ public interface PackageService {
 
     void sendPackage(Package packageStatus);
 
+    void cancelPackage(Package aPackage);
 }

@@ -88,6 +88,12 @@ public class DefaultPackageService implements PackageService {
     }
 
     @Override
+    public void cancelPackage(@NotNull Package aPackage) {
+        //TODO cancel button
+        packageRepository.delete(aPackage);
+    }
+
+    @Override
     public void fillPackage(Package aPackage) {
         List<ProductNecessity> productNecessityList = createNecessityList(aPackage);
         for (ProductNecessity product : productNecessityList) {
