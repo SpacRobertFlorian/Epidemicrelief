@@ -67,7 +67,7 @@ public class PackageController {
         return "package/createPackage";
     }
 
-    //TODO FACADE PACKAGE refactoring this fking shit
+    //TODO FACADE PACKAGE refactoring this post mapping
     @PostMapping("/deliver/{idHousehold}")
     public String handlePackage(@PathVariable String idHousehold, Model model) {
         Optional<Package> packageOptional = packageService.getPackage(Long.valueOf(idHousehold));
