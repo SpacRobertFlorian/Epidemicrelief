@@ -33,6 +33,19 @@ public class Household {
     @Column
     private int numberOfNonVegans;
 
+    public Household(String representative, int numberOfPeople, String phone, int numberOfChildren, int numberOfVegans, int numberOfNonVegans) {
+        this.representative = representative;
+        this.numberOfPeople = numberOfPeople;
+        this.phone = phone;
+        this.numberOfChildren = numberOfChildren;
+        this.numberOfVegans = numberOfVegans;
+        this.numberOfNonVegans = numberOfNonVegans;
+    }
+
+    public Household() {
+
+    }
+
     public void setPackages(List<Package> packages) {
         this.packages = packages;
     }

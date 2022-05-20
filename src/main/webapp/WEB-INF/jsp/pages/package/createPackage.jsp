@@ -15,27 +15,31 @@
                 </tr>
                 </thead>
                 <tbody>
-                <div>
-                    <c:forEach items="${package.products}" var="product">
-                        <tr>
-                            <td>${product.name}</td>
-                            <td>${product.productCategory}</td>
-                            <c:choose>
-                                <c:when test="${product.stock < threshold}">
-                                    <td style="color:red;">${product.stock}</td>
-                                    <c:if test="${status =='CREATED'}">
-                                        <td><a href="/packages/create/" class="btn btn-secondary"><i
-                                                class="fas fa-user-edit ml-2"></i></a></td>
+                <div><c:choose>
+                    <c:when test="${package.status == 'READY' }">
+                        <c:forEach items="${package.products}" var="product">
+                            <tr>
+                                <td>${product.product.name}</td>
+                                <td>${product.product.productCategory}</td>
+                                <c:choose>
+                                    <c:when test="${product.product.stock < threshold}">
+                                        <td style="color:red;">${product.product.stock}</td>
+                                        <c:if test="${status =='CREATED'}">
+                                            <td><a href="/packages/create/" class="btn btn-secondary"><i
+                                                    class="fas fa-user-edit ml-2"></i></a></td>
+                                            <br/>
+                                        </c:if>
+                                    </c:when>
+
+                                    <c:otherwise>
+                                        <td style="color:lawngreen;">${product.stock}</td>
                                         <br/>
-                                    </c:if>
-                                </c:when>
-                                <c:otherwise>
-                                    <td style="color:lawngreen;">${product.stock}</td>
-                                    <br/>
-                                </c:otherwise>
-                            </c:choose>
-                        </tr>
-                    </c:forEach>
+                                    </c:otherwise>
+                                </c:choose>
+                            </tr>
+                        </c:forEach>
+                    </c:when>
+                </c:choose>
                 </div>
                 </tbody>
             </table>
@@ -56,18 +60,18 @@
                     <form action="/packages/deliver/${package.household.id}" method="post">
                         <input type="submit" class="btn btn-primary" value="Delivered"/>
                     </form>
-                    <form action="/packages/cancel/${package.household.id}" method="post">
-                        <input type="submit" class="btn btn-primary" value="Cancel"/>
-                    </form>
+                    <%--                    <form action="/packages/cancel/${package.household.id}" method="post">--%>
+                    <%--                        <input type="submit" class="btn btn-primary" value="Cancel"/>--%>
+                    <%--                    </form>--%>
                 </c:when>
                 <c:when test="${package.status =='DELIVERED'}">
-                    <c:if test="${package.diffDate > dateThreshold or package.createDate == null }">
+                    <c:if test="${package.dateDiff > dateThreshold or package.createdDate == null }">
                         <form action="/packages/deliver/${package.household.id}" method="post">
                             <input type="submit" class="btn btn-primary" value="Create"/>
                         </form>
-                        <form action="/packages/cancel/${package.household.id}" method="post">
-                            <input type="submit" class="btn btn-primary" value="Cancel"/>
-                        </form>
+                        <%--                        <form action="/packages/cancel/${package.household.id}" method="post">--%>
+                        <%--                            <input type="submit" class="btn btn-primary" value="Cancel"/>--%>
+                        <%--                        </form>--%>
                     </c:if>
                 </c:when>
             </c:choose>

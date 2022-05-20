@@ -1,4 +1,6 @@
-package eu.accesa.internship.epidemicrelief.utils.packagestatus;
+package eu.accesa.internship.epidemicrelief.service.utils.packagestatus;
+
+import eu.accesa.internship.epidemicrelief.service.utils.enums.EnumPackageStatus;
 
 public class PackageStatus {
     private PackageState state = new OrderState();
@@ -15,7 +17,7 @@ public class PackageStatus {
         state.next(this);
     }
 
-    public String getStatus() {
+    public EnumPackageStatus getStatus() {
         return state.getStatus();
     }
 

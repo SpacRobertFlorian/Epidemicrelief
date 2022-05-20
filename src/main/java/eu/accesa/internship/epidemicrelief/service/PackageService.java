@@ -1,10 +1,9 @@
 package eu.accesa.internship.epidemicrelief.service;
 
-import eu.accesa.internship.epidemicrelief.entity.visitor.model.ProductNecessity;
+import eu.accesa.internship.epidemicrelief.data.PackageData;
 import eu.accesa.internship.epidemicrelief.model.Package;
-import eu.accesa.internship.epidemicrelief.model.Product;
+import eu.accesa.internship.epidemicrelief.service.utils.packagestatus.PackageState;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,4 +32,6 @@ public interface PackageService {
     void sendPackage(Package packageStatus);
 
     void cancelPackage(Package aPackage);
+
+    PackageState handlePackage(Optional<PackageData> packageData);
 }

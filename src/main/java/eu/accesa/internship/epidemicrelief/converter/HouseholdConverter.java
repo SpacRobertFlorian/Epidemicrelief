@@ -3,7 +3,7 @@ package eu.accesa.internship.epidemicrelief.converter;
 import eu.accesa.internship.epidemicrelief.data.HouseholdData;
 import eu.accesa.internship.epidemicrelief.model.Household;
 import eu.accesa.internship.epidemicrelief.model.Package;
-import eu.accesa.internship.epidemicrelief.utils.enums.EnumPackageStatus;
+import eu.accesa.internship.epidemicrelief.service.utils.enums.EnumPackageStatus;
 import org.springframework.lang.NonNull;
 
 import java.util.Optional;

@@ -1,17 +1,21 @@
 package eu.accesa.internship.epidemicrelief.service.impl;
 
+import eu.accesa.internship.epidemicrelief.data.PackageData;
 import eu.accesa.internship.epidemicrelief.entity.*;
 import eu.accesa.internship.epidemicrelief.entity.visitor.ProductVisitor;
 import eu.accesa.internship.epidemicrelief.entity.visitor.model.ProductNecessity;
 import eu.accesa.internship.epidemicrelief.model.Household;
 import eu.accesa.internship.epidemicrelief.model.Package;
+import eu.accesa.internship.epidemicrelief.model.PackageProducts;
 import eu.accesa.internship.epidemicrelief.model.Product;
 import eu.accesa.internship.epidemicrelief.repository.HouseholdRepository;
+import eu.accesa.internship.epidemicrelief.repository.PackageProductsRepository;
 import eu.accesa.internship.epidemicrelief.repository.PackageRepository;
 import eu.accesa.internship.epidemicrelief.repository.ProductRepository;
 import eu.accesa.internship.epidemicrelief.service.PackageService;
-import eu.accesa.internship.epidemicrelief.utils.enums.EnumPackageStatus;
-import org.springframework.stereotype.Service;
+import eu.accesa.internship.epidemicrelief.service.utils.enums.EnumPackageStatus;
+import eu.accesa.internship.epidemicrelief.service.utils.packagestatus.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.constraints.NotNull;
@@ -23,12 +27,15 @@ public class DefaultPackageService implements PackageService {
     private final PackageRepository packageRepository;
     private final ProductRepository productRepository;
     private final HouseholdRepository householdRepository;
+    private final PackageProductsRepository packageProductsRepository;
 
-    public DefaultPackageService(PackageRepository packageRepository, ProductRepository productRepository, HouseholdRepository householdRepository) {
+    @Autowired
+    public DefaultPackageService(PackageRepository packageRepository, ProductRepository productRepository, HouseholdRepository householdRepository, PackageProductsRepository packageProductsRepository) {
 
         this.packageRepository = packageRepository;
         this.productRepository = productRepository;
         this.householdRepository = householdRepository;
+        this.packageProductsRepository = packageProductsRepository;
     }
 
     @Override
@@ -43,6 +50,7 @@ public class DefaultPackageService implements PackageService {
             Optional<Package> packageOptional = household.get().getLatestPackage();
 
             if (packageOptional.isPresent()) {
+                packageOptional.get().setProducts(packageProductsRepository.getAllByPack(packageOptional.get()));
                 return packageOptional;
             }
         }
@@ -92,6 +100,22 @@ public class DefaultPackageService implements PackageService {
     }
 
     @Override
+    public PackageState handlePackage(Optional<PackageData> packageData) {
+        if (packageData.isPresent()) {
+            EnumPackageStatus status = packageData.get().getStatus();
+            switch (status) {
+                case CREATED:
+                    return new CreatedState();
+                case READY:
+                    return new ReadyState();
+                case DELIVERED:
+                    return new DeliveredState();
+            }
+        }
+        return new OrderState();
+    }
+
+    @Override
     public void fillPackage(Package aPackage) {
         List<ProductNecessity> productNecessityList = createNecessityList(aPackage);
         for (ProductNecessity product : productNecessityList) {
@@ -99,19 +123,17 @@ public class DefaultPackageService implements PackageService {
             Optional<Product> productByUuid = productRepository.findProductByUuid(product.getUuid());
 
             if (productByUuid.isPresent()) {
-                Product saveProduct = new Product(productByUuid.get());
                 if (productByUuid.get().getStock() >= product.getStock()) {
-
-                    saveProduct.setStock(product.getStock());
                     productByUuid.get().setStock(productByUuid.get().getStock() - product.getStock());
                 } else {
-
                     productByUuid.get().setStock(0);
                 }
-                aPackage.getProducts().add(saveProduct);
+                aPackage.getProducts().add(new PackageProducts(productByUuid.get(), aPackage, (long) product.getStock()));
+
                 productRepository.save(productByUuid.get());
             }
         }
+        packageRepository.save(aPackage);
     }
 
     private List<ProductNecessity> createNecessityList(Package aPackage) {
@@ -131,6 +153,5 @@ public class DefaultPackageService implements PackageService {
         }
         return productNecessityList;
     }
-
 
 }

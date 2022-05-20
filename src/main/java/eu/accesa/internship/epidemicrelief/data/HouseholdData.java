@@ -1,7 +1,7 @@
 package eu.accesa.internship.epidemicrelief.data;
 
 import eu.accesa.internship.epidemicrelief.model.Package;
-import eu.accesa.internship.epidemicrelief.utils.enums.EnumPackageStatus;
+import eu.accesa.internship.epidemicrelief.service.utils.enums.EnumPackageStatus;
 
 import java.util.List;
 

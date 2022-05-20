@@ -1,4 +1,4 @@
-package eu.accesa.internship.epidemicrelief.utils.enums;
+package eu.accesa.internship.epidemicrelief.service.utils.enums;
 
 public enum EnumPackageStatus {
     NOT_CREATED {

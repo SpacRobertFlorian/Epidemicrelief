@@ -8,4 +8,5 @@ import java.util.Optional;
 public interface PackageFacade {
     Optional<PackageData> getPackageByIdHousehold(@NotNull Long idHousehold);
 
+   // String changeStatus(Optional<PackageData> packageData,Long idHousehold);
 }

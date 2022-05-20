@@ -2,11 +2,11 @@
 <%@ taglib prefix="template" tagdir="/WEB-INF/tags/template" %>
 <%@ taglib prefix="imports" tagdir="/WEB-INF/tags/template/imports" %>
 
-<template:pageTemplate title="History">
+<template:pageTemplate title="Package History">
 
     <div class="row pl-5">
         <div class="col-md-6">
-            <h2 class="my-5">Households</h2>
+            <h2 class="my-5">Package History</h2>
             <table class="table table-striped table-responsive-md">
                 <thead>
                 <tr>

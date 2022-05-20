@@ -1,13 +1,19 @@
 package eu.accesa.internship.epidemicrelief.model;
 
-import eu.accesa.internship.epidemicrelief.utils.enums.ProductCategory;
+import eu.accesa.internship.epidemicrelief.service.utils.enums.ProductCategory;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.NaturalIdCache;
 import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.UUID;
 
-@Entity
+@Entity(name = "Product")
+@Table(name = "product")
+@NaturalIdCache
+//@org.hibernate.annotations.Cache(
+//        usage = CacheConcurrencyStrategy.READ_WRITE
+//)
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,19 +29,18 @@ public class Product {
     @Enumerated(EnumType.STRING)
     private ProductCategory productCategory;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "products")
-    private List<Package> packages;
-
-    public Product(@NotNull Product p) {
-        id = p.getId();
-        uuid = p.getUuid();
-        name = p.getName();
-        stock = p.getStock();
-        productCategory = p.getProductCategory();
-    }
+    @OneToMany(mappedBy = "pack", cascade = CascadeType.ALL)
+    private List<PackageProducts> packages;
 
     public Product() {
 
+    }
+
+    public Product(String uuid, String name, int stock, ProductCategory productCategory) {
+        this.uuid = uuid;
+        this.name = name;
+        this.stock = stock;
+        this.productCategory = productCategory;
     }
 
     public String getUuid() {
@@ -46,11 +51,11 @@ public class Product {
         this.uuid = uuid;
     }
 
-    public List<Package> getPackages() {
+    public List<PackageProducts> getPackages() {
         return packages;
     }
 
-    public void setPackages(List<Package> packages) {
+    public void setPackages(List<PackageProducts> packages) {
         this.packages = packages;
     }
 

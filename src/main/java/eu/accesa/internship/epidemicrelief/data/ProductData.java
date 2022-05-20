@@ -1,9 +1,7 @@
 package eu.accesa.internship.epidemicrelief.data;
 
 
-import eu.accesa.internship.epidemicrelief.utils.enums.ProductCategory;
-
-import java.util.UUID;
+import eu.accesa.internship.epidemicrelief.service.utils.enums.ProductCategory;
 
 public class ProductData {
     private Long id;

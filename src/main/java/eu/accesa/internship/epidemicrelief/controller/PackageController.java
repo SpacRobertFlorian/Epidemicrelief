@@ -6,7 +6,7 @@ import eu.accesa.internship.epidemicrelief.facade.PackageFacade;
 import eu.accesa.internship.epidemicrelief.facade.ProductFacade;
 import eu.accesa.internship.epidemicrelief.model.Package;
 import eu.accesa.internship.epidemicrelief.service.PackageService;
-import eu.accesa.internship.epidemicrelief.utils.enums.EnumPackageStatus;
+import eu.accesa.internship.epidemicrelief.service.utils.enums.EnumPackageStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -19,14 +19,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.time.LocalDate;
 import java.util.Optional;
 
-import static eu.accesa.internship.epidemicrelief.utils.enums.EnumPackageStatus.NOT_CREATED;
+import static eu.accesa.internship.epidemicrelief.service.utils.enums.EnumPackageStatus.NOT_CREATED;
 import static java.time.temporal.ChronoUnit.DAYS;
 
 @Controller
 @RequestMapping("/packages")
 public class PackageController {
     private final HouseholdFacade householdFacade;
-    private final ProductFacade productFacade;
     private final PackageService packageService;
 
     private final PackageFacade packageFacade;
@@ -38,7 +37,6 @@ public class PackageController {
     @Autowired
     public PackageController(HouseholdFacade householdFacade, ProductFacade productFacade, PackageService packageService, PackageFacade packageFacade) {
         this.householdFacade = householdFacade;
-        this.productFacade = productFacade;
         this.packageService = packageService;
         this.packageFacade = packageFacade;
     }
@@ -68,6 +66,12 @@ public class PackageController {
     }
 
     //TODO FACADE PACKAGE refactoring this post mapping
+//    @PostMapping("/deliver/{idHousehold}")
+//    public String handlePackage(@PathVariable String idHousehold, Model model) {
+//        Optional<PackageData> packageData = packageFacade.getPackageByIdHousehold(Long.valueOf(idHousehold));
+//        return packageFacade.changeStatus(packageData, Long.valueOf(idHousehold));
+//    }
+
     @PostMapping("/deliver/{idHousehold}")
     public String handlePackage(@PathVariable String idHousehold, Model model) {
         Optional<Package> packageOptional = packageService.getPackage(Long.valueOf(idHousehold));
@@ -94,33 +98,6 @@ public class PackageController {
         return "redirect:/packages/deliver/" + idHousehold;
         //return "redirect:/packages/" + packageStatus.getStatus() + "/" + idHousehold;
     }
-
-//    @PostMapping("/deliver/{idHousehold}")
-//    public String handlePackage(@PathVariable String idHousehold, Model model) {
-//        Optional<Package> packageOptional = packageService.getPackage(Long.valueOf(idHousehold));
-//
-//        if (packageOptional.isEmpty() || packageOptional.get().getDeliveredDate() != null &&
-//                DAYS.between(LocalDate.now(), packageOptional.get().getDeliveredDate()) > dateThreshold) {
-//            packageService.createPackage(Long.valueOf(idHousehold));
-//            return "redirect:/packages/deliver/" + idHousehold;
-//        }
-//
-//        Package packageStatus = packageOptional.get();
-//        packageStatus.setStatus(packageStatus.getStatus().next());
-//        packageService.updatePackage(packageStatus);
-//
-//        if (EnumPackageStatus.READY.equals(packageStatus.getStatus())) {
-//            packageService.fillPackage(packageOptional.get());
-//            return "redirect:/packages/deliver/" + idHousehold;
-//        }
-//
-//        if (EnumPackageStatus.DELIVERED.equals(packageStatus.getStatus())) {
-//            packageService.sendPackage(packageStatus);
-//            return "redirect:/packages/";
-//        }
-//        return "redirect:/packages/deliver/" + idHousehold;
-//        //return "redirect:/packages/" + packageStatus.getStatus() + "/" + idHousehold;
-//    }
 
     @GetMapping("/history")
     public String getPackageHistory(Model model) {

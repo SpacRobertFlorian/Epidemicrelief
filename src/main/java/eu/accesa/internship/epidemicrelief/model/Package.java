@@ -1,13 +1,19 @@
 package eu.accesa.internship.epidemicrelief.model;
 
-import eu.accesa.internship.epidemicrelief.utils.enums.EnumPackageStatus;
+import eu.accesa.internship.epidemicrelief.service.utils.enums.EnumPackageStatus;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.NaturalIdCache;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Entity
+@NaturalIdCache
+@Table(name = "package")
+//@org.hibernate.annotations.Cache(
+//        usage = CacheConcurrencyStrategy.READ_WRITE
+//)
 public class Package {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,8 +22,8 @@ public class Package {
     @ManyToOne(fetch = FetchType.LAZY)
     private Household household;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    private List<Product> products;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<PackageProducts> products;
 
     @Column
     private LocalDate deliveredDate;
@@ -50,11 +56,11 @@ public class Package {
         this.household = household;
     }
 
-    public List<Product> getProducts() {
+    public List<PackageProducts> getProducts() {
         return products;
     }
 
-    public void setProducts(List<Product> products) {
+    public void setProducts(List<PackageProducts> products) {
         this.products = products;
     }
 
@@ -77,4 +83,5 @@ public class Package {
     public void setCreatedDate(LocalDate createdDate) {
         this.createdDate = createdDate;
     }
+
 }
