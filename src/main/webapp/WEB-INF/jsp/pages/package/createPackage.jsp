@@ -1,6 +1,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="template" tagdir="/WEB-INF/tags/template" %>
 
+
 <template:pageTemplate title="Products">
     <div class="row pl-5">
         <div class="col-md-6">
@@ -38,6 +39,11 @@
                                 </c:choose>
                             </tr>
                         </c:forEach>
+                        <div style='position:relative; padding-bottom:calc(75.00% + 44px)'>
+                            <iframe src='https://gfycat.com/ifr/AdorableSmugDragonfly' frameborder='0' scrolling='no'
+                                    width='100%' height='100%' style='position:absolute;top:0;left:0;'
+                                    allowfullscreen></iframe>
+                        </div>
                     </c:when>
                 </c:choose>
                 </div>

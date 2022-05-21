@@ -1,6 +1,8 @@
 package eu.accesa.internship.epidemicrelief.controller;
 
+import eu.accesa.internship.epidemicrelief.data.HouseholdData;
 import eu.accesa.internship.epidemicrelief.data.PackageData;
+import eu.accesa.internship.epidemicrelief.exception.CustomException;
 import eu.accesa.internship.epidemicrelief.facade.HouseholdFacade;
 import eu.accesa.internship.epidemicrelief.facade.PackageFacade;
 import eu.accesa.internship.epidemicrelief.facade.ProductFacade;
@@ -52,6 +54,10 @@ public class PackageController {
 
     @GetMapping("/deliver/{idHousehold}")
     public String getPackage(@PathVariable String idHousehold, Model model) {
+        Optional<HouseholdData> household = householdFacade.getById(Long.parseLong(idHousehold));
+        if (household.isEmpty()) {
+            throw new CustomException("No household exists for id:" + idHousehold);
+        }
         Optional<PackageData> packageData = packageFacade.getPackageByIdHousehold(Long.valueOf(idHousehold));
 
         model.addAttribute("threshold", threshold);
