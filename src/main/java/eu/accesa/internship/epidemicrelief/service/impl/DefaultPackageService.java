@@ -18,6 +18,7 @@ import eu.accesa.internship.epidemicrelief.service.utils.packagestatus.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.*;
@@ -93,10 +94,20 @@ public class DefaultPackageService implements PackageService {
         packageRepository.save(packageStatus);
     }
 
+    //TODO nu imi face stergerea
+    @Transactional
     @Override
-    public void cancelPackage(@NotNull Package aPackage) {
-        //TODO cancel button
-        packageRepository.delete(aPackage);
+    public void cancelPackage(Long packageId) {
+       // List<PackageProducts> products = packageProductsRepository.findById_PackageId(packageId);
+        //packageProductsRepository.deleteAll(products);
+        packageProductsRepository.delete(packageId);
+        Optional<Package> packageOptional = packageRepository.findById(packageId);
+        if (packageOptional.isPresent()) {
+            packageRepository.delete(packageOptional.get());
+        } else {
+            throw new EntityNotFoundException("Unable to find package to delete; id: " + packageId);
+
+        }
     }
 
     @Override

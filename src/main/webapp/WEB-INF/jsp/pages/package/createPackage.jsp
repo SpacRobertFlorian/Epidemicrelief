@@ -55,23 +55,26 @@
                     <form action="/packages/deliver/${package.household.id}" method="post">
                         <input type="submit" class="btn btn-primary" value="Ready"/>
                     </form>
+                    <form action="/packages/cancel/${package.household.id}" method="post">
+                        <input type="submit" class="btn btn-primary" value="Cancel"/>
+                    </form>
                 </c:when>
                 <c:when test="${package.status =='READY'}">
                     <form action="/packages/deliver/${package.household.id}" method="post">
                         <input type="submit" class="btn btn-primary" value="Delivered"/>
                     </form>
-                    <%--                    <form action="/packages/cancel/${package.household.id}" method="post">--%>
-                    <%--                        <input type="submit" class="btn btn-primary" value="Cancel"/>--%>
-                    <%--                    </form>--%>
+                    <form action="/packages/cancel/${package.household.id}" method="post">
+                        <input type="submit" class="btn btn-primary" value="Cancel"/>
+                    </form>
                 </c:when>
                 <c:when test="${package.status =='DELIVERED'}">
                     <c:if test="${package.dateDiff > dateThreshold or package.createdDate == null }">
                         <form action="/packages/deliver/${package.household.id}" method="post">
                             <input type="submit" class="btn btn-primary" value="Create"/>
                         </form>
-                        <%--                        <form action="/packages/cancel/${package.household.id}" method="post">--%>
-                        <%--                            <input type="submit" class="btn btn-primary" value="Cancel"/>--%>
-                        <%--                        </form>--%>
+                        <form action="/packages/cancel/${package.household.id}" method="post">
+                            <input type="submit" class="btn btn-primary" value="Cancel"/>
+                        </form>
                     </c:if>
                 </c:when>
             </c:choose>

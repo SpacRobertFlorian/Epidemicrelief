@@ -10,6 +10,7 @@ import eu.accesa.internship.epidemicrelief.service.utils.enums.EnumPackageStatus
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +25,7 @@ import static java.time.temporal.ChronoUnit.DAYS;
 
 @Controller
 @RequestMapping("/packages")
+@EnableTransactionManagement
 public class PackageController {
     private final HouseholdFacade householdFacade;
     private final PackageService packageService;
@@ -105,11 +107,13 @@ public class PackageController {
         return "package/packageHistory";
     }
 
-//    @PostMapping("/cancel/{idHousehold}")
-//    public String cancelPackage(@PathVariable String idHousehold, Model model) {
-//        Optional<Package> packageOptional = packageService.getPackage(Long.valueOf(idHousehold));
-//        if(packageOptional.isPresent() && packageOptional.get().getDeliveredDate()!=null)
-//            packageService.cancelPackage(packageOptional.get());
-//        return "redirect:/packages/";
-//    }
+    //TODO Cancel button
+    @PostMapping("/cancel/{idHousehold}")
+    public String cancelPackage(@PathVariable String idHousehold, Model model) {
+        Optional<PackageData> packageData = packageFacade.getPackageByIdHousehold(Long.valueOf(idHousehold));
+
+        if (packageData.isPresent() && packageData.get().getDeliveredDate() == null)
+            packageFacade.cancelPackage(packageData.get().getId());
+        return "redirect:/packages/";
+    }
 }

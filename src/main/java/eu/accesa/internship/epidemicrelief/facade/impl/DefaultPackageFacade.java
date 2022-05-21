@@ -3,6 +3,7 @@ package eu.accesa.internship.epidemicrelief.facade.impl;
 import eu.accesa.internship.epidemicrelief.converter.PackageConverter;
 import eu.accesa.internship.epidemicrelief.data.PackageData;
 import eu.accesa.internship.epidemicrelief.facade.PackageFacade;
+import eu.accesa.internship.epidemicrelief.model.Package;
 import eu.accesa.internship.epidemicrelief.service.PackageService;
 import eu.accesa.internship.epidemicrelief.service.utils.packagestatus.PackageStatus;
 
@@ -26,6 +27,12 @@ public class DefaultPackageFacade implements PackageFacade {
     public Optional<PackageData> getPackageByIdHousehold(Long idHousehold) {
         return packageService.getPackage(idHousehold).map(packageConverter::from);
     }
+
+    @Override
+    public void cancelPackage(@NotNull Long packageId) {
+        packageService.cancelPackage(packageId);
+    }
+
 
 //    @Override
 //    public String changeStatus(Optional<PackageData> packageData, Long idHousehold) {

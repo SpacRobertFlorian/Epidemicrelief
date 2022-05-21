@@ -31,7 +31,7 @@ public interface PackageService {
 
     void sendPackage(Package packageStatus);
 
-    void cancelPackage(Package aPackage);
+    void cancelPackage(Long packageId);
 
     PackageState handlePackage(Optional<PackageData> packageData);
 }

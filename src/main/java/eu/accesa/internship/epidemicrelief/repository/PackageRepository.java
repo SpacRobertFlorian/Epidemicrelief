@@ -11,4 +11,5 @@ public interface PackageRepository extends CrudRepository<Package, Long> {
     @NotNull
     List<Package> findAll();
 
+    void deletePackageById(Long id);
 }

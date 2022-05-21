@@ -29,4 +29,16 @@ public class PackageConverter {
         return target;
     }
 
+    public Package to(PackageData source) {
+        Package target = new Package();
+
+        target.setProducts(source.getProducts());
+        target.setStatus(source.getStatus());
+        target.setCreatedDate(source.getCreatedDate());
+        target.setHousehold(source.getHousehold());
+        target.setId(source.getId());
+        target.setDeliveredDate(source.getDeliveredDate());
+
+        return target;
+    }
 }
