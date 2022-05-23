@@ -19,6 +19,7 @@ dependencies {
     implementation 'javax.servlet:jstl:1.2'
     implementation 'mysql:mysql-connector-java:8.0.21'
     implementation 'org.jetbrains:annotations:20.1.0'
+    implementation 'org.json:json:20171018'
     // https://mvnrepository.com/artifact/org.springframework.statemachine/spring-statemachine-core
     implementation group: 'org.springframework.statemachine', name: 'spring-statemachine-core', version: '3.2.0'
 

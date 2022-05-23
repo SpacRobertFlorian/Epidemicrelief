@@ -1,20 +1,13 @@
 package eu.accesa.internship.epidemicrelief.service.impl;
 
-import eu.accesa.internship.epidemicrelief.data.PackageData;
 import eu.accesa.internship.epidemicrelief.entity.*;
 import eu.accesa.internship.epidemicrelief.entity.visitor.ProductVisitor;
 import eu.accesa.internship.epidemicrelief.entity.visitor.model.ProductNecessity;
-import eu.accesa.internship.epidemicrelief.model.Household;
+import eu.accesa.internship.epidemicrelief.model.*;
 import eu.accesa.internship.epidemicrelief.model.Package;
-import eu.accesa.internship.epidemicrelief.model.PackageProducts;
-import eu.accesa.internship.epidemicrelief.model.Product;
-import eu.accesa.internship.epidemicrelief.repository.HouseholdRepository;
-import eu.accesa.internship.epidemicrelief.repository.PackageProductsRepository;
-import eu.accesa.internship.epidemicrelief.repository.PackageRepository;
-import eu.accesa.internship.epidemicrelief.repository.ProductRepository;
+import eu.accesa.internship.epidemicrelief.repository.*;
 import eu.accesa.internship.epidemicrelief.service.PackageService;
 import eu.accesa.internship.epidemicrelief.utils.enums.EnumPackageStatus;
-import eu.accesa.internship.epidemicrelief.utils.packagestatus.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityNotFoundException;
@@ -30,14 +23,17 @@ public class DefaultPackageService implements PackageService {
     private final HouseholdRepository householdRepository;
     private final PackageProductsRepository packageProductsRepository;
 
+    private final NecessityRepository necessityRepository;
+
 
     @Autowired
-    public DefaultPackageService(PackageRepository packageRepository, ProductRepository productRepository, HouseholdRepository householdRepository, PackageProductsRepository packageProductsRepository) {
+    public DefaultPackageService(PackageRepository packageRepository, ProductRepository productRepository, HouseholdRepository householdRepository, PackageProductsRepository packageProductsRepository, NecessityRepository necessityRepository) {
 
         this.packageRepository = packageRepository;
         this.productRepository = productRepository;
         this.householdRepository = householdRepository;
         this.packageProductsRepository = packageProductsRepository;
+        this.necessityRepository = necessityRepository;
     }
 
     @Override
@@ -141,7 +137,7 @@ public class DefaultPackageService implements PackageService {
                 } else {
                     productByUuid.get().setStock(0L);
                 }
-                aPackage.getProducts().add(new PackageProducts(productByUuid.get(), aPackage, (long) product.getStock()));
+                aPackage.getProducts().add(new PackageProducts(productByUuid.get(), aPackage, product.getStock()));
 
                 productRepository.save(productByUuid.get());
             }
@@ -151,7 +147,7 @@ public class DefaultPackageService implements PackageService {
 
     private List<ProductNecessity> createNecessityList(Package aPackage) {
 
-        ProductVisitor productVisitor = new ProductVisitor();
+        ProductVisitor productVisitor = new ProductVisitor(necessityRepository);
         Household household = aPackage.getHousehold();
         List<HouseholdMembers> members = new LinkedList<>();
         List<ProductNecessity> productNecessityList = new ArrayList<>();

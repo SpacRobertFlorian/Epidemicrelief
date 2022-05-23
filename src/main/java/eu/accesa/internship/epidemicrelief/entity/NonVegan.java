@@ -1,6 +1,5 @@
 package eu.accesa.internship.epidemicrelief.entity;
 
-import eu.accesa.internship.epidemicrelief.entity.visitor.Visitable;
 import eu.accesa.internship.epidemicrelief.entity.visitor.Visitor;
 import eu.accesa.internship.epidemicrelief.entity.visitor.model.ProductNecessity;
 

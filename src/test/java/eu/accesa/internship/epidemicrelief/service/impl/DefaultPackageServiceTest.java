@@ -1,14 +1,10 @@
 package eu.accesa.internship.epidemicrelief.service.impl;
 
-import com.sun.xml.bind.v2.runtime.reflect.Lister;
 import eu.accesa.internship.epidemicrelief.entity.visitor.ProductVisitor;
 import eu.accesa.internship.epidemicrelief.model.Household;
 import eu.accesa.internship.epidemicrelief.model.Package;
 import eu.accesa.internship.epidemicrelief.model.PackageProducts;
-import eu.accesa.internship.epidemicrelief.repository.HouseholdRepository;
-import eu.accesa.internship.epidemicrelief.repository.PackageProductsRepository;
-import eu.accesa.internship.epidemicrelief.repository.PackageRepository;
-import eu.accesa.internship.epidemicrelief.repository.ProductRepository;
+import eu.accesa.internship.epidemicrelief.repository.*;
 import eu.accesa.internship.epidemicrelief.service.PackageService;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +12,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.Spy;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -36,6 +31,8 @@ public class DefaultPackageServiceTest {
     private HouseholdRepository householdRepository;
     @Mock
     private PackageProductsRepository packageProductsRepository;
+    @Mock
+    private NecessityRepository necessityRepository;
 
     @Mock
     private Package pack;
@@ -50,7 +47,7 @@ public class DefaultPackageServiceTest {
     @Before
     public void setUp() {
         initMocks(this);
-        packageService = new DefaultPackageService(packageRepository, productRepository, householdRepository, packageProductsRepository);
+        packageService = new DefaultPackageService(packageRepository, productRepository, householdRepository, packageProductsRepository, necessityRepository);
     }
 
     @Test

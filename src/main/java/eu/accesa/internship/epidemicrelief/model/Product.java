@@ -27,6 +27,10 @@ public class Product {
     @Enumerated(EnumType.STRING)
     private ProductCategory productCategory;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    private Necessity necessity;
+
+
     @OneToMany(mappedBy = "pack", cascade = CascadeType.ALL)
     private List<PackageProducts> packages;
 
@@ -39,6 +43,14 @@ public class Product {
         this.name = name;
         this.stock = stock;
         this.productCategory = productCategory;
+    }
+
+    public Necessity getNecessity() {
+        return necessity;
+    }
+
+    public void setNecessity(Necessity necessity) {
+        this.necessity = necessity;
     }
 
     public String getUuid() {
