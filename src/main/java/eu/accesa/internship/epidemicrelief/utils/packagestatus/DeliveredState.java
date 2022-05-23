@@ -1,11 +1,11 @@
-package eu.accesa.internship.epidemicrelief.service.utils.packagestatus;
+package eu.accesa.internship.epidemicrelief.utils.packagestatus;
 
-import eu.accesa.internship.epidemicrelief.service.utils.enums.EnumPackageStatus;
+import eu.accesa.internship.epidemicrelief.utils.enums.EnumPackageStatus;
 
 public class DeliveredState implements PackageState {
     @Override
     public void next(PackageStatus pkg) {
-        //Stop ca nu mai are unde sa mearga fra
+        pkg.setState(new CreatedState());
     }
 
     @Override

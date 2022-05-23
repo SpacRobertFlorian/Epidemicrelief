@@ -8,17 +8,17 @@ import java.util.List;
 
 public class Family implements HouseholdMembers {
 
-    private int numberOfPersons;
+    private Long numberOfPersons;
 
-    public Family(int numberOfPersons) {
+    public Family(Long numberOfPersons) {
         this.numberOfPersons = numberOfPersons;
     }
 
-    public int getNumberOfPersons() {
+    public Long getNumberOfPersons() {
         return numberOfPersons;
     }
 
-    public void setNumberOfPersons(int numberOfPersons) {
+    public void setNumberOfPersons(Long numberOfPersons) {
         this.numberOfPersons = numberOfPersons;
     }
 

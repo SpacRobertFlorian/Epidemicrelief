@@ -1,6 +1,6 @@
 package eu.accesa.internship.epidemicrelief.service.impl;
 
-import eu.accesa.internship.epidemicrelief.service.utils.enums.ProductCategory;
+import eu.accesa.internship.epidemicrelief.utils.enums.ProductCategory;
 import eu.accesa.internship.epidemicrelief.model.Product;
 import eu.accesa.internship.epidemicrelief.repository.ProductRepository;
 import org.junit.Before;

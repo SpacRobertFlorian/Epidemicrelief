@@ -1,6 +1,6 @@
 package eu.accesa.internship.epidemicrelief.service;
 
-import eu.accesa.internship.epidemicrelief.service.utils.enums.ProductCategory;
+import eu.accesa.internship.epidemicrelief.utils.enums.ProductCategory;
 import eu.accesa.internship.epidemicrelief.model.Product;
 
 import javax.validation.constraints.NotNull;
@@ -22,7 +22,7 @@ public interface ProductService {
     /**
      * Get a Product by id
      *
-     * @param id
+     * @param id id of the product to be search by
      * @return an {@link Optional} containing the matching products if it exists; {@link  Optional#empty}
      */
     @NotNull

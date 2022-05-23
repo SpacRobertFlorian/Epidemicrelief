@@ -51,7 +51,7 @@ public class ProductControllerIntegrationTest {
         mockMvc.perform(get(GET_PRODUCT_URL))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists(PRODUCTS_ATTRIBUTE))
-                .andExpect(model().attribute(PRODUCTS_ATTRIBUTE, hasSize(1)))
+                .andExpect(model().attribute(PRODUCTS_ATTRIBUTE, hasSize(5)))
                 .andExpect(view().name(GET_PRODUCTS_EXPECTED_VIEW_NAME));
     }
 
@@ -85,15 +85,6 @@ public class ProductControllerIntegrationTest {
     public void givenValidId_whenDeleteProduct_thenDeleteProduct() throws Exception {
         mockMvc.perform(get(GET_DELETE_PRODUCT_BY_ID, "1"))
                 .andExpect(view().name("redirect:" + GET_PRODUCT_URL));
-    }
-
-    @Test
-    public void foo() throws Exception {
-        mockMvc.perform(get(GET_PRODUCT_URL))
-                .andExpect(status().isOk())
-                .andExpect(model().attributeExists(PRODUCTS_ATTRIBUTE))
-                .andExpect(model().attributeExists(MIN_STOCK_THRESHOLD))
-                .andExpect(view().name(GET_PRODUCTS_EXPECTED_VIEW_NAME));
     }
 
     private MultiValueMap<String, String> fillParameters() {

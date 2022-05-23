@@ -2,9 +2,9 @@ package eu.accesa.internship.epidemicrelief.entity.visitor.model;
 
 public class ProductNecessity {
     private String uuid;
-    private int stock;
+    private Long stock;
 
-    public ProductNecessity(String uuid, int stock) {
+    public ProductNecessity(String uuid, Long stock) {
         this.uuid = uuid;
         this.stock = stock;
     }
@@ -17,11 +17,11 @@ public class ProductNecessity {
         this.uuid = uuid;
     }
 
-    public int getStock() {
+    public Long getStock() {
         return stock;
     }
 
-    public void setStock(int stock) {
+    public void setStock(Long stock) {
         this.stock = stock;
     }
 

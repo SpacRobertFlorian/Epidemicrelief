@@ -1,6 +1,5 @@
 package eu.accesa.internship.epidemicrelief.entity;
 
-import eu.accesa.internship.epidemicrelief.entity.visitor.Visitable;
 import eu.accesa.internship.epidemicrelief.entity.visitor.Visitor;
 import eu.accesa.internship.epidemicrelief.entity.visitor.model.ProductNecessity;
 
@@ -8,17 +7,17 @@ import java.util.List;
 
 public class Child implements HouseholdMembers {
 
-    private int numberOfPersons;
+    private Long numberOfPersons;
 
-    public Child(int numberOfPersons) {
+    public Child(Long numberOfPersons) {
         this.numberOfPersons = numberOfPersons;
     }
 
-    public int getNumberOfPersons() {
+    public Long getNumberOfPersons() {
         return numberOfPersons;
     }
 
-    public void setNumberOfPersons(int numberOfPersons) {
+    public void setNumberOfPersons(Long numberOfPersons) {
         this.numberOfPersons = numberOfPersons;
     }
 

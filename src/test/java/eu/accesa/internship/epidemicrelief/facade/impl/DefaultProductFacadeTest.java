@@ -2,7 +2,7 @@ package eu.accesa.internship.epidemicrelief.facade.impl;
 
 import eu.accesa.internship.epidemicrelief.converter.ProductConverter;
 import eu.accesa.internship.epidemicrelief.data.ProductData;
-import eu.accesa.internship.epidemicrelief.service.utils.enums.ProductCategory;
+import eu.accesa.internship.epidemicrelief.utils.enums.ProductCategory;
 import eu.accesa.internship.epidemicrelief.model.Product;
 import eu.accesa.internship.epidemicrelief.service.ProductService;
 import org.junit.Before;

@@ -1,9 +1,7 @@
 package eu.accesa.internship.epidemicrelief.model;
 
-import eu.accesa.internship.epidemicrelief.service.utils.enums.ProductCategory;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+import eu.accesa.internship.epidemicrelief.utils.enums.ProductCategory;
 import org.hibernate.annotations.NaturalIdCache;
-import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.*;
 import java.util.List;
@@ -24,7 +22,7 @@ public class Product {
     @Column(unique = true)
     private String name;
     @Column
-    private int stock;
+    private Long stock;
     @Column
     @Enumerated(EnumType.STRING)
     private ProductCategory productCategory;
@@ -36,7 +34,7 @@ public class Product {
 
     }
 
-    public Product(String uuid, String name, int stock, ProductCategory productCategory) {
+    public Product(String uuid, String name, Long stock, ProductCategory productCategory) {
         this.uuid = uuid;
         this.name = name;
         this.stock = stock;
@@ -75,11 +73,11 @@ public class Product {
         this.name = name;
     }
 
-    public int getStock() {
+    public Long getStock() {
         return stock;
     }
 
-    public void setStock(int stock) {
+    public void setStock(Long stock) {
         this.stock = stock;
     }
 

@@ -7,17 +7,17 @@ import eu.accesa.internship.epidemicrelief.entity.visitor.model.ProductNecessity
 import java.util.List;
 
 public class NonVegan implements HouseholdMembers {
-    private int numberOfPersons;
+    private Long numberOfPersons;
 
-    public NonVegan(int numberOfPersons) {
+    public NonVegan(Long numberOfPersons) {
         this.numberOfPersons = numberOfPersons;
     }
 
-    public int getNumberOfPersons() {
+    public Long getNumberOfPersons() {
         return numberOfPersons;
     }
 
-    public void setNumberOfPersons(int numberOfPersons) {
+    public void setNumberOfPersons(Long numberOfPersons) {
         this.numberOfPersons = numberOfPersons;
     }
 

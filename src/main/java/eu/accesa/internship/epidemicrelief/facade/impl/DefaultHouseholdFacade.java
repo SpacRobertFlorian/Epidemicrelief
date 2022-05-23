@@ -37,7 +37,6 @@ public class DefaultHouseholdFacade implements HouseholdFacade {
 
     @Override
     public void addHousehold(@NonNull HouseholdData household) {
-        Household household1 = householdConverter.to(household);
         householdService.addHousehold(householdConverter.to(household));
 
         // example of another potential call: countyHealthAuthorityService.informAboutHelpBeingGivenToHousehold(household.getId)

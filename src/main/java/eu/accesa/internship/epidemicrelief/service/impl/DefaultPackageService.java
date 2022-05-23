@@ -13,8 +13,8 @@ import eu.accesa.internship.epidemicrelief.repository.PackageProductsRepository;
 import eu.accesa.internship.epidemicrelief.repository.PackageRepository;
 import eu.accesa.internship.epidemicrelief.repository.ProductRepository;
 import eu.accesa.internship.epidemicrelief.service.PackageService;
-import eu.accesa.internship.epidemicrelief.service.utils.enums.EnumPackageStatus;
-import eu.accesa.internship.epidemicrelief.service.utils.packagestatus.*;
+import eu.accesa.internship.epidemicrelief.utils.enums.EnumPackageStatus;
+import eu.accesa.internship.epidemicrelief.utils.packagestatus.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityNotFoundException;
@@ -29,6 +29,7 @@ public class DefaultPackageService implements PackageService {
     private final ProductRepository productRepository;
     private final HouseholdRepository householdRepository;
     private final PackageProductsRepository packageProductsRepository;
+
 
     @Autowired
     public DefaultPackageService(PackageRepository packageRepository, ProductRepository productRepository, HouseholdRepository householdRepository, PackageProductsRepository packageProductsRepository) {
@@ -45,7 +46,7 @@ public class DefaultPackageService implements PackageService {
     }
 
     @Override
-    public Optional<Package> getPackage(Long idHousehold) {
+    public Optional<Package> getLastPackageByHouseholdId(Long idHousehold) {
         Optional<Household> household = householdRepository.findById(idHousehold);
         if (household.isPresent()) {
             Optional<Package> packageOptional = household.get().getLatestPackage();
@@ -98,7 +99,7 @@ public class DefaultPackageService implements PackageService {
     @Transactional
     @Override
     public void cancelPackage(Long packageId) {
-       // List<PackageProducts> products = packageProductsRepository.findById_PackageId(packageId);
+        // List<PackageProducts> products = packageProductsRepository.findById_PackageId(packageId);
         //packageProductsRepository.deleteAll(products);
         packageProductsRepository.delete(packageId);
         Optional<Package> packageOptional = packageRepository.findById(packageId);
@@ -110,21 +111,22 @@ public class DefaultPackageService implements PackageService {
         }
     }
 
-    @Override
-    public PackageState handlePackage(Optional<PackageData> packageData) {
-        if (packageData.isPresent()) {
-            EnumPackageStatus status = packageData.get().getStatus();
-            switch (status) {
-                case CREATED:
-                    return new CreatedState();
-                case READY:
-                    return new ReadyState();
-                case DELIVERED:
-                    return new DeliveredState();
-            }
-        }
-        return new OrderState();
-    }
+//    @Override
+//    public PackageState handlePackage(Optional<PackageData> packageData) {
+//        if (packageData.isPresent()) {
+//            EnumPackageStatus status = packageData.get().getStatus();
+//            switch (status) {
+//                case CREATED:
+//                    return new CreatedState();
+//                case READY:
+//                    return new ReadyState();
+//                case DELIVERED:
+//                    return new DeliveredState();
+//            }
+//        }
+//        return new OrderState();
+//    }
+
 
     @Override
     public void fillPackage(Package aPackage) {
@@ -137,7 +139,7 @@ public class DefaultPackageService implements PackageService {
                 if (productByUuid.get().getStock() >= product.getStock()) {
                     productByUuid.get().setStock(productByUuid.get().getStock() - product.getStock());
                 } else {
-                    productByUuid.get().setStock(0);
+                    productByUuid.get().setStock(0L);
                 }
                 aPackage.getProducts().add(new PackageProducts(productByUuid.get(), aPackage, (long) product.getStock()));
 

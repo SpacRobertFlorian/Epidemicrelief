@@ -1,6 +1,6 @@
-package eu.accesa.internship.epidemicrelief.service.utils.packagestatus;
+package eu.accesa.internship.epidemicrelief.utils.packagestatus;
 
-import eu.accesa.internship.epidemicrelief.service.utils.enums.EnumPackageStatus;
+import eu.accesa.internship.epidemicrelief.utils.enums.EnumPackageStatus;
 
 public class CreatedState implements PackageState {
     @Override

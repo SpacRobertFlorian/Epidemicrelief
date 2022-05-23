@@ -1,12 +1,12 @@
 package eu.accesa.internship.epidemicrelief.data;
 
 
-import eu.accesa.internship.epidemicrelief.service.utils.enums.ProductCategory;
+import eu.accesa.internship.epidemicrelief.utils.enums.ProductCategory;
 
 public class ProductData {
     private Long id;
     private String name;
-    private int stock;
+    private Long stock;
     private ProductCategory productCategory;
     private String uuid;
 
@@ -34,11 +34,11 @@ public class ProductData {
         this.name = name;
     }
 
-    public int getStock() {
+    public Long getStock() {
         return stock;
     }
 
-    public void setStock(int stock) {
+    public void setStock(Long stock) {
         this.stock = stock;
     }
 

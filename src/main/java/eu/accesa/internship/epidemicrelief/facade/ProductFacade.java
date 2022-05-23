@@ -1,7 +1,7 @@
 package eu.accesa.internship.epidemicrelief.facade;
 
 import eu.accesa.internship.epidemicrelief.data.ProductData;
-import eu.accesa.internship.epidemicrelief.service.utils.enums.ProductCategory;
+import eu.accesa.internship.epidemicrelief.utils.enums.ProductCategory;
 import eu.accesa.internship.epidemicrelief.model.Product;
 
 import javax.validation.constraints.NotNull;
@@ -50,6 +50,11 @@ public interface ProductFacade {
      */
     void deleteProduct(long id);
 
+    /**
+     * Get a list of products data by a category
+     * @param productCategory a {@link ProductCategory} to search by
+     * @return a list of products data
+     */
     @NotNull
     List<ProductData> getByCategory(ProductCategory productCategory);
 }

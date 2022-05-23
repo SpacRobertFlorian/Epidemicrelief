@@ -19,7 +19,7 @@ public class Household {
     private String representative;
 
     @Column(name = "number_of_people")
-    private int numberOfPeople;
+    private Long numberOfPeople;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "household", cascade = CascadeType.ALL)
     private List<Package> packages;
@@ -27,13 +27,13 @@ public class Household {
     @Column
     private String phone;
     @Column
-    private int numberOfChildren;
+    private Long numberOfChildren;
     @Column
-    private int numberOfVegans;
+    private Long numberOfVegans;
     @Column
-    private int numberOfNonVegans;
+    private Long numberOfNonVegans;
 
-    public Household(String representative, int numberOfPeople, String phone, int numberOfChildren, int numberOfVegans, int numberOfNonVegans) {
+    public Household(String representative, Long numberOfPeople, String phone, Long numberOfChildren, Long numberOfVegans, Long numberOfNonVegans) {
         this.representative = representative;
         this.numberOfPeople = numberOfPeople;
         this.phone = phone;
@@ -50,27 +50,27 @@ public class Household {
         this.packages = packages;
     }
 
-    public int getNumberOfChildren() {
+    public Long getNumberOfChildren() {
         return numberOfChildren;
     }
 
-    public void setNumberOfChildren(int numberOfChildren) {
+    public void setNumberOfChildren(Long numberOfChildren) {
         this.numberOfChildren = numberOfChildren;
     }
 
-    public int getNumberOfVegans() {
+    public Long getNumberOfVegans() {
         return numberOfVegans;
     }
 
-    public void setNumberOfVegans(int numberOfVegans) {
+    public void setNumberOfVegans(Long numberOfVegans) {
         this.numberOfVegans = numberOfVegans;
     }
 
-    public int getNumberOfNonVegans() {
+    public Long getNumberOfNonVegans() {
         return numberOfNonVegans;
     }
 
-    public void setNumberOfNonVegans(int numberOfNonVegans) {
+    public void setNumberOfNonVegans(Long numberOfNonVegans) {
         this.numberOfNonVegans = numberOfNonVegans;
     }
 
@@ -91,11 +91,11 @@ public class Household {
         this.representative = representative;
     }
 
-    public int getNumberOfPeople() {
+    public Long getNumberOfPeople() {
         return numberOfPeople;
     }
 
-    public void setNumberOfPeople(int numberOfPeople) {
+    public void setNumberOfPeople(Long numberOfPeople) {
         this.numberOfPeople = numberOfPeople;
     }
 

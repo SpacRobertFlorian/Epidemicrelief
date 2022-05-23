@@ -1,7 +1,7 @@
 package eu.accesa.internship.epidemicrelief.data;
 
 import eu.accesa.internship.epidemicrelief.model.Package;
-import eu.accesa.internship.epidemicrelief.service.utils.enums.EnumPackageStatus;
+import eu.accesa.internship.epidemicrelief.utils.enums.EnumPackageStatus;
 
 import java.util.List;
 
@@ -11,10 +11,10 @@ public class HouseholdData {
     private String representative;
     private String phone;
     private EnumPackageStatus status;
-    private int numberOfPeople;
-    private int numberOfChildren;
-    private int numberOfVegans;
-    private int numberOfNonVegans;
+    private Long numberOfPeople;
+    private Long numberOfChildren;
+    private Long numberOfVegans;
+    private Long numberOfNonVegans;
 
     private List<Package> packages;
 
@@ -26,35 +26,35 @@ public class HouseholdData {
         this.packages = packages;
     }
 
-    public int getNumberOfPeople() {
+    public Long getNumberOfPeople() {
         return numberOfPeople;
     }
 
-    public void setNumberOfPeople(int numberOfPeople) {
+    public void setNumberOfPeople(Long numberOfPeople) {
         this.numberOfPeople = numberOfPeople;
     }
 
-    public int getNumberOfChildren() {
+    public Long getNumberOfChildren() {
         return numberOfChildren;
     }
 
-    public void setNumberOfChildren(int numberOfChildren) {
+    public void setNumberOfChildren(Long numberOfChildren) {
         this.numberOfChildren = numberOfChildren;
     }
 
-    public int getNumberOfVegans() {
+    public Long getNumberOfVegans() {
         return numberOfVegans;
     }
 
-    public void setNumberOfVegans(int numberOfVegans) {
+    public void setNumberOfVegans(Long numberOfVegans) {
         this.numberOfVegans = numberOfVegans;
     }
 
-    public int getNumberOfNonVegans() {
+    public Long getNumberOfNonVegans() {
         return numberOfNonVegans;
     }
 
-    public void setNumberOfNonVegans(int numberOfNonVegans) {
+    public void setNumberOfNonVegans(Long numberOfNonVegans) {
         this.numberOfNonVegans = numberOfNonVegans;
     }
 

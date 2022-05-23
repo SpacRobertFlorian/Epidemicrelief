@@ -1,7 +1,6 @@
 package eu.accesa.internship.epidemicrelief.model;
 
-import eu.accesa.internship.epidemicrelief.service.utils.enums.EnumPackageStatus;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+import eu.accesa.internship.epidemicrelief.utils.enums.EnumPackageStatus;
 import org.hibernate.annotations.NaturalIdCache;
 
 import javax.persistence.*;

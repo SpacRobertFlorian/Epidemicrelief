@@ -2,8 +2,7 @@ package eu.accesa.internship.epidemicrelief.data;
 
 import eu.accesa.internship.epidemicrelief.model.Household;
 import eu.accesa.internship.epidemicrelief.model.PackageProducts;
-import eu.accesa.internship.epidemicrelief.model.Product;
-import eu.accesa.internship.epidemicrelief.service.utils.enums.EnumPackageStatus;
+import eu.accesa.internship.epidemicrelief.utils.enums.EnumPackageStatus;
 
 import java.time.LocalDate;
 import java.util.List;

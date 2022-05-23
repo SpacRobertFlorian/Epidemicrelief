@@ -39,7 +39,7 @@ public class HouseholdControllerIntegrationTest {
         mockMvc.perform(get(GET_HOUSEHOLDS_URL))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists(HOUSEHOLDS_ATTRIBUTE))
-                .andExpect(model().attribute(HOUSEHOLDS_ATTRIBUTE, hasSize(1)))
+                .andExpect(model().attribute(HOUSEHOLDS_ATTRIBUTE, hasSize(4)))
                 .andExpect(view().name(GET_HOUSEHOLDS_EXPECTED_VIEW_NAME));
     }
 

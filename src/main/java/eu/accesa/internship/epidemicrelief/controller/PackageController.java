@@ -8,7 +8,7 @@ import eu.accesa.internship.epidemicrelief.facade.PackageFacade;
 import eu.accesa.internship.epidemicrelief.facade.ProductFacade;
 import eu.accesa.internship.epidemicrelief.model.Package;
 import eu.accesa.internship.epidemicrelief.service.PackageService;
-import eu.accesa.internship.epidemicrelief.service.utils.enums.EnumPackageStatus;
+import eu.accesa.internship.epidemicrelief.utils.enums.EnumPackageStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.time.LocalDate;
 import java.util.Optional;
 
-import static eu.accesa.internship.epidemicrelief.service.utils.enums.EnumPackageStatus.NOT_CREATED;
+import static eu.accesa.internship.epidemicrelief.utils.enums.EnumPackageStatus.NOT_CREATED;
 import static java.time.temporal.ChronoUnit.DAYS;
 
 @Controller
@@ -43,6 +43,7 @@ public class PackageController {
         this.householdFacade = householdFacade;
         this.packageService = packageService;
         this.packageFacade = packageFacade;
+
     }
 
     @GetMapping
@@ -82,7 +83,7 @@ public class PackageController {
 
     @PostMapping("/deliver/{idHousehold}")
     public String handlePackage(@PathVariable String idHousehold, Model model) {
-        Optional<Package> packageOptional = packageService.getPackage(Long.valueOf(idHousehold));
+        Optional<Package> packageOptional = packageService.getLastPackageByHouseholdId(Long.valueOf(idHousehold));
 
         if (packageOptional.isEmpty() || packageOptional.get().getDeliveredDate() != null &&
                 DAYS.between(LocalDate.now(), packageOptional.get().getDeliveredDate()) > dateThreshold) {

@@ -8,11 +8,11 @@ public class PackageProducts {
     @EmbeddedId
     private PackageProductId id = new PackageProductId();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @MapsId("productId")
     private Product product;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @MapsId("packageId")
     private Package pack;
 
