@@ -17,7 +17,7 @@ public class Household {
     @Column(name = "number_of_people")
     private Long numberOfPeople;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "household", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "household")
     private List<Package> packages;
 
     @Column

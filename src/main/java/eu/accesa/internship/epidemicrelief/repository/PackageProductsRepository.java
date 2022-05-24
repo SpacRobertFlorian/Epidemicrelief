@@ -41,4 +41,5 @@ public interface PackageProductsRepository extends CrudRepository<PackageProduct
     @Modifying
     @Query("delete from PackageProducts p where p.pack.id=:pack_id")
     void delete(@Param("pack_id") Long pack_id);
+
 }

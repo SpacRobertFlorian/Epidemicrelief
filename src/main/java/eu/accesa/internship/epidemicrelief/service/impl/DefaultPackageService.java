@@ -97,8 +97,11 @@ public class DefaultPackageService implements PackageService {
     @Transactional
     @Override
     public void cancelPackage(Long packageId) {
-        packageProductsRepository.delete(packageId);
+//        packageProductsRepository.delete(packageId);
         Optional<Package> packageOptional = packageRepository.findById(packageId);
+        List<PackageProducts> packageProducts = packageProductsRepository.findById_PackageId(packageId);
+        packageProductsRepository.deleteAll(packageProducts);
+
         if (packageOptional.isPresent()) {
             packageRepository.delete(packageOptional.get());
         } else {

@@ -1,6 +1,7 @@
 package eu.accesa.internship.epidemicrelief.model;
 
 import eu.accesa.internship.epidemicrelief.utils.enums.EnumPackageStatus;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.NaturalIdCache;
 
 import javax.persistence.*;
@@ -10,9 +11,9 @@ import java.util.List;
 @Entity
 @NaturalIdCache
 @Table(name = "package")
-//@org.hibernate.annotations.Cache(
-//        usage = CacheConcurrencyStrategy.READ_WRITE
-//)
+@org.hibernate.annotations.Cache(
+        usage = CacheConcurrencyStrategy.READ_WRITE
+)
 public class Package {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,7 +22,7 @@ public class Package {
     @ManyToOne(fetch = FetchType.LAZY)
     private Household household;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<PackageProducts> products;
 
     @Column
