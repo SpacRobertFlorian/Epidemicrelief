@@ -1,5 +1,6 @@
 package eu.accesa.internship.epidemicrelief.repository;
 
+import eu.accesa.internship.epidemicrelief.model.PackageProducts;
 import eu.accesa.internship.epidemicrelief.utils.enums.ProductCategory;
 import eu.accesa.internship.epidemicrelief.model.Product;
 import org.springframework.data.repository.CrudRepository;
@@ -33,6 +34,5 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
 
     @NonNull
     Optional<Product> findProductByUuid(String uuid);
-
 
 }

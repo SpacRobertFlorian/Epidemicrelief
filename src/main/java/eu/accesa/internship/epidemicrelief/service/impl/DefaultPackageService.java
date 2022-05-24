@@ -93,20 +93,28 @@ public class DefaultPackageService implements PackageService {
         packageRepository.save(packageStatus);
     }
 
-    //TODO nu imi face stergerea
     @Transactional
     @Override
     public void cancelPackage(Long packageId) {
 //        packageProductsRepository.delete(packageId);
         Optional<Package> packageOptional = packageRepository.findById(packageId);
         List<PackageProducts> packageProducts = packageProductsRepository.findById_PackageId(packageId);
+        rollBack(packageProducts);
         packageProductsRepository.deleteAll(packageProducts);
+
 
         if (packageOptional.isPresent()) {
             packageRepository.delete(packageOptional.get());
         } else {
             throw new EntityNotFoundException("Unable to find package to delete; id: " + packageId);
 
+        }
+    }
+
+    private void rollBack(List<PackageProducts> packageProducts) {
+        for (PackageProducts p : packageProducts) {
+            Optional<Product> productRollBack = productRepository.findProductByUuid(p.getProduct().getUuid());
+            productRollBack.ifPresent(product -> product.setStock(product.getStock() + p.getStock()));
         }
     }
 
