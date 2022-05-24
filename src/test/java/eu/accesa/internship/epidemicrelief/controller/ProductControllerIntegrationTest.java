@@ -51,7 +51,7 @@ public class ProductControllerIntegrationTest {
         mockMvc.perform(get(GET_PRODUCT_URL))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists(PRODUCTS_ATTRIBUTE))
-                .andExpect(model().attribute(PRODUCTS_ATTRIBUTE, hasSize(5)))
+                .andExpect(model().attribute(PRODUCTS_ATTRIBUTE, hasSize(6)))
                 .andExpect(view().name(GET_PRODUCTS_EXPECTED_VIEW_NAME));
     }
 

@@ -3,6 +3,7 @@ package eu.accesa.internship.epidemicrelief.repository;
 import eu.accesa.internship.epidemicrelief.model.Package;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -16,13 +17,7 @@ public interface PackageRepository extends CrudRepository<Package, Long> {
      * @return list of packages in the database
      */
     @Override
-    @NotNull
+    @NonNull
     List<Package> findAll();
 
-    /**
-     * Deletes a package currently in the database by id
-     *
-     * @param id id of the package
-     */
-    void deletePackageById(Long id);
 }

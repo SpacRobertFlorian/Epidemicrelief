@@ -1,6 +1,7 @@
 package eu.accesa.internship.epidemicrelief.facade;
 
 import eu.accesa.internship.epidemicrelief.data.PackageData;
+import org.springframework.lang.NonNull;
 
 import javax.validation.constraints.NotNull;
 import java.util.Optional;
@@ -15,6 +16,7 @@ public interface PackageFacade {
      * @param idHousehold id of the household
      * @return an Optional containing the last package of a household
      */
+    @NonNull
     Optional<PackageData> getPackageByIdHousehold(@NotNull Long idHousehold);
 
     /**

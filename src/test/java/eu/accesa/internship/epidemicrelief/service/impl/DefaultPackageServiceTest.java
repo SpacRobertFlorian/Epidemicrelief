@@ -40,8 +40,6 @@ public class DefaultPackageServiceTest {
     private Household household;
     @Mock
     private PackageProducts packageProducts;
-    @Spy
-    private ProductVisitor productVisitor;
     private PackageService packageService;
 
     @Before
@@ -60,6 +58,7 @@ public class DefaultPackageServiceTest {
         List<Package> returnedPackageList = packageService.getAllPackages();
 
         verify(packageRepository).findAll();
+        
         assertSame(returnedPackageList, packageList);
     }
 
@@ -121,6 +120,7 @@ public class DefaultPackageServiceTest {
 
         verify(householdRepository).findById(1L);
         verify(packageRepository).save(pack);
+
     }
 
     @Test(expected = NullPointerException.class)
@@ -147,23 +147,20 @@ public class DefaultPackageServiceTest {
         verify(packageRepository).save(pack);
     }
 
-    //TODO imi da nullPointer exception pe Visitor
-//    @Test
-//    public void givenValidPackage_whenFillPackage_expectFillPackage() {
-//        Household household = new Household();
-//        household.setId(1L);
-//
-//        Package pack = new Package();
-//        pack.setHousehold(household);
-//        pack.setId(1L);
-//
-//        productVisitor = Mockito.spy(new ProductVisitor());
-//
-//        household.setPackages(List.of(pack));
-//
-//        packageService.fillPackage(pack);
-//
-//        verify(packageRepository).save(pack);
-//
-//    }
+    @Test
+    public void givenValidPackage_whenFillPackage_expectFillPackage() {
+        Household household = new Household();
+        household.setId(1L);
+
+        Package pack = new Package();
+        pack.setHousehold(household);
+        pack.setId(1L);
+
+        household.setPackages(List.of(pack));
+
+        packageService.fillPackage(pack);
+
+        verify(packageRepository).save(pack);
+
+    }
 }

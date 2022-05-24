@@ -22,12 +22,14 @@ public class DefaultPackageService implements PackageService {
     private final ProductRepository productRepository;
     private final HouseholdRepository householdRepository;
     private final PackageProductsRepository packageProductsRepository;
-
     private final NecessityRepository necessityRepository;
 
 
     @Autowired
-    public DefaultPackageService(PackageRepository packageRepository, ProductRepository productRepository, HouseholdRepository householdRepository, PackageProductsRepository packageProductsRepository, NecessityRepository necessityRepository) {
+    public DefaultPackageService(PackageRepository packageRepository, ProductRepository productRepository,
+                                 HouseholdRepository householdRepository,
+                                 PackageProductsRepository packageProductsRepository,
+                                 NecessityRepository necessityRepository) {
 
         this.packageRepository = packageRepository;
         this.productRepository = productRepository;
@@ -37,12 +39,12 @@ public class DefaultPackageService implements PackageService {
     }
 
     @Override
-    public List<Package> getAllPackages() {
+    public @org.jetbrains.annotations.NotNull List<Package> getAllPackages() {
         return packageRepository.findAll();
     }
 
     @Override
-    public Optional<Package> getLastPackageByHouseholdId(Long idHousehold) {
+    public @org.jetbrains.annotations.NotNull Optional<Package> getLastPackageByHouseholdId(Long idHousehold) {
         Optional<Household> household = householdRepository.findById(idHousehold);
         if (household.isPresent()) {
             Optional<Package> packageOptional = household.get().getLatestPackage();
@@ -68,7 +70,7 @@ public class DefaultPackageService implements PackageService {
     }
 
     @Override
-    public void updatePackage(@NotNull Package packageStatus) {
+    public void updatePackage(@NotNull @org.jetbrains.annotations.NotNull Package packageStatus) {
         Objects.requireNonNull(packageStatus);
 
         Optional<Household> householdOptional = householdRepository.findById(packageStatus.getHousehold().getId());
@@ -79,7 +81,7 @@ public class DefaultPackageService implements PackageService {
     }
 
     @Override
-    public void sendPackage(@NotNull Package packageStatus) {
+    public void sendPackage(@NotNull @org.jetbrains.annotations.NotNull Package packageStatus) {
         Objects.requireNonNull(packageStatus);
         Optional<Household> householdOptional = householdRepository.findById(packageStatus.getHousehold().getId());
 
@@ -95,8 +97,6 @@ public class DefaultPackageService implements PackageService {
     @Transactional
     @Override
     public void cancelPackage(Long packageId) {
-        // List<PackageProducts> products = packageProductsRepository.findById_PackageId(packageId);
-        //packageProductsRepository.deleteAll(products);
         packageProductsRepository.delete(packageId);
         Optional<Package> packageOptional = packageRepository.findById(packageId);
         if (packageOptional.isPresent()) {
@@ -125,7 +125,7 @@ public class DefaultPackageService implements PackageService {
 
 
     @Override
-    public void fillPackage(Package aPackage) {
+    public void fillPackage(@org.jetbrains.annotations.NotNull Package aPackage) {
         List<ProductNecessity> productNecessityList = createNecessityList(aPackage);
         for (ProductNecessity product : productNecessityList) {
 

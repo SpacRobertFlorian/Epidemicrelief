@@ -13,17 +13,16 @@ public class DefaultPackageFacade implements PackageFacade {
 
     private final PackageService packageService;
     private final PackageConverter packageConverter;
-    private final PackageStatus packageStatus;
 
     public DefaultPackageFacade(PackageService packageService, PackageConverter packageConverter) {
         this.packageService = packageService;
         this.packageConverter = packageConverter;
-        this.packageStatus = new PackageStatus();
     }
 
     @NotNull
     @Override
-    public Optional<PackageData> getPackageByIdHousehold(Long idHousehold) {
+    public @org.jetbrains.annotations.NotNull Optional<PackageData> getPackageByIdHousehold(Long idHousehold) {
+
         return packageService.getLastPackageByHouseholdId(idHousehold).map(packageConverter::from);
     }
 

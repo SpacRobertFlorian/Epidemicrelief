@@ -3,6 +3,7 @@ package eu.accesa.internship.epidemicrelief.repository;
 import eu.accesa.internship.epidemicrelief.utils.enums.ProductCategory;
 import eu.accesa.internship.epidemicrelief.model.Product;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Repository;
 
 import javax.validation.constraints.NotNull;
@@ -20,15 +21,17 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
      *
      * @return list of products in the database
      */
-    @NotNull
+    @NonNull
     @Override
     List<Product> findAll();
 
-    @NotNull
-    List<Product> findAllByProductCategory(ProductCategory productCategory);
+    @NonNull
+    List<Product> findAllByProductCategory(@NonNull ProductCategory productCategory);
 
-    @NotNull
+    @NonNull
     Optional<Product> findByUuid(String uuid);
+
+    @NonNull
     Optional<Product> findProductByUuid(String uuid);
 
 

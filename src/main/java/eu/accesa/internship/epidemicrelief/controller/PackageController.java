@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import static eu.accesa.internship.epidemicrelief.utils.enums.EnumPackageStatus.NOT_CREATED;
@@ -31,12 +32,11 @@ import static java.time.temporal.ChronoUnit.DAYS;
 public class PackageController {
     private final HouseholdFacade householdFacade;
     private final PackageService packageService;
-
     private final PackageFacade packageFacade;
     @Value("${minim.stock.threshold}")
     private int threshold;
     @Value("${minim.date}")
-    private int dateThreshold;
+    private Integer dateThreshold;
 
     @Autowired
     public PackageController(HouseholdFacade householdFacade, ProductFacade productFacade, PackageService packageService, PackageFacade packageFacade) {
@@ -105,7 +105,6 @@ public class PackageController {
             return "redirect:/packages/";
         }
         return "redirect:/packages/deliver/" + idHousehold;
-        //return "redirect:/packages/" + packageStatus.getStatus() + "/" + idHousehold;
     }
 
     @GetMapping("/history")
