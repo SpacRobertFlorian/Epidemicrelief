@@ -5,8 +5,9 @@ import eu.accesa.internship.epidemicrelief.data.PackageData;
 import eu.accesa.internship.epidemicrelief.exception.CustomException;
 import eu.accesa.internship.epidemicrelief.facade.HouseholdFacade;
 import eu.accesa.internship.epidemicrelief.facade.PackageFacade;
-import eu.accesa.internship.epidemicrelief.facade.ProductFacade;
+import eu.accesa.internship.epidemicrelief.model.DeliveryDateThreshold;
 import eu.accesa.internship.epidemicrelief.model.Package;
+import eu.accesa.internship.epidemicrelief.repository.DeliveryDateThresholdRepository;
 import eu.accesa.internship.epidemicrelief.service.PackageService;
 import eu.accesa.internship.epidemicrelief.utils.enums.EnumPackageStatus;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Optional;
 
 import static eu.accesa.internship.epidemicrelief.utils.enums.EnumPackageStatus.NOT_CREATED;
@@ -33,17 +33,20 @@ public class PackageController {
     private final HouseholdFacade householdFacade;
     private final PackageService packageService;
     private final PackageFacade packageFacade;
+
+    private final DeliveryDateThresholdRepository dateThreshold;
     @Value("${minim.stock.threshold}")
     private int threshold;
-    @Value("${minim.date}")
-    private Integer dateThreshold;
+    //@Value("${minim.date}")
+//    private Integer dateThreshold;
 
     @Autowired
-    public PackageController(HouseholdFacade householdFacade, ProductFacade productFacade, PackageService packageService, PackageFacade packageFacade) {
+    public PackageController(HouseholdFacade householdFacade, PackageService packageService, PackageFacade packageFacade, DeliveryDateThresholdRepository dateThreshold) {
         this.householdFacade = householdFacade;
         this.packageService = packageService;
         this.packageFacade = packageFacade;
 
+        this.dateThreshold = dateThreshold;
     }
 
     @GetMapping
@@ -62,7 +65,10 @@ public class PackageController {
         Optional<PackageData> packageData = packageFacade.getPackageByIdHousehold(Long.valueOf(idHousehold));
 
         model.addAttribute("threshold", threshold);
-        model.addAttribute("dateThreshold", dateThreshold);
+        Optional<DeliveryDateThreshold> thresholdDelivery = dateThreshold.findById(1L);
+
+        thresholdDelivery.ifPresent(deliveryDateThreshold -> model.addAttribute("dateThreshold",
+                deliveryDateThreshold.getDeliveryDateThreshold()));
         model.addAttribute("idHousehold", idHousehold);
 
         if (packageData.isEmpty()) {
@@ -84,9 +90,11 @@ public class PackageController {
     @PostMapping("/deliver/{idHousehold}")
     public String handlePackage(@PathVariable String idHousehold, Model model) {
         Optional<Package> packageOptional = packageService.getLastPackageByHouseholdId(Long.valueOf(idHousehold));
-
+        Optional<DeliveryDateThreshold> thresholdDelivery = dateThreshold.findById(1L);
         if (packageOptional.isEmpty() || packageOptional.get().getDeliveredDate() != null &&
-                DAYS.between(LocalDate.now(), packageOptional.get().getDeliveredDate()) > dateThreshold) {
+                thresholdDelivery.isPresent() &&
+                DAYS.between(LocalDate.now(), packageOptional.get().getDeliveredDate()) > thresholdDelivery.get().getDeliveryDateThreshold()) {
+
             packageService.createPackage(Long.valueOf(idHousehold));
             return "redirect:/packages/deliver/" + idHousehold;
         }

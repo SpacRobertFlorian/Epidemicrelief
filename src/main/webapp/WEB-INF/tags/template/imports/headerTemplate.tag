@@ -12,5 +12,8 @@
         <li class="nav-item">
             <a class="navbar-brand" href="/packages/history/">Package History</a>
         </li>
+        <li class="nav-item">
+            <a class="navbar-brand" href="/configuration/deliverydatethreshold/">Configuration Delivery Date</a>
+        </li>
     </ul>
 </nav>
