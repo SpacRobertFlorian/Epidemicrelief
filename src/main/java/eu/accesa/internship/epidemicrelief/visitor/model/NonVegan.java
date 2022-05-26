@@ -1,15 +1,13 @@
-package eu.accesa.internship.epidemicrelief.entity;
+package eu.accesa.internship.epidemicrelief.visitor.model;
 
-import eu.accesa.internship.epidemicrelief.entity.visitor.Visitor;
-import eu.accesa.internship.epidemicrelief.entity.visitor.model.ProductNecessity;
+import eu.accesa.internship.epidemicrelief.visitor.Visitor;
 
 import java.util.List;
 
-public class Family implements HouseholdMembers {
-
+public class NonVegan implements HouseholdMembers {
     private Long numberOfPersons;
 
-    public Family(Long numberOfPersons) {
+    public NonVegan(Long numberOfPersons) {
         this.numberOfPersons = numberOfPersons;
     }
 
@@ -24,5 +22,6 @@ public class Family implements HouseholdMembers {
     @Override
     public List<ProductNecessity> productNecessityList(Visitor visitor) {
         return visitor.visit(this);
+
     }
 }

@@ -1,8 +1,7 @@
 package eu.accesa.internship.epidemicrelief.service.impl;
 
-import eu.accesa.internship.epidemicrelief.entity.*;
-import eu.accesa.internship.epidemicrelief.entity.visitor.ProductVisitor;
-import eu.accesa.internship.epidemicrelief.entity.visitor.model.ProductNecessity;
+import eu.accesa.internship.epidemicrelief.visitor.ProductVisitor;
+import eu.accesa.internship.epidemicrelief.visitor.model.*;
 import eu.accesa.internship.epidemicrelief.model.*;
 import eu.accesa.internship.epidemicrelief.model.Package;
 import eu.accesa.internship.epidemicrelief.repository.*;

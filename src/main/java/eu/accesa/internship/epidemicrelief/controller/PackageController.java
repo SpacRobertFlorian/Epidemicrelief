@@ -33,6 +33,11 @@ public class PackageController {
     private final HouseholdFacade householdFacade;
     private final PackageService packageService;
     private final PackageFacade packageFacade;
+    private static final String PACKAGE_IST_URL = "package/packageList";
+    private static final String REDIRECT_PACKAGES_URL = "redirect:/packages/";
+    private static final String REDIRECT_PACKAGE_DELIVERY_URL = "redirect:/packages/deliver/";
+    private static final String PACKAGE_HISTORY_URL = "package/packageHistory";
+    private static final String CREATE_PACKAGE_URL = "package/createPackage";
 
     private final DeliveryDateThresholdRepository dateThreshold;
     @Value("${minim.stock.threshold}")
@@ -50,7 +55,7 @@ public class PackageController {
     @GetMapping
     public String getPackages(Model model) {
         model.addAttribute("households", householdFacade.getHouseholds());
-        return "package/packageList";
+        return PACKAGE_IST_URL;
     }
 
     @GetMapping("/deliver/{idHousehold}")
@@ -70,15 +75,50 @@ public class PackageController {
 
         if (packageData.isEmpty()) {
             model.addAttribute("status", NOT_CREATED);
-            return "package/createPackage";
+            return CREATE_PACKAGE_URL;
         }
 
         model.addAttribute("package", packageData.get());
-        return "package/createPackage";
+        return CREATE_PACKAGE_URL;
     }
+
+    //TODO sa regandesc cum sa fac sa bag si facade in calcul
+//    @PostMapping("/deliver/{idHousehold}")
+//    public String handlePackage(@PathVariable String idHousehold, Model model) {
+//
+//        Optional<Package> packageOptional = packageService.getLastPackageByHouseholdId(Long.valueOf(idHousehold));
+//        Optional<DeliveryDateThreshold> thresholdDelivery = dateThreshold.findById(1L);
+//        if (packageOptional.isPresent()) {
+//            Package packageStatus = packageOptional.get();
+//            if (thresholdDelivery.isPresent()) {
+//                DeliveryDateThreshold deliveryDateThreshold = thresholdDelivery.get();
+//                if (DAYS.between(LocalDate.now(), packageStatus.getDeliveredDate()) > deliveryDateThreshold.getDeliveryDateThreshold()) {
+//                    packageService.createPackage(Long.valueOf(idHousehold));
+//                    return REDIRECT_PACKAGE_DELIVERY_URL + idHousehold;
+//                }
+//            }
+//            packageStatus.setStatus(packageStatus.getStatus().next());
+//            packageService.updatePackage(packageStatus);
+//
+//            switch (packageStatus.getStatus()) {
+//                case READY: {
+//                    packageService.fillPackage(packageStatus);
+//                    return REDIRECT_PACKAGE_DELIVERY_URL + idHousehold;
+//                }
+//                case DELIVERED: {
+//                    packageService.sendPackage(packageStatus);
+//                    return REDIRECT_PACKAGES_URL;
+//                }
+//            }
+//        } else {
+//            packageService.createPackage(Long.valueOf(idHousehold));
+//        }
+//        return REDIRECT_PACKAGE_DELIVERY_URL + idHousehold;
+//    }
 
     @PostMapping("/deliver/{idHousehold}")
     public String handlePackage(@PathVariable String idHousehold, Model model) {
+
         Optional<Package> packageOptional = packageService.getLastPackageByHouseholdId(Long.valueOf(idHousehold));
         Optional<DeliveryDateThreshold> thresholdDelivery = dateThreshold.findById(1L);
 
@@ -87,7 +127,7 @@ public class PackageController {
                 DAYS.between(LocalDate.now(), packageOptional.get().getDeliveredDate()) > thresholdDelivery.get().getDeliveryDateThreshold()) {
 
             packageService.createPackage(Long.valueOf(idHousehold));
-            return "redirect:/packages/deliver/" + idHousehold;
+            return REDIRECT_PACKAGE_DELIVERY_URL + idHousehold;
         }
 
         Package packageStatus = packageOptional.get();
@@ -96,20 +136,20 @@ public class PackageController {
 
         if (EnumPackageStatus.READY.equals(packageStatus.getStatus())) {
             packageService.fillPackage(packageOptional.get());
-            return "redirect:/packages/deliver/" + idHousehold;
+            return REDIRECT_PACKAGE_DELIVERY_URL + idHousehold;
         }
 
         if (EnumPackageStatus.DELIVERED.equals(packageStatus.getStatus())) {
             packageService.sendPackage(packageStatus);
-            return "redirect:/packages/";
+            return REDIRECT_PACKAGES_URL;
         }
-        return "redirect:/packages/deliver/" + idHousehold;
+        return REDIRECT_PACKAGE_DELIVERY_URL + idHousehold;
     }
 
     @GetMapping("/history")
     public String getPackageHistory(Model model) {
         model.addAttribute("households", householdFacade.getHouseholds());
-        return "package/packageHistory";
+        return PACKAGE_HISTORY_URL;
     }
 
     @PostMapping("/cancel/{idHousehold}")
@@ -118,6 +158,6 @@ public class PackageController {
 
         if (packageData.isPresent() && packageData.get().getDeliveredDate() == null)
             packageFacade.cancelPackage(packageData.get().getId());
-        return "redirect:/packages/";
+        return REDIRECT_PACKAGES_URL;
     }
 }

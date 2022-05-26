@@ -11,6 +11,8 @@ import java.time.LocalDate;
 import static java.time.temporal.ChronoUnit.DAYS;
 
 public class PackageConverter {
+    private static final HouseholdConverter householdConverter = new HouseholdConverter();
+
     /**
      * Converts Package to PackageData
      *
@@ -22,7 +24,7 @@ public class PackageConverter {
         PackageData target = new PackageData();
 
         target.setId(source.getId());
-        target.setHousehold(source.getHousehold());
+        target.setHousehold(householdConverter.from(source.getHousehold()));
         target.setStatus(source.getStatus());
         target.setCreatedDate(source.getCreatedDate());
         target.setProducts(source.getProducts());
@@ -30,10 +32,8 @@ public class PackageConverter {
 
         if (source.getDeliveredDate() != null) {
             target.setDateDiff(DAYS.between(source.getDeliveredDate(), LocalDate.now()));
-        } else {
-            target.setDateDiff(null);
-
         }
+
         return target;
     }
 
@@ -50,7 +50,7 @@ public class PackageConverter {
         target.setProducts(source.getProducts());
         target.setStatus(source.getStatus());
         target.setCreatedDate(source.getCreatedDate());
-        target.setHousehold(source.getHousehold());
+        target.setHousehold(householdConverter.to(source.getHousehold()));
         target.setId(source.getId());
         target.setDeliveredDate(source.getDeliveredDate());
 

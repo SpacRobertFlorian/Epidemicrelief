@@ -1,6 +1,5 @@
 package eu.accesa.internship.epidemicrelief.data;
 
-import eu.accesa.internship.epidemicrelief.model.Household;
 import eu.accesa.internship.epidemicrelief.model.PackageProducts;
 import eu.accesa.internship.epidemicrelief.utils.enums.EnumPackageStatus;
 
@@ -10,7 +9,7 @@ import java.util.List;
 public class PackageData {
 
     private Long id;
-    private Household household;
+    private HouseholdData household;
     private List<PackageProducts> products;
     private LocalDate deliveredDate;
     private LocalDate createdDate;
@@ -34,11 +33,11 @@ public class PackageData {
         this.id = id;
     }
 
-    public Household getHousehold() {
+    public HouseholdData getHousehold() {
         return household;
     }
 
-    public void setHousehold(Household household) {
+    public void setHousehold(HouseholdData household) {
         this.household = household;
     }
 

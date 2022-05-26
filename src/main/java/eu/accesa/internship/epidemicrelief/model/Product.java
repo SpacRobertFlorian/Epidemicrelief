@@ -16,7 +16,6 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    //TODO sa vad daca se face binary scot acel varchar si numele din uuid in codProdus
     @Column(unique = true, columnDefinition = "VARCHAR(255)")
     private String uuid;
     @Column(unique = true)

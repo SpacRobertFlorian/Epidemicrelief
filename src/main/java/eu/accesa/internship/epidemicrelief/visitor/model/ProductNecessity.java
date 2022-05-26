@@ -1,4 +1,4 @@
-package eu.accesa.internship.epidemicrelief.entity.visitor.model;
+package eu.accesa.internship.epidemicrelief.visitor.model;
 
 public class ProductNecessity {
     private String uuid;

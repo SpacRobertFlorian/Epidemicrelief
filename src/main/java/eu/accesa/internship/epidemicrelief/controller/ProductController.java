@@ -24,11 +24,13 @@ public class ProductController {
     private final ProductFacade productFacade;
     private static final String PRODUCT_LIST_JSP = "product/productList";
     private static final String PRODUCTS_URL = "redirect:/products";
+    private static final String UPDATE_PRODUCT_URL = "product/updateProduct";
+    private static final String ADD_PRODUCT_URL = "product/addProduct";
     @Value("${minim.stock.threshold}")
     private int threshold;
 
     @Autowired
-    public ProductController(ProductFacade   productFacade) {
+    public ProductController(ProductFacade productFacade) {
         this.productFacade = productFacade;
     }
 
@@ -65,7 +67,7 @@ public class ProductController {
     @GetMapping("/new")
     public String getNewProductForm(Model model) {
         model.addAttribute("categories", Arrays.asList(ProductCategory.values()));
-        return "product/addProduct";
+        return ADD_PRODUCT_URL;
     }
 
     //TODO Task 5
@@ -89,7 +91,7 @@ public class ProductController {
         }
         model.addAttribute("categories", Arrays.asList(ProductCategory.values()));
         model.addAttribute("product", productData.get());
-        return "product/updateProduct";
+        return UPDATE_PRODUCT_URL;
     }
 
     @PostMapping("/update")

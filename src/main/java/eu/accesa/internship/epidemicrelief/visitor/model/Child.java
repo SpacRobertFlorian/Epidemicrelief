@@ -1,14 +1,14 @@
-package eu.accesa.internship.epidemicrelief.entity;
+package eu.accesa.internship.epidemicrelief.visitor.model;
 
-import eu.accesa.internship.epidemicrelief.entity.visitor.Visitor;
-import eu.accesa.internship.epidemicrelief.entity.visitor.model.ProductNecessity;
+import eu.accesa.internship.epidemicrelief.visitor.Visitor;
 
 import java.util.List;
 
-public class Vegan implements HouseholdMembers {
+public class Child implements HouseholdMembers {
+
     private Long numberOfPersons;
 
-    public Vegan(Long numberOfPersons) {
+    public Child(Long numberOfPersons) {
         this.numberOfPersons = numberOfPersons;
     }
 

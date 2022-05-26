@@ -8,7 +8,6 @@ import org.springframework.context.annotation.ImportResource;
 @ImportResource("classpath:epidemicrelief-spring.xml")
 public class Launcher {
 
-    //TODO put the time threshold in database(a new column) and take it whenever I need it and change it from front
     public static void main(String[] args) {
 
         SpringApplication.run(Launcher.class, args);

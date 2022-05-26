@@ -1,15 +1,14 @@
-package eu.accesa.internship.epidemicrelief.entity;
+package eu.accesa.internship.epidemicrelief.visitor.model;
 
-import eu.accesa.internship.epidemicrelief.entity.visitor.Visitor;
-import eu.accesa.internship.epidemicrelief.entity.visitor.model.ProductNecessity;
+import eu.accesa.internship.epidemicrelief.visitor.Visitor;
 
 import java.util.List;
 
-public class Child implements HouseholdMembers {
+public class Family implements HouseholdMembers {
 
     private Long numberOfPersons;
 
-    public Child(Long numberOfPersons) {
+    public Family(Long numberOfPersons) {
         this.numberOfPersons = numberOfPersons;
     }
 

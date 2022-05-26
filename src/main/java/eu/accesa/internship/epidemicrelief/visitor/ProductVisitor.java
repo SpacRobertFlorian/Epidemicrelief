@@ -1,10 +1,10 @@
-package eu.accesa.internship.epidemicrelief.entity.visitor;
+package eu.accesa.internship.epidemicrelief.visitor;
 
-import eu.accesa.internship.epidemicrelief.entity.Child;
-import eu.accesa.internship.epidemicrelief.entity.Family;
-import eu.accesa.internship.epidemicrelief.entity.NonVegan;
-import eu.accesa.internship.epidemicrelief.entity.Vegan;
-import eu.accesa.internship.epidemicrelief.entity.visitor.model.ProductNecessity;
+import eu.accesa.internship.epidemicrelief.visitor.model.Child;
+import eu.accesa.internship.epidemicrelief.visitor.model.Family;
+import eu.accesa.internship.epidemicrelief.visitor.model.NonVegan;
+import eu.accesa.internship.epidemicrelief.visitor.model.Vegan;
+import eu.accesa.internship.epidemicrelief.visitor.model.ProductNecessity;
 import eu.accesa.internship.epidemicrelief.model.Necessity;
 import eu.accesa.internship.epidemicrelief.repository.NecessityRepository;
 import eu.accesa.internship.epidemicrelief.utils.enums.PersonCategory;

@@ -1,6 +1,5 @@
 package eu.accesa.internship.epidemicrelief.service.impl;
 
-import eu.accesa.internship.epidemicrelief.entity.visitor.ProductVisitor;
 import eu.accesa.internship.epidemicrelief.model.Household;
 import eu.accesa.internship.epidemicrelief.model.Package;
 import eu.accesa.internship.epidemicrelief.model.PackageProducts;
@@ -10,7 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.Spy;
 
 import java.util.ArrayList;
 import java.util.List;
