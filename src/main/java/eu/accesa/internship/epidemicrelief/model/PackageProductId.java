@@ -48,6 +48,14 @@ public class PackageProductId implements Serializable {
     }
 
     @Override
+    public String toString() {
+        return "PackageProductId{" +
+                "productId=" + productId +
+                ", packageId=" + packageId +
+                '}';
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(productId, packageId);
     }

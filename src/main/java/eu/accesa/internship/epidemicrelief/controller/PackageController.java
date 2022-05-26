@@ -91,6 +91,7 @@ public class PackageController {
     public String handlePackage(@PathVariable String idHousehold, Model model) {
         Optional<Package> packageOptional = packageService.getLastPackageByHouseholdId(Long.valueOf(idHousehold));
         Optional<DeliveryDateThreshold> thresholdDelivery = dateThreshold.findById(1L);
+
         if (packageOptional.isEmpty() || packageOptional.get().getDeliveredDate() != null &&
                 thresholdDelivery.isPresent() &&
                 DAYS.between(LocalDate.now(), packageOptional.get().getDeliveredDate()) > thresholdDelivery.get().getDeliveryDateThreshold()) {
@@ -121,7 +122,6 @@ public class PackageController {
         return "package/packageHistory";
     }
 
-    //TODO Cancel button
     @PostMapping("/cancel/{idHousehold}")
     public String cancelPackage(@PathVariable String idHousehold, Model model) {
         Optional<PackageData> packageData = packageFacade.getPackageByIdHousehold(Long.valueOf(idHousehold));

@@ -64,9 +64,11 @@ public class ProductVisitor implements Visitor {
         List<ProductNecessity> productNecessityList = new ArrayList<>();
         List<Necessity> necessities = necessityRepository.findAllByPersonCategory(PersonCategory.CHILD);
         for (Necessity necessity : necessities) {
-            ProductNecessity productNecessity = new ProductNecessity(necessity.getProduct().getUuid(), necessity.getQuantity());
-            productNecessity.setStock(necessity.getQuantity() * child.getNumberOfPersons());
-            productNecessityList.add(productNecessity);
+            if (necessity.getProduct() != null) {
+                ProductNecessity productNecessity = new ProductNecessity(necessity.getProduct().getUuid(), necessity.getQuantity());
+                productNecessity.setStock(necessity.getQuantity() * child.getNumberOfPersons());
+                productNecessityList.add(productNecessity);
+            }
         }
         return productNecessityList;
 

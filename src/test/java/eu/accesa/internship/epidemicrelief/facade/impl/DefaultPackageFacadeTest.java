@@ -2,7 +2,6 @@ package eu.accesa.internship.epidemicrelief.facade.impl;
 
 import eu.accesa.internship.epidemicrelief.converter.PackageConverter;
 import eu.accesa.internship.epidemicrelief.data.PackageData;
-import eu.accesa.internship.epidemicrelief.model.Household;
 import eu.accesa.internship.epidemicrelief.model.Package;
 import eu.accesa.internship.epidemicrelief.service.PackageService;
 import org.junit.Before;
@@ -11,7 +10,8 @@ import org.mockito.Mock;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -43,6 +43,14 @@ public class DefaultPackageFacadeTest {
 
         verify(packageService).getLastPackageByHouseholdId(1L);
         verify(packageConverter).from(pack);
+        verifyNoMoreInteractions(packageConverter);
+    }
+
+    @Test
+    public void givenPackageId_whenCancelPackage_expectDeletePackage() {
+        packageFacade.cancelPackage(1L);
+
+        verify(packageService).cancelPackage(1L);
         verifyNoMoreInteractions(packageConverter);
     }
 }

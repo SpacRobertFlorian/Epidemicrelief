@@ -4,7 +4,6 @@ import eu.accesa.internship.epidemicrelief.converter.PackageConverter;
 import eu.accesa.internship.epidemicrelief.data.PackageData;
 import eu.accesa.internship.epidemicrelief.facade.PackageFacade;
 import eu.accesa.internship.epidemicrelief.service.PackageService;
-import eu.accesa.internship.epidemicrelief.utils.packagestatus.PackageStatus;
 
 import javax.validation.constraints.NotNull;
 import java.util.Optional;
