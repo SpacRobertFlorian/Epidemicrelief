@@ -93,12 +93,26 @@ public class HouseholdFacadeTest {
 
     @Test
     public void givenValidHouseholdData_whenUpdateHousehold_expectUpdateHousehold() {
+        Household household = new Household();
+        HouseholdData householdData = new HouseholdData();
 
+        when(householdConverter.to(householdData)).thenReturn(household);
+
+        householdFacade.updateHousehold(householdData);
+
+        verify(householdConverter).to(householdData);
+        verify(householdService).updateHousehold(household);
+        verifyNoMoreInteractions(householdService);
+        verifyNoMoreInteractions(householdConverter);
     }
 
     @Test
     public void givenValidHouseholdId_whenDeleteHousehold_expectDeleteHousehold() {
+        householdFacade.deleteHousehold(1L);
 
+        verify(householdService).deleteHousehold(1L);
+        verifyNoMoreInteractions(householdService);
+        verifyNoMoreInteractions(householdConverter);
     }
 
 }

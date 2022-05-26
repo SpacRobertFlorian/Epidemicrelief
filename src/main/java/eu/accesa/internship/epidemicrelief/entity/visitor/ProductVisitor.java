@@ -36,12 +36,15 @@ public class ProductVisitor implements Visitor {
     @Override
     public List<ProductNecessity> visit(Family family) {
         List<ProductNecessity> productNecessityList = new ArrayList<>();
-
+        //TODO sa fac o filtrare sa nu fie null
         List<Necessity> necessities = necessityRepository.findAllByPersonCategory(PersonCategory.FAMILY);
+
         for (Necessity necessity : necessities) {
-            ProductNecessity productNecessity = new ProductNecessity(necessity.getProduct().getUuid(), necessity.getQuantity());
-            productNecessity.setStock(necessity.getQuantity() * family.getNumberOfPersons() * 60);
-            productNecessityList.add(productNecessity);
+            if (necessity != null) {
+                ProductNecessity productNecessity = new ProductNecessity(necessity.getProduct().getUuid(), necessity.getQuantity());
+                productNecessity.setStock(necessity.getQuantity() * family.getNumberOfPersons() * 60);
+                productNecessityList.add(productNecessity);
+            }
         }
         return productNecessityList;
     }

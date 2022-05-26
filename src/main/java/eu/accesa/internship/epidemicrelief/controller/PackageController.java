@@ -36,9 +36,7 @@ public class PackageController {
 
     private final DeliveryDateThresholdRepository dateThreshold;
     @Value("${minim.stock.threshold}")
-    private int threshold;
-    //@Value("${minim.date}")
-//    private Integer dateThreshold;
+    private int stockThreshold;
 
     @Autowired
     public PackageController(HouseholdFacade householdFacade, PackageService packageService, PackageFacade packageFacade, DeliveryDateThresholdRepository dateThreshold) {
@@ -55,7 +53,6 @@ public class PackageController {
         return "package/packageList";
     }
 
-
     @GetMapping("/deliver/{idHousehold}")
     public String getPackage(@PathVariable String idHousehold, Model model) {
         Optional<HouseholdData> household = householdFacade.getById(Long.parseLong(idHousehold));
@@ -64,7 +61,7 @@ public class PackageController {
         }
         Optional<PackageData> packageData = packageFacade.getPackageByIdHousehold(Long.valueOf(idHousehold));
 
-        model.addAttribute("threshold", threshold);
+        model.addAttribute("threshold", stockThreshold);
         Optional<DeliveryDateThreshold> thresholdDelivery = dateThreshold.findById(1L);
 
         thresholdDelivery.ifPresent(deliveryDateThreshold -> model.addAttribute("dateThreshold",
@@ -79,13 +76,6 @@ public class PackageController {
         model.addAttribute("package", packageData.get());
         return "package/createPackage";
     }
-
-    //TODO FACADE PACKAGE refactoring this post mapping
-//    @PostMapping("/deliver/{idHousehold}")
-//    public String handlePackage(@PathVariable String idHousehold, Model model) {
-//        Optional<PackageData> packageData = packageFacade.getPackageByIdHousehold(Long.valueOf(idHousehold));
-//        return packageFacade.changeStatus(packageData, Long.valueOf(idHousehold));
-//    }
 
     @PostMapping("/deliver/{idHousehold}")
     public String handlePackage(@PathVariable String idHousehold, Model model) {
