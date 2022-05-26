@@ -6,10 +6,8 @@ import eu.accesa.internship.epidemicrelief.exception.CustomException;
 import eu.accesa.internship.epidemicrelief.facade.HouseholdFacade;
 import eu.accesa.internship.epidemicrelief.facade.PackageFacade;
 import eu.accesa.internship.epidemicrelief.model.DeliveryDateThreshold;
-import eu.accesa.internship.epidemicrelief.model.Package;
 import eu.accesa.internship.epidemicrelief.repository.DeliveryDateThresholdRepository;
 import eu.accesa.internship.epidemicrelief.service.PackageService;
-import eu.accesa.internship.epidemicrelief.utils.enums.EnumPackageStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -20,11 +18,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.time.LocalDate;
 import java.util.Optional;
 
 import static eu.accesa.internship.epidemicrelief.utils.enums.EnumPackageStatus.NOT_CREATED;
-import static java.time.temporal.ChronoUnit.DAYS;
 
 @Controller
 @RequestMapping("/packages")
@@ -82,68 +78,9 @@ public class PackageController {
         return CREATE_PACKAGE_URL;
     }
 
-    //TODO sa regandesc cum sa fac sa bag si facade in calcul
-//    @PostMapping("/deliver/{idHousehold}")
-//    public String handlePackage(@PathVariable String idHousehold, Model model) {
-//
-//        Optional<Package> packageOptional = packageService.getLastPackageByHouseholdId(Long.valueOf(idHousehold));
-//        Optional<DeliveryDateThreshold> thresholdDelivery = dateThreshold.findById(1L);
-//        if (packageOptional.isPresent()) {
-//            Package packageStatus = packageOptional.get();
-//            if (thresholdDelivery.isPresent()) {
-//                DeliveryDateThreshold deliveryDateThreshold = thresholdDelivery.get();
-//                if (DAYS.between(LocalDate.now(), packageStatus.getDeliveredDate()) > deliveryDateThreshold.getDeliveryDateThreshold()) {
-//                    packageService.createPackage(Long.valueOf(idHousehold));
-//                    return REDIRECT_PACKAGE_DELIVERY_URL + idHousehold;
-//                }
-//            }
-//            packageStatus.setStatus(packageStatus.getStatus().next());
-//            packageService.updatePackage(packageStatus);
-//
-//            switch (packageStatus.getStatus()) {
-//                case READY: {
-//                    packageService.fillPackage(packageStatus);
-//                    return REDIRECT_PACKAGE_DELIVERY_URL + idHousehold;
-//                }
-//                case DELIVERED: {
-//                    packageService.sendPackage(packageStatus);
-//                    return REDIRECT_PACKAGES_URL;
-//                }
-//            }
-//        } else {
-//            packageService.createPackage(Long.valueOf(idHousehold));
-//        }
-//        return REDIRECT_PACKAGE_DELIVERY_URL + idHousehold;
-//    }
-
     @PostMapping("/deliver/{idHousehold}")
-    public String handlePackage(@PathVariable String idHousehold, Model model) {
-
-        Optional<Package> packageOptional = packageService.getLastPackageByHouseholdId(Long.valueOf(idHousehold));
-        Optional<DeliveryDateThreshold> thresholdDelivery = dateThreshold.findById(1L);
-
-        if (packageOptional.isEmpty() || packageOptional.get().getDeliveredDate() != null &&
-                thresholdDelivery.isPresent() &&
-                DAYS.between(LocalDate.now(), packageOptional.get().getDeliveredDate()) > thresholdDelivery.get().getDeliveryDateThreshold()) {
-
-            packageService.createPackage(Long.valueOf(idHousehold));
-            return REDIRECT_PACKAGE_DELIVERY_URL + idHousehold;
-        }
-
-        Package packageStatus = packageOptional.get();
-        packageStatus.setStatus(packageStatus.getStatus().next());
-        packageService.updatePackage(packageStatus);
-
-        if (EnumPackageStatus.READY.equals(packageStatus.getStatus())) {
-            packageService.fillPackage(packageOptional.get());
-            return REDIRECT_PACKAGE_DELIVERY_URL + idHousehold;
-        }
-
-        if (EnumPackageStatus.DELIVERED.equals(packageStatus.getStatus())) {
-            packageService.sendPackage(packageStatus);
-            return REDIRECT_PACKAGES_URL;
-        }
-        return REDIRECT_PACKAGE_DELIVERY_URL + idHousehold;
+    public String handlePackage1(@PathVariable String idHousehold, Model model) {
+        return packageFacade.handlePackage(Long.valueOf(idHousehold),dateThreshold);
     }
 
     @GetMapping("/history")

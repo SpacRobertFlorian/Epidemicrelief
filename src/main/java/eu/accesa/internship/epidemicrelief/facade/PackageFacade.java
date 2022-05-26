@@ -1,7 +1,7 @@
 package eu.accesa.internship.epidemicrelief.facade;
 
 import eu.accesa.internship.epidemicrelief.data.PackageData;
-import org.springframework.lang.NonNull;
+import eu.accesa.internship.epidemicrelief.repository.DeliveryDateThresholdRepository;
 
 import javax.validation.constraints.NotNull;
 import java.util.Optional;
@@ -16,7 +16,7 @@ public interface PackageFacade {
      * @param idHousehold id of the household
      * @return an Optional containing the last package of a household
      */
-    @NonNull
+    @NotNull
     Optional<PackageData> getPackageByIdHousehold(@NotNull Long idHousehold);
 
     /**
@@ -25,6 +25,8 @@ public interface PackageFacade {
      * @param packageId id of the package to be deleted
      */
     void cancelPackage(@NotNull Long packageId);
+
+    String handlePackage(Long valueOf, DeliveryDateThresholdRepository dateThreshold);
 
     //String changeStatus(Optional<PackageData> packageData,Long idHousehold);
 }

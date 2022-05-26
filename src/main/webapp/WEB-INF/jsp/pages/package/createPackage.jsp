@@ -24,7 +24,6 @@
                             <th>Name</th>
                             <th>Category</th>
                             <th>Stock</th>
-                            <th>Edit</th>
                         </tr>
                         </thead>
                         <tbody>

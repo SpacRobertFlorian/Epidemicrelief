@@ -56,28 +56,9 @@ public class DefaultPackageServiceTest {
         List<Package> returnedPackageList = packageService.getAllPackages();
 
         verify(packageRepository).findAll();
-        
+
         assertSame(returnedPackageList, packageList);
     }
-
-    //TODO sa vad de ce nu pot sa fac asa
-//    @Test
-//    public void givenNone_whenGetLastPackageByHouseholdId_expectPackage() {
-//        List<PackageProducts> products = Mockito.spy(new ArrayList<>());
-//        products.add(packageProducts);
-//
-//        when(householdRepository.findById(1L)).thenReturn(Optional.of(household));
-//        when(packageProductsRepository.getAllByPack(pack)).thenReturn(products);
-//
-//        Optional<Package> packageOptional = packageService.getLastPackageByHouseholdId(1L);
-//
-//        verify(householdRepository).findById(1L);
-//        verify(packageProductsRepository).getAllByPack(pack);
-//
-//        assertTrue(packageOptional.isPresent());
-//        assertSame(packageOptional.get(), pack);
-//
-//    }
 
     @Test
     public void givenNone_whenGetLastPackageByHouseholdId_expectEmptyOptional() {

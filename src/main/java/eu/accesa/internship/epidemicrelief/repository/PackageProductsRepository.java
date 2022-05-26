@@ -30,16 +30,14 @@ public interface PackageProductsRepository extends CrudRepository<PackageProduct
     @NonNull
     List<PackageProducts> getAllByPack(Package packageId);
 
+    /**
+     * Find all PackageProducts by a package id
+     *
+     * @param id_packageId a {@link Package} to search by
+     * @return a list of package products
+     */
     @NonNull
     List<PackageProducts> findById_PackageId(Long id_packageId);
 
-    /**
-     * Deletes a package product by a package id
-     *
-     * @param pack_id an id of a package to delete by
-     */
-    @Modifying
-    @Query("delete from PackageProducts p where p.pack.id=:pack_id")
-    void delete(@Param("pack_id") Long pack_id);
 
 }

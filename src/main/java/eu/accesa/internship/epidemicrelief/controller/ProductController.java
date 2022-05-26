@@ -70,8 +70,6 @@ public class ProductController {
         return ADD_PRODUCT_URL;
     }
 
-    //TODO Task 5
-    // Validate stock to be greater then 1
     @PostMapping(value = "/save")
     public String addProduct(@Valid ProductData productData, BindingResult result, Model model) {
         if (result.hasErrors() || productData.getStock() < 0) {

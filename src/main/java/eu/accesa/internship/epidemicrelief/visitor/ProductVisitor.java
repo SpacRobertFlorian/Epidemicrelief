@@ -8,6 +8,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class ProductVisitor implements Visitor {
 
@@ -36,8 +38,8 @@ public class ProductVisitor implements Visitor {
     @Override
     public List<ProductNecessity> visit(Family family) {
         List<ProductNecessity> productNecessityList = new ArrayList<>();
-        //TODO sa fac o filtrare sa nu fie null
-        List<Necessity> necessities = necessityRepository.findAllByPersonCategory(PersonCategory.FAMILY);
+        List<Necessity> necessities = necessityRepository.findAllByPersonCategory(PersonCategory.FAMILY)
+                .stream().filter(Objects::nonNull).collect(Collectors.toList());
 
         for (Necessity necessity : necessities) {
             if (necessity != null) {
