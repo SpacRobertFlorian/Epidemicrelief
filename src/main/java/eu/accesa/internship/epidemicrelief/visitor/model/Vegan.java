@@ -4,13 +4,11 @@ import eu.accesa.internship.epidemicrelief.visitor.Visitor;
 
 import java.util.List;
 
-public class Vegan implements HouseholdMember {
-    private Long numberOfPersons;
+public class Vegan extends HouseholdMember {
 
     public Vegan(Long numberOfPersons) {
-        this.numberOfPersons = numberOfPersons;
+        super(numberOfPersons);
     }
-
     public Long getNumberOfPersons() {
         return numberOfPersons;
     }

@@ -1,13 +1,10 @@
 package eu.accesa.internship.epidemicrelief.visitor;
 
-import eu.accesa.internship.epidemicrelief.visitor.model.Child;
-import eu.accesa.internship.epidemicrelief.visitor.model.Family;
-import eu.accesa.internship.epidemicrelief.visitor.model.NonVegan;
-import eu.accesa.internship.epidemicrelief.visitor.model.Vegan;
-import eu.accesa.internship.epidemicrelief.visitor.model.ProductNecessity;
+import eu.accesa.internship.epidemicrelief.visitor.model.*;
 import eu.accesa.internship.epidemicrelief.model.Necessity;
 import eu.accesa.internship.epidemicrelief.repository.NecessityRepository;
 import eu.accesa.internship.epidemicrelief.utils.enums.PersonCategory;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,15 +17,18 @@ public class ProductVisitor implements Visitor {
         this.necessityRepository = necessityRepository;
     }
 
-    @Override
-    public List<ProductNecessity> visit(Vegan vegan) {
-        List<ProductNecessity> productNecessityList = new ArrayList<>();
+    @NotNull
+    private List<ProductNecessity> getProductNecessities(HouseholdMember member, PersonCategory category) {
 
-        List<Necessity> necessities = necessityRepository.findAllByPersonCategory(PersonCategory.VEGAN);
+        List<ProductNecessity> productNecessityList = new ArrayList<>();
+        List<Necessity> necessities = necessityRepository.findAllByPersonCategory(category);
+
         for (Necessity necessity : necessities) {
-            ProductNecessity productNecessity = new ProductNecessity(necessity.getProduct().getUuid(), necessity.getQuantity());
-            productNecessity.setStock(necessity.getQuantity() * vegan.getNumberOfPersons());
-            productNecessityList.add(productNecessity);
+            if (necessity != null) {
+                ProductNecessity productNecessity = new ProductNecessity(necessity.getProduct().getUuid(), necessity.getQuantity());
+                productNecessity.setStock(necessity.getQuantity() * member.getNumberOfPersons());
+                productNecessityList.add(productNecessity);
+            }
         }
         return productNecessityList;
     }
@@ -50,30 +50,17 @@ public class ProductVisitor implements Visitor {
     }
 
     @Override
-    public List<ProductNecessity> visit(NonVegan nonVegan) {
-        List<ProductNecessity> productNecessityList = new ArrayList<>();
-        List<Necessity> necessities = necessityRepository.findAllByPersonCategory(PersonCategory.NON_VEGAN);
-        for (Necessity necessity : necessities) {
-            ProductNecessity productNecessity = new ProductNecessity(necessity.getProduct().getUuid(), necessity.getQuantity());
-            productNecessity.setStock(necessity.getQuantity() * nonVegan.getNumberOfPersons());
-            productNecessityList.add(productNecessity);
-        }
-        return productNecessityList;
+    public List<ProductNecessity> visit(Vegan vegan) {
+        return getProductNecessities(vegan, PersonCategory.VEGAN);
+    }
 
+    @Override
+    public List<ProductNecessity> visit(NonVegan nonVegan) {
+        return getProductNecessities(nonVegan, PersonCategory.NON_VEGAN);
     }
 
     @Override
     public List<ProductNecessity> visit(Child child) {
-        List<ProductNecessity> productNecessityList = new ArrayList<>();
-        List<Necessity> necessities = necessityRepository.findAllByPersonCategory(PersonCategory.CHILD);
-        for (Necessity necessity : necessities) {
-            if (necessity.getProduct() != null) {
-                ProductNecessity productNecessity = new ProductNecessity(necessity.getProduct().getUuid(), necessity.getQuantity());
-                productNecessity.setStock(necessity.getQuantity() * child.getNumberOfPersons());
-                productNecessityList.add(productNecessity);
-            }
-        }
-        return productNecessityList;
-
+        return getProductNecessities(child, PersonCategory.CHILD);
     }
 }

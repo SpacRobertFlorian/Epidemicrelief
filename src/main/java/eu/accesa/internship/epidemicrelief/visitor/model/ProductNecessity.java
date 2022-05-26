@@ -24,12 +24,4 @@ public class ProductNecessity {
     public void setStock(Long stock) {
         this.stock = stock;
     }
-
-    @Override
-    public String toString() {
-        return "ProductNecessity{" +
-                "uuid='" + uuid + '\'' +
-                ", stock=" + stock +
-                '}';
-    }
 }

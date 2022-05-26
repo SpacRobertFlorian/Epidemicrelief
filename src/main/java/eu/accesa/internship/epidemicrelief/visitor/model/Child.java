@@ -4,12 +4,10 @@ import eu.accesa.internship.epidemicrelief.visitor.Visitor;
 
 import java.util.List;
 
-public class Child implements HouseholdMember {
-
-    private Long numberOfPersons;
+public class Child extends HouseholdMember {
 
     public Child(Long numberOfPersons) {
-        this.numberOfPersons = numberOfPersons;
+        super(numberOfPersons);
     }
 
     public Long getNumberOfPersons() {
