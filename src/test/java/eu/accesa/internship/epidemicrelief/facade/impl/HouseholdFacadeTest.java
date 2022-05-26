@@ -2,17 +2,11 @@ package eu.accesa.internship.epidemicrelief.facade.impl;
 
 import eu.accesa.internship.epidemicrelief.converter.HouseholdConverter;
 import eu.accesa.internship.epidemicrelief.data.HouseholdData;
-import eu.accesa.internship.epidemicrelief.facade.HouseholdFacade;
 import eu.accesa.internship.epidemicrelief.model.Household;
 import eu.accesa.internship.epidemicrelief.service.HouseholdService;
 import org.junit.Before;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.junit.Before;
 import org.junit.Test;
-import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;
