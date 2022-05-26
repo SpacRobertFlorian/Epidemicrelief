@@ -159,7 +159,7 @@ public class DefaultPackageService implements PackageService {
 
         ProductVisitor productVisitor = new ProductVisitor(necessityRepository);
         Household household = aPackage.getHousehold();
-        List<HouseholdMembers> members = new LinkedList<>();
+        List<HouseholdMember> members = new LinkedList<>();
         List<ProductNecessity> productNecessityList = new ArrayList<>();
 
         members.add(new Family(household.getNumberOfPeople()));
@@ -167,7 +167,7 @@ public class DefaultPackageService implements PackageService {
         members.add(new Vegan(household.getNumberOfVegans()));
         members.add(new NonVegan(household.getNumberOfNonVegans()));
 
-        for (HouseholdMembers householdMembers : members) {
+        for (HouseholdMember householdMembers : members) {
             productNecessityList.addAll(householdMembers.productNecessityList(productVisitor));
         }
         return productNecessityList;

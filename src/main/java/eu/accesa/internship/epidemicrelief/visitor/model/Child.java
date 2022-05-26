@@ -4,7 +4,7 @@ import eu.accesa.internship.epidemicrelief.visitor.Visitor;
 
 import java.util.List;
 
-public class Child implements HouseholdMembers {
+public class Child implements HouseholdMember {
 
     private Long numberOfPersons;
 

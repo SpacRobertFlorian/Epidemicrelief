@@ -4,7 +4,7 @@ import eu.accesa.internship.epidemicrelief.visitor.Visitor;
 
 import java.util.List;
 
-public class NonVegan implements HouseholdMembers {
+public class NonVegan implements HouseholdMember {
     private Long numberOfPersons;
 
     public NonVegan(Long numberOfPersons) {
