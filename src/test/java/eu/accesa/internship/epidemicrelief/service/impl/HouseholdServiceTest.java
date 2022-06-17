@@ -42,7 +42,6 @@ public class HouseholdServiceTest {
         verify(repository).findAll();
     }
 
-    //TODO teste
     @Test
     public void givenId_whenGetById_expectHousehold() {
         when(repository.findById(1L)).thenReturn(Optional.of(household));

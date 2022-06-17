@@ -7,7 +7,6 @@ import eu.accesa.internship.epidemicrelief.facade.HouseholdFacade;
 import eu.accesa.internship.epidemicrelief.facade.PackageFacade;
 import eu.accesa.internship.epidemicrelief.model.DeliveryDateThreshold;
 import eu.accesa.internship.epidemicrelief.repository.DeliveryDateThresholdRepository;
-import eu.accesa.internship.epidemicrelief.service.PackageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -27,11 +26,9 @@ import static eu.accesa.internship.epidemicrelief.utils.enums.EnumPackageStatus.
 @EnableTransactionManagement
 public class PackageController {
     private final HouseholdFacade householdFacade;
-    private final PackageService packageService;
     private final PackageFacade packageFacade;
     private static final String PACKAGE_IST_URL = "package/packageList";
     private static final String REDIRECT_PACKAGES_URL = "redirect:/packages/";
-    private static final String REDIRECT_PACKAGE_DELIVERY_URL = "redirect:/packages/deliver/";
     private static final String PACKAGE_HISTORY_URL = "package/packageHistory";
     private static final String CREATE_PACKAGE_URL = "package/createPackage";
 
@@ -40,9 +37,8 @@ public class PackageController {
     private int stockThreshold;
 
     @Autowired
-    public PackageController(HouseholdFacade householdFacade, PackageService packageService, PackageFacade packageFacade, DeliveryDateThresholdRepository dateThreshold) {
+    public PackageController(HouseholdFacade householdFacade, PackageFacade packageFacade, DeliveryDateThresholdRepository dateThreshold) {
         this.householdFacade = householdFacade;
-        this.packageService = packageService;
         this.packageFacade = packageFacade;
 
         this.dateThreshold = dateThreshold;
@@ -55,7 +51,7 @@ public class PackageController {
     }
 
     @GetMapping("/deliver/{idHousehold}")
-    public String getPackage(@PathVariable String idHousehold, Model model) {
+    public String createPackage(@PathVariable String idHousehold, Model model) {
         Optional<HouseholdData> household = householdFacade.getById(Long.parseLong(idHousehold));
         if (household.isEmpty()) {
             throw new CustomException("No household exists for id:" + idHousehold);
@@ -79,8 +75,8 @@ public class PackageController {
     }
 
     @PostMapping("/deliver/{idHousehold}")
-    public String handlePackage1(@PathVariable String idHousehold, Model model) {
-        return packageFacade.handlePackage(Long.valueOf(idHousehold),dateThreshold);
+    public String handlePackage(@PathVariable String idHousehold, Model model) {
+        return packageFacade.handlePackage(Long.valueOf(idHousehold), dateThreshold);
     }
 
     @GetMapping("/history")

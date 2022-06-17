@@ -113,6 +113,7 @@ public class DefaultPackageService implements PackageService {
         }
     }
 
+    //TODO de regandit si mutat logica in controller
     @Override
     public String handlePackage(Long idHousehold, DeliveryDateThresholdRepository dateThreshold) {
         Optional<Package> packageOptional = getLastPackageByHouseholdId(idHousehold);

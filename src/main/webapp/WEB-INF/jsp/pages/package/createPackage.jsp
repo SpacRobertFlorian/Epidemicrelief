@@ -7,6 +7,13 @@
         <div class="col-md-6">
             <h2 class="my-5">Products</h2>
             <c:choose>
+                <c:when test="${package.status =='DELIVERED'}">
+                    <c:if test="${package.dateDiff < dateThreshold}">
+                        <p>Can't deliver new package. ${dateThreshold} days have not passed</p>
+                    </c:if>
+                </c:when>
+            </c:choose>
+            <c:choose>
                 <c:when test="${package.status =='CREATED'}">
                     <div style='position:relative; padding-bottom:calc(75.00% + 44px)'>
                         <iframe src='https://gfycat.com/ifr/AdorableSmugDragonfly' frameborder='0'
