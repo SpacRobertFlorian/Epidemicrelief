@@ -17,7 +17,7 @@ public interface PackageFacade {
      * @return an Optional containing the last package of a household
      */
     @NotNull
-    Optional<PackageData> getPackageByIdHousehold(@NotNull Long idHousehold);
+    Optional<PackageData> getLastPackageByIdHousehold(@NotNull Long idHousehold);
 
     /**
      * Delete package
@@ -26,7 +26,12 @@ public interface PackageFacade {
      */
     void cancelPackage(@NotNull Long packageId);
 
-    String handlePackage(Long valueOf, DeliveryDateThresholdRepository dateThreshold);
+    void updatePackage(PackageData packageStatus);
 
-    //String changeStatus(Optional<PackageData> packageData,Long idHousehold);
+    void fillPackage(PackageData packageStatus);
+
+    void sendPackage(PackageData packageStatus);
+
+    void createPackage(String idHousehold);
+
 }

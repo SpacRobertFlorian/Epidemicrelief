@@ -14,7 +14,6 @@ public class PackageData {
     private LocalDate deliveredDate;
     private LocalDate createdDate;
     private EnumPackageStatus status;
-
     private Long dateDiff;
 
     public Long getDateDiff() {

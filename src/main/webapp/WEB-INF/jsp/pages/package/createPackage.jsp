@@ -70,7 +70,7 @@
                     </c:if>
                 </c:when>
                 <c:when test="${package.status =='CREATED'}">
-                    <form action="/packages/deliver/${package.household.id}" method="post">
+                    <form action="/packages/deliver/${package.household.id}/fill" method="post">
                         <input type="submit" class="btn btn-primary" value="Ready"/>
                     </form>
                     <form action="/packages/cancel/${package.household.id}" method="post">
@@ -78,7 +78,7 @@
                     </form>
                 </c:when>
                 <c:when test="${package.status =='READY'}">
-                    <form action="/packages/deliver/${package.household.id}" method="post">
+                    <form action="/packages/deliver/${package.household.id}/send" method="post">
                         <input type="submit" class="btn btn-primary" value="Delivered"/>
                     </form>
                     <form action="/packages/cancel/${package.household.id}" method="post">

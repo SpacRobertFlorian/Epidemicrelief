@@ -22,7 +22,7 @@ public class Package {
     @ManyToOne(fetch = FetchType.LAZY)
     private Household household;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.MERGE)
     private List<PackageProducts> products;
 
     @Column

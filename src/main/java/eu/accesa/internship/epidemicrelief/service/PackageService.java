@@ -59,6 +59,4 @@ public interface PackageService {
      * @param packageId id of a package to be deleted
      */
     void cancelPackage(Long packageId);
-
-    String handlePackage(Long idHousehold, DeliveryDateThresholdRepository dateThreshold);
 }

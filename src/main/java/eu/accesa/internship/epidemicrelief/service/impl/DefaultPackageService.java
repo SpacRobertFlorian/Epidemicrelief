@@ -1,12 +1,14 @@
 package eu.accesa.internship.epidemicrelief.service.impl;
 
-import eu.accesa.internship.epidemicrelief.visitor.ProductVisitor;
-import eu.accesa.internship.epidemicrelief.visitor.model.*;
-import eu.accesa.internship.epidemicrelief.model.*;
+import eu.accesa.internship.epidemicrelief.model.Household;
 import eu.accesa.internship.epidemicrelief.model.Package;
+import eu.accesa.internship.epidemicrelief.model.PackageProducts;
+import eu.accesa.internship.epidemicrelief.model.Product;
 import eu.accesa.internship.epidemicrelief.repository.*;
 import eu.accesa.internship.epidemicrelief.service.PackageService;
 import eu.accesa.internship.epidemicrelief.utils.enums.EnumPackageStatus;
+import eu.accesa.internship.epidemicrelief.visitor.ProductVisitor;
+import eu.accesa.internship.epidemicrelief.visitor.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityNotFoundException;
@@ -15,8 +17,6 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.*;
 
-import static java.time.temporal.ChronoUnit.DAYS;
-
 public class DefaultPackageService implements PackageService {
 
     private final PackageRepository packageRepository;
@@ -24,9 +24,6 @@ public class DefaultPackageService implements PackageService {
     private final HouseholdRepository householdRepository;
     private final PackageProductsRepository packageProductsRepository;
     private final NecessityRepository necessityRepository;
-    private static final String REDIRECT_PACKAGE_DELIVERY_URL = "redirect:/packages/deliver/";
-    private static final String REDIRECT_PACKAGES_URL = "redirect:/packages/";
-
 
     @Autowired
     public DefaultPackageService(PackageRepository packageRepository, ProductRepository productRepository,
@@ -111,37 +108,6 @@ public class DefaultPackageService implements PackageService {
             throw new EntityNotFoundException("Unable to find package to delete; id: " + packageId);
 
         }
-    }
-
-    //TODO de regandit si mutat logica in controller
-    @Override
-    public String handlePackage(Long idHousehold, DeliveryDateThresholdRepository dateThreshold) {
-        Optional<Package> packageOptional = getLastPackageByHouseholdId(idHousehold);
-        Optional<DeliveryDateThreshold> thresholdDelivery = dateThreshold.findById(1L);
-
-        if (packageOptional.isEmpty() || packageOptional.get().getDeliveredDate() != null &&
-                thresholdDelivery.isPresent() &&
-                DAYS.between(LocalDate.now(), packageOptional.get().getDeliveredDate()) > thresholdDelivery.get().getDeliveryDateThreshold()) {
-
-            createPackage(idHousehold);
-            return REDIRECT_PACKAGE_DELIVERY_URL + idHousehold;
-        }
-
-        Package packageStatus = packageOptional.get();
-        packageStatus.setStatus(packageStatus.getStatus().next());
-        updatePackage(packageStatus);
-
-        switch (packageStatus.getStatus()) {
-            case READY: {
-                fillPackage(packageStatus);
-                return REDIRECT_PACKAGE_DELIVERY_URL + idHousehold;
-            }
-            case DELIVERED: {
-                sendPackage(packageStatus);
-                return REDIRECT_PACKAGES_URL;
-            }
-        }
-        return REDIRECT_PACKAGE_DELIVERY_URL + idHousehold;
     }
 
     private void rollBack(List<PackageProducts> packageProducts) {

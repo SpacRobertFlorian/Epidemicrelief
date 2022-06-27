@@ -36,7 +36,7 @@ public class DefaultPackageFacadeTest {
         when(packageService.getLastPackageByHouseholdId(1L)).thenReturn(Optional.of(pack));
         when(packageConverter.from(pack)).thenReturn(packageData);
 
-        Optional<PackageData> optionalPackageData = packageFacade.getPackageByIdHousehold(1L);
+        Optional<PackageData> optionalPackageData = packageFacade.getLastPackageByIdHousehold(1L);
 
         assertTrue(optionalPackageData.isPresent());
         assertSame(packageData, optionalPackageData.get());

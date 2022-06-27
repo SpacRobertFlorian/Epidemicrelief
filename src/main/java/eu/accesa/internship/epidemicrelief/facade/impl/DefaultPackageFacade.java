@@ -3,6 +3,7 @@ package eu.accesa.internship.epidemicrelief.facade.impl;
 import eu.accesa.internship.epidemicrelief.converter.PackageConverter;
 import eu.accesa.internship.epidemicrelief.data.PackageData;
 import eu.accesa.internship.epidemicrelief.facade.PackageFacade;
+import eu.accesa.internship.epidemicrelief.model.Package;
 import eu.accesa.internship.epidemicrelief.repository.DeliveryDateThresholdRepository;
 import eu.accesa.internship.epidemicrelief.service.PackageService;
 
@@ -21,8 +22,7 @@ public class DefaultPackageFacade implements PackageFacade {
 
     @NotNull
     @Override
-    public @NotNull Optional<PackageData> getPackageByIdHousehold(Long idHousehold) {
-
+    public @NotNull Optional<PackageData> getLastPackageByIdHousehold(Long idHousehold) {
         return packageService.getLastPackageByHouseholdId(idHousehold).map(packageConverter::from);
     }
 
@@ -32,7 +32,22 @@ public class DefaultPackageFacade implements PackageFacade {
     }
 
     @Override
-    public String handlePackage(Long idHousehold, DeliveryDateThresholdRepository dateThreshold) {
-        return packageService.handlePackage(idHousehold, dateThreshold);
+    public void updatePackage(PackageData packageStatus) {
+        packageService.updatePackage(packageConverter.to(packageStatus));
+    }
+
+    @Override
+    public void fillPackage(PackageData packageStatus) {
+        packageService.fillPackage(packageConverter.to(packageStatus));
+    }
+
+    @Override
+    public void sendPackage(PackageData packageStatus) {
+        packageService.sendPackage(packageConverter.to(packageStatus));
+    }
+
+    @Override
+    public void createPackage(String idHousehold) {
+        packageService.createPackage(Long.valueOf(idHousehold));
     }
 }

@@ -24,7 +24,10 @@ public class HouseholdConverter {
             target.setStatus(EnumPackageStatus.NOT_CREATED);
         }
         target.setPackages(source.getPackages());
-
+        target.setNumberOfChildren(source.getNumberOfChildren());
+        target.setNumberOfNonVegans(source.getNumberOfNonVegans());
+        target.setNumberOfPeople(source.getNumberOfPeople());
+        target.setNumberOfVegans(source.getNumberOfVegans());
         return target;
     }
 
