@@ -20,6 +20,7 @@ public class SOAPController {
 
     @GetMapping("/{name}")
     public eu.accesa.internship.epidemicrelief.model.Product index(@PathVariable String name) {
+
         GetProductResponse request = client.getProduct(name);
         Product product = request.getProduct();
         eu.accesa.internship.epidemicrelief.model.Product p = new eu.accesa.internship.epidemicrelief.model.Product();
