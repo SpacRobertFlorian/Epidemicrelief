@@ -1,5 +1,6 @@
 package eu.accesa.internship.epidemicrelief.controller;
 
+import eu.accesa.internship.epidemicrelief.model.Product;
 import eu.accesa.internship.epidemicrelief.rest.consuming.RESTClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,9 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/rest")
 public class RESTController {
 
+    //TODO de parsat in Product object
     @GetMapping("/{name}")
     public ResponseEntity<String> getProduct(@PathVariable String name) {
         RESTClient client = new RESTClient();
-        return client.getProduct(name);
+        ResponseEntity<String> json = client.getProduct(name);
+        return json;
     }
 }
