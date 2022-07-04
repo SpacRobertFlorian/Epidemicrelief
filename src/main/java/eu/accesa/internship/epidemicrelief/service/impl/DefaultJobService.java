@@ -7,36 +7,32 @@ import eu.accesa.internship.epidemicrelief.service.JobService;
 import eu.accesa.internship.epidemicrelief.soap.consuming.SOAPClient;
 import eu.accesa.internship.wsdl.GetProductResponse;
 import eu.accesa.internship.wsdl.ListName;
-import org.json.HTTP;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.swing.text.html.Option;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
+
 
 @Configuration
 @EnableScheduling
 public class DefaultJobService implements JobService {
     @Value("${batch.size}")
     private int bachSize;
-
+    Logger logger = LoggerFactory.getLogger(DefaultJobService.class);
     private final SOAPClient client;
     private final RESTClient restClient = new RESTClient();
     private final ProductRepository productRepository;
     private int offset = 0;
+    @Value("${choose.api}")
+    private String chooseApi;
 
     @Autowired
     public DefaultJobService(SOAPClient client, ProductRepository productRepository) {
@@ -44,33 +40,36 @@ public class DefaultJobService implements JobService {
         this.productRepository = productRepository;
     }
 
-    //    @Override
-//    @Scheduled(fixedRateString = "PT10S", zone = "Europe/Romania")
-//    public void restUpdateProduct() {
-//        List<Product> products = productRepository.findAll();
-//        for (Product p : products) {
-//            ResponseEntity<Product> response = restClient.getProduct(p.getName());
-//            if (response.getStatusCode().is2xxSuccessful()) {
-//                p.setStock(Objects.requireNonNull(response.getBody()).getStock());
-//            }
-//        }
-//        productRepository.saveAll(products);
-//    }
-
-    //TODO Nu merge, da eroare 404 cand apelez restClient
-    //localhost:8082/products?name=Vitamin Juice nu cred ca merge asa
-    //imi face asa products%5BCanned%20Vegetables,%20Chocolate,%20Meat%5D"
     @Override
-    @Scheduled(fixedRateString = "PT10S", zone = "Europe/Romania")
+    //@Scheduled(cron = "0 0 0 * * *", zone = "Europe/Romania")
+    @Scheduled(cron = "*/10 * * * * *", zone = "GMT+3")
+    //@Scheduled(fixedRateString = "PT5S", zone = "Europe/Romania")
+    public void updateProduct() {
+        logger.info("Cronjob started");
+        if (chooseApi.equalsIgnoreCase("REST")) {
+            restUpdateProduct();
+        } else {
+            soapUpdateProduct();
+        }
+        logger.info("Cronjob finished");
+    }
+
+    @Override
     public void restUpdateProduct() {
+        logger.info("REST cronjob");
         List<Product> products = getNProducts(bachSize, offset);
         offset += bachSize;
         List<String> request = createRestRequest(products);
         ResponseEntity<List<Product>> response = executeRequest(request);
-        update(response);
+        try {
+            update(response);
+        } catch (Exception e) {
+            logger.error(String.valueOf(e), e);
+        }
     }
 
     private List<String> createRestRequest(List<Product> products) {
+        logger.info("Creating request");
         List<String> productNames = new ArrayList<>();
         for (Product p : products) {
             productNames.add(p.getName());
@@ -79,58 +78,68 @@ public class DefaultJobService implements JobService {
     }
 
     private ResponseEntity<List<Product>> executeRequest(List<String> request) {
+        logger.info("Executing request");
         return restClient.getProducts(request);
     }
 
-    private void update(ResponseEntity<List<Product>> response) {
+    private void update(ResponseEntity<List<Product>> response) throws Exception {
         List<Product> products = response.getBody();
-        for (Product p : products) {
-            Optional<Product> getProduct = productRepository.findProductByUuid(p.getUuid());
-            if (getProduct.isPresent()) {
-                getProduct.get().setStock(p.getStock());
-                productRepository.save(getProduct.get());
+        if (products != null) {
+            for (Product p : products) {
+                Optional<Product> getProduct = productRepository.findProductByUuid(p.getUuid());
+                if (getProduct.isPresent()) {
+                    getProduct.get().setStock(p.getStock());
+                    logger.info("Updating product's stock: " + p.getName());
+                    productRepository.save(getProduct.get());
+                }
+            }
+        } else {
+            throw new Exception("Null pointer Exception occurred");
+        }
+    }
+
+    @Override
+    public void soapUpdateProduct() {
+        logger.info("SOAP cronjob");
+        List<Product> products = getNProducts(bachSize, offset);
+
+        offset += bachSize;
+        ListName listName = createRequest(products);
+        GetProductResponse response = executeRequest(listName);
+        update(response);
+    }
+
+
+    private void update(GetProductResponse response) {
+        List<eu.accesa.internship.wsdl.Product> products = response.getList().getProduct();
+
+        for (eu.accesa.internship.wsdl.Product p : products) {
+            Optional<Product> product = productRepository.findByUuid(p.getUuid());
+            if (product.isPresent()) {
+                product.get().setStock(p.getStock());
+                logger.info("Updating product's stock: " + p.getName());
+                productRepository.save(product.get());
             }
         }
     }
 
-//    @Override
-//    //@Scheduled(cron = "0 0 * * *", zone = "Europe/Romania")
-//    @Scheduled(fixedRateString = "PT5S", zone = "Europe/Romania")
-//    public void soapUpdateProduct() {
-//
-//        List<Product> products = getNProducts(bachSize, offset);
-//        offset += bachSize;
-//        ListName listName = createRequest(products);
-//        GetProductResponse response = executeRequest(listName);
-//        update(response);
-//    }
-//
-//
-//    private void update(GetProductResponse response) {
-//
-//        List<eu.accesa.internship.wsdl.Product> products = response.getList().getProduct();
-//        for (eu.accesa.internship.wsdl.Product p : products) {
-//            Optional<Product> product = productRepository.findByUuid(p.getUuid());
-//            if (product.isPresent()) {
-//                product.get().setStock(p.getStock());
-//                productRepository.save(product.get());
-//            }
-//        }
-//    }
-//
-//    private GetProductResponse executeRequest(ListName request) {
-//        GetProductResponse response;
-//        response = client.getProducts(request);
-//        return response;
-//    }
-//
-//    private ListName createRequest(List<Product> products) {
-//        ListName listName = new ListName();
-//        for (Product p : products) {
-//            listName.getName().add(p.getName());
-//        }
-//        return listName;
-//    }
+    private GetProductResponse executeRequest(ListName request) {
+        logger.info("Executing request");
+        GetProductResponse response;
+        response = client.getProducts(request);
+        return response;
+    }
+
+    private ListName createRequest(List<Product> products) {
+        logger.info("Creating request");
+
+        ListName listName = new ListName();
+
+        for (Product p : products) {
+            listName.getName().add(p.getName());
+        }
+        return listName;
+    }
 
     private List<Product> getNProducts(int bachSize, int offset) {
         return productRepository.getNProducts(bachSize, offset);
