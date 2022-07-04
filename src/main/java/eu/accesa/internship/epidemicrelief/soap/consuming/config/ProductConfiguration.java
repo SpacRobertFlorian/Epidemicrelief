@@ -1,6 +1,6 @@
 package eu.accesa.internship.epidemicrelief.soap.consuming.config;
 
-import eu.accesa.internship.epidemicrelief.soap.consuming.Client;
+import eu.accesa.internship.epidemicrelief.soap.consuming.SOAPClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
@@ -15,8 +15,8 @@ public class ProductConfiguration {
     }
 
     @Bean
-    public Client productClient(Jaxb2Marshaller marshaller) {
-        Client client = new Client();
+    public SOAPClient productClient(Jaxb2Marshaller marshaller) {
+        SOAPClient client = new SOAPClient();
         client.setDefaultUri("http://localhost:8082/ws");
         client.setMarshaller(marshaller);
         client.setUnmarshaller(marshaller);

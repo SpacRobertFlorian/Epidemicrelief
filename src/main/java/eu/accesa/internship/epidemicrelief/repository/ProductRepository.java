@@ -37,12 +37,6 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
     Optional<Product> findProductByUuid(String uuid);
 
     @NonNull
-    @Query(
-            value = "SELECT COUNT(*) FROM product",
-            nativeQuery = true)
-    Integer countAll();
-
-    @NonNull
     @Query(value = "SELECT * FROM product ORDER BY name ASC LIMIT ?1 offset ?2",
             nativeQuery = true)
     List<Product> getNProducts(int numberOfRows, int offset);

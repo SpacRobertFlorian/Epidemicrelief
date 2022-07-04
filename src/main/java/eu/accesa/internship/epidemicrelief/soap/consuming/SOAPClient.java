@@ -9,8 +9,8 @@ import org.springframework.ws.client.core.support.WebServiceGatewaySupport;
 import org.springframework.ws.soap.client.core.SoapActionCallback;
 
 
-public class Client extends WebServiceGatewaySupport {
-    private static final Logger log = LoggerFactory.getLogger(Client.class);
+public class SOAPClient extends WebServiceGatewaySupport {
+    private static final Logger log = LoggerFactory.getLogger(SOAPClient.class);
 
     public GetProductResponse getProducts(ListName product) {
 

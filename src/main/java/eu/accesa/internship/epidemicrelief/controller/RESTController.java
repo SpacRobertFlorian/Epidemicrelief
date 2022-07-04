@@ -12,11 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/rest")
 public class RESTController {
 
-    //TODO de parsat in Product object
-    @GetMapping("/{name}")
-    public ResponseEntity<String> getProduct(@PathVariable String name) {
-        RESTClient client = new RESTClient();
-        ResponseEntity<String> json = client.getProduct(name);
-        return json;
-    }
+//    @GetMapping("/{name}")
+//    public ResponseEntity<Product> getProduct(@PathVariable String name) {
+//        RESTClient client = new RESTClient();
+//        return client.getProducts(name);
+//    }
+//    @GetMapping("/{name}")
+//    public String getProduct(@PathVariable String name) {
+//        Optional<Product> product = restService.getProductByName(name);
+//        return product.map(Product::toString).orElse(null);
+//    }
 }
