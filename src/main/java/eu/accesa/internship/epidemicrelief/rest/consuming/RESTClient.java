@@ -6,19 +6,10 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RESTClient {
 
-    //TODO de intrebat cum fac aici
-    //Trebuie sa returnez un ResponseEntity<List<Product>>
-//    public ResponseEntity<List<Product>> getProducts(List<String> name) {
-//        List<Product> products = new ArrayList<>();
-//        RestTemplate restTemplate = new RestTemplate();
-//        String fooResourceUrl = "http://localhost:8082/products";
-//        return restTemplate.getForObject(fooResourceUrl + name,products, ResponseEntity.class);
-//    }
     public ResponseEntity<List<Product>> getProducts(List<String> name) {
         RestTemplate restTemplate = new RestTemplate();
         String fooResourceUrl = "http://localhost:8082/products?name=";

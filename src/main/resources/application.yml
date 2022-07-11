@@ -25,4 +25,31 @@ minim:
 batch:
   size: 3
 choose:
-  api: rest
+  api:
+    type: rest
+    uri: http://localhost:8082/soap-products/GetProductRequest
+
+
+resilience4j.circuitbreaker:
+  configs:
+    default:
+      registerHealthIndicator: true
+      slidingWindowSize: 10
+      minimumNumberOfCalls: 5
+      permittedNumberOfCallsInHalfOpenState: 5
+      automaticTransitionFromOpenToHalfOpenEnabled: true
+      waitDurationInOpenState: 60000
+      slowCallDurationThreshold: 2000
+      failureRateThreshold: 50
+      eventConsumerBufferSize: 10
+      recordExceptions:
+        - org.springframework.web.client.HttpServerErrorException
+        - java.util.concurrent.TimeoutException
+        - java.io.IOException
+      ignoreExceptions:
+        - org.springframework.web.client.HttpClientErrorException
+  instance:
+    mainService:
+      baseConfig: default
+
+

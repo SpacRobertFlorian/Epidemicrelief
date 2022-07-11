@@ -7,6 +7,7 @@ import eu.accesa.internship.epidemicrelief.service.JobService;
 import eu.accesa.internship.epidemicrelief.soap.consuming.SOAPClient;
 import eu.accesa.internship.wsdl.GetProductResponse;
 import eu.accesa.internship.wsdl.ListName;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ import java.util.Optional;
 @Configuration
 @EnableScheduling
 public class DefaultJobService implements JobService {
+    private static final String MAIN_SERVICE = "mainService";
     @Value("${batch.size}")
     private int bachSize;
     Logger logger = LoggerFactory.getLogger(DefaultJobService.class);
@@ -31,7 +33,7 @@ public class DefaultJobService implements JobService {
     private final RESTClient restClient = new RESTClient();
     private final ProductRepository productRepository;
     private int offset = 0;
-    @Value("${choose.api}")
+    @Value("${choose.api.type}")
     private String chooseApi;
 
     @Autowired
@@ -40,10 +42,11 @@ public class DefaultJobService implements JobService {
         this.productRepository = productRepository;
     }
 
-    @Override
     //@Scheduled(cron = "0 0 0 * * *", zone = "Europe/Romania")
-    @Scheduled(cron = "*/10 * * * * *", zone = "GMT+3")
     //@Scheduled(fixedRateString = "PT5S", zone = "Europe/Romania")
+    @Override
+    @Scheduled(cron = "*/10 * * * * *", zone = "GMT+3")
+    @CircuitBreaker(name = MAIN_SERVICE)
     public void updateProduct() {
         logger.info("Cronjob started");
         if (chooseApi.equalsIgnoreCase("REST")) {
