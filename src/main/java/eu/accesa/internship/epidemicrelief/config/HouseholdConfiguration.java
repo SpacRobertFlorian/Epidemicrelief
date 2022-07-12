@@ -14,9 +14,9 @@ public class HouseholdConfiguration {
     @Bean
     CommandLineRunner commandLineRunner(HouseholdRepository householdRepository) {
         return args -> {
-            Household costel = new Household("Costel", 4L, "07222222", 2L, 2L, 2L);
-            Household ana = new Household("Ana", 5L, "0733333", 2L, 3L, 2L);
-            Household crina = new Household("Crina", 3L, "0754112112", 2L, 1L, 2L);
+            Household costel = new Household("Costel", 4L, "0712345678", 2L, 2L, 2L);
+            Household ana = new Household("Ana", 5L, "0721224567", 2L, 3L, 2L);
+            Household crina = new Household("Crina", 3L, "0798063326", 2L, 1L, 2L);
             householdRepository.saveAll(List.of(costel, ana, crina));
         };
     }

@@ -2,6 +2,7 @@ package eu.accesa.internship.epidemicrelief.model;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -9,9 +10,11 @@ import java.util.Objects;
 public class PackageProductId implements Serializable {
 
     @Column(name = "product_id")
+    @NotNull(message = "Product id can't be null")
     private Long productId;
 
     @Column(name = "package_id")
+    @NotNull(message = "Product id can't be null")
     private Long packageId;
 
     public PackageProductId() {

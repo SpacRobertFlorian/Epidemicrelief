@@ -1,6 +1,8 @@
 package eu.accesa.internship.epidemicrelief.model;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.*;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,21 +14,36 @@ public class Household {
     private Long id;
 
     @Column
+    @Size(min = 2, max = 25, message
+            = "Representative must be between 2 and 25 characters")
+    @NotBlank(message = "Representative can't be null")
+    @Pattern(regexp = "([a-zA-Z]+[ ]*)+",message = "Representative can't contain numbers")
     private String representative;
 
     @Column(name = "number_of_people")
+    @Min(value = 1, message = "Number of people should not be less then 1")
     private Long numberOfPeople;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "household")
+    @Valid
     private List<Package> packages;
 
     @Column
+    @NotBlank(message = "Phone number can't be null")
+    @Size(min = 10, max = 13, message
+            = "Phone must be between 10 and 13 characters")
     private String phone;
     @Column
+    @NotNull(message = "Number of children can't be null")
+    @Min(value = 0, message = "Number of children should not be less then 0")
     private Long numberOfChildren;
     @Column
+    @NotNull(message = "Number of vegans can't be null")
+    @Min(value = 0, message = "Number of vegans should not be less then 0")
     private Long numberOfVegans;
     @Column
+    @NotNull(message = "Number of non vegans can't be null")
+    @Min(value = 0, message = "Number of non vegans should not be less then 0")
     private Long numberOfNonVegans;
 
     public Household(String representative, Long numberOfPeople, String phone, Long numberOfChildren, Long numberOfVegans, Long numberOfNonVegans) {

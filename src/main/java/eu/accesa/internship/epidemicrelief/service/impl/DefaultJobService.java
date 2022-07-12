@@ -85,6 +85,7 @@ public class DefaultJobService implements JobService {
         return restClient.getProducts(request);
     }
 
+    //todo regandit
     private void update(ResponseEntity<List<Product>> response) throws Exception {
         List<Product> products = response.getBody();
         if (products != null) {

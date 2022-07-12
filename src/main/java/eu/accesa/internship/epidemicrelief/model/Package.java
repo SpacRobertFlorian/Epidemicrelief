@@ -5,6 +5,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.NaturalIdCache;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -23,6 +24,7 @@ public class Package {
     private Household household;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.MERGE)
+    @Valid
     private List<PackageProducts> products;
 
     @Column

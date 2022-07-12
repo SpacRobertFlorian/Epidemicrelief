@@ -4,6 +4,11 @@ import eu.accesa.internship.epidemicrelief.utils.enums.ProductCategory;
 import org.hibernate.annotations.NaturalIdCache;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity(name = "Product")
@@ -17,16 +22,23 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(unique = true, columnDefinition = "VARCHAR(255)")
+    @NotBlank(message = "UUID cannot be null")
     private String uuid;
     @Column(unique = true)
+    @NotBlank(message = "Name cannot be not blank")
+    @Size(min = 3,max = 25,message = "Name must be between 3 and 25 characters")
     private String name;
+
     @Column
+    @NotNull(message = "Stock cannot be null")
+    @Min(value = 0, message = "Stock should not be less then 0")
     private Long stock;
     @Column
     @Enumerated(EnumType.STRING)
     private ProductCategory productCategory;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @Valid
     private Necessity necessity;
 
 

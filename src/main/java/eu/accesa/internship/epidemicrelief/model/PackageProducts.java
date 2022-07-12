@@ -1,6 +1,8 @@
 package eu.accesa.internship.epidemicrelief.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 @Entity(name = "PackageProducts")
 @Table(name = "package_products")
@@ -17,6 +19,8 @@ public class PackageProducts {
     private Package pack;
 
     @Column(name = "stock")
+    @NotNull(message = "Name cannot be null")
+    @Min(value = 0, message = "Stock should not be less then 0")
     private Long stock;
 
     public PackageProducts(Product product, Package pack, Long stock) {
