@@ -17,6 +17,17 @@
                             <label for="phone" class="col-form-label">Phone</label>
                             <input type="text" name="phone" id="phone" class="form-control" placeholder="Phone">
                         </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="email" class="col-form-label">Email</label>
+                            <input type="email" name="email" id="email" class="form-control" placeholder="Email">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="address" class="col-form-label">Contact address</label>
+                            <input type="text" name="address" id="address" class="form-control" placeholder="Address">
+                        </div>
+
                         <div class="form-group col-md-6">
                             <label for="numberOfPeople" class="col-form-label">People</label>
                             <input type="number" name="numberOfPeople" id="numberOfPeople" class="form-control"

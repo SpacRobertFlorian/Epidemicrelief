@@ -45,8 +45,8 @@ public class DefaultJobService implements JobService {
     //@Scheduled(cron = "0 0 0 * * *", zone = "Europe/Romania")
     //@Scheduled(fixedRateString = "PT5S", zone = "Europe/Romania")
     @Override
-    @Scheduled(cron = "*/10 * * * * *", zone = "GMT+3")
-    @CircuitBreaker(name = MAIN_SERVICE)
+   // @Scheduled(cron = "*/10 * * * * *", zone = "GMT+3")
+    //@CircuitBreaker(name = MAIN_SERVICE)
     public void updateProduct() {
         logger.info("Cronjob started");
         if (chooseApi.equalsIgnoreCase("REST")) {

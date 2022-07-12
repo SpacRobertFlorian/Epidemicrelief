@@ -17,7 +17,7 @@ public class Household {
     @Size(min = 2, max = 25, message
             = "Representative must be between 2 and 25 characters")
     @NotBlank(message = "Representative can't be null")
-    @Pattern(regexp = "([a-zA-Z]+[ ]*)+",message = "Representative can't contain numbers")
+    @Pattern(regexp = "([a-zA-Z]+[ ]*)+", message = "Representative can't contain numbers")
     private String representative;
 
     @Column(name = "number_of_people")
@@ -46,17 +46,46 @@ public class Household {
     @Min(value = 0, message = "Number of non vegans should not be less then 0")
     private Long numberOfNonVegans;
 
-    public Household(String representative, Long numberOfPeople, String phone, Long numberOfChildren, Long numberOfVegans, Long numberOfNonVegans) {
+    @Column
+    @NotBlank(message = "Email address can't be blank")
+    @Email(message = "Email should be valid")
+    private String email;
+
+    @Column
+    @NotBlank(message = "Contact address can't be blank")
+    @Size(min = 5, max = 150, message
+            = "Contact address must be between 5 and 150 characters")
+    private String contactAddress;
+
+    public Household(String representative, Long numberOfPeople, String phone, Long numberOfChildren, Long numberOfVegans, Long numberOfNonVegans, String email, String contactAddress) {
         this.representative = representative;
         this.numberOfPeople = numberOfPeople;
         this.phone = phone;
         this.numberOfChildren = numberOfChildren;
         this.numberOfVegans = numberOfVegans;
         this.numberOfNonVegans = numberOfNonVegans;
+        this.email = email;
+        this.contactAddress = contactAddress;
     }
 
     public Household() {
 
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getContactAddress() {
+        return contactAddress;
+    }
+
+    public void setContactAddress(String contactAddress) {
+        this.contactAddress = contactAddress;
     }
 
     public void setPackages(List<Package> packages) {

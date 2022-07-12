@@ -16,10 +16,30 @@ public class HouseholdData {
     private Long numberOfVegans;
     private Long numberOfNonVegans;
 
+    private String email;
+
+    private String address;
+
     private List<Package> packages;
 
     public List<Package> getPackages() {
         return packages;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public void setPackages(List<Package> packages) {

@@ -28,6 +28,8 @@ public class HouseholdConverter {
         target.setNumberOfNonVegans(source.getNumberOfNonVegans());
         target.setNumberOfPeople(source.getNumberOfPeople());
         target.setNumberOfVegans(source.getNumberOfVegans());
+        target.setEmail(source.getEmail());
+        target.setAddress(source.getContactAddress());
         return target;
     }
 
@@ -42,7 +44,8 @@ public class HouseholdConverter {
         target.setNumberOfNonVegans(source.getNumberOfNonVegans());
         target.setNumberOfVegans(source.getNumberOfVegans());
         target.setNumberOfPeople(source.getNumberOfPeople());
-
+        target.setEmail(source.getEmail());
+        target.setContactAddress(source.getAddress());
         return target;
     }
 }
