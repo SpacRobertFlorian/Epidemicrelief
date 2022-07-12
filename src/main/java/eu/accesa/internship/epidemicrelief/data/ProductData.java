@@ -16,8 +16,7 @@ public class ProductData {
     @NotNull(message = "Stock cannot be null")
     @Min(value = 0, message = "Stock should not be less then 0")
     private Long stock;
-    private ProductCategory productCategory;
-    @NotBlank(message = "UUID cannot be null")
+    private String productCategory;
     private String uuid;
 
     public String getUuid() {
@@ -52,11 +51,11 @@ public class ProductData {
         this.stock = stock;
     }
 
-    public ProductCategory getProductCategory() {
+    public String getProductCategory() {
         return productCategory;
     }
 
-    public void setProductCategory(ProductCategory productCategory) {
+    public void setProductCategory(String productCategory) {
         this.productCategory = productCategory;
     }
 }

@@ -26,7 +26,7 @@ public class Product {
     private String uuid;
     @Column(unique = true)
     @NotBlank(message = "Name cannot be not blank")
-    @Size(min = 3,max = 25,message = "Name must be between 3 and 25 characters")
+    @Size(min = 3, max = 25, message = "Name must be between 3 and 25 characters")
     private String name;
 
     @Column
