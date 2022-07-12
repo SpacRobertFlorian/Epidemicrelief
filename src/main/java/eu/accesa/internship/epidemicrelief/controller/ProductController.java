@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/products")
@@ -67,14 +69,17 @@ public class ProductController {
     @GetMapping("/new")
     public String getNewProductForm(Model model) {
         model.addAttribute("categories", Arrays.asList(ProductCategory.values()));
+
         return ADD_PRODUCT_URL;
     }
 
     @PostMapping(value = "/save")
     public String addProduct(@Valid ProductData productData, BindingResult result, Model model) {
+        model.addAttribute("categories", Arrays.asList(ProductCategory.values()));
         if (result.hasErrors() || productData.getStock() < 0) {
-
-            return PRODUCTS_URL + "/new";
+            model.addAttribute("bindingResultMsg", result.getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.toList()));
+            //return PRODUCTS_URL + "/new";
+            return ADD_PRODUCT_URL;
         }
         productFacade.addProduct(productData);
         return PRODUCTS_URL;
@@ -95,6 +100,7 @@ public class ProductController {
     @PostMapping("/update")
     public String updateProduct(@Valid ProductData productData, BindingResult result, Model model) {
         if (result.hasErrors() || productData.getStock() < 0) {
+            model.addAttribute("bindingResultMsg", result.getAllErrors().stream().map(ObjectError::getDefaultMessage).collect(Collectors.toList()));
             return PRODUCTS_URL + "/edit/" + productData.getId();
         }
         productFacade.updateProduct(productData);

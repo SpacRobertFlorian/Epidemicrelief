@@ -49,6 +49,12 @@
                                    placeholder="Non Vegans">
                         </div>
                     </div>
+<%--                    <c:forEach items="${bindingResultMsg}" var="resultMsg">--%>
+<%--                        <tr>--%>
+<%--                            <td>${resultMsg}</td>--%>
+<%--                        </tr>--%>
+<%--                    </c:forEach>--%>
+                    <p>${bindingResultMsg}</p>
                     <div class="row">
                         <div class="col-md-6 mt-5">
                             <input type="submit" class="btn btn-primary" value="Add Household">

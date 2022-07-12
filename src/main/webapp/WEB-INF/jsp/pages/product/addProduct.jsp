@@ -28,6 +28,7 @@
                             <input type="number" name="stock" id="stock" class="form-control" placeholder="Stock">
                         </div>
                     </div>
+                    <p>${bindingResultMsg}</p>
                     <div class="row">
                         <div class="col-md-6 mt-5">
                             <input type="submit" class="btn btn-primary" value="Add Product">
