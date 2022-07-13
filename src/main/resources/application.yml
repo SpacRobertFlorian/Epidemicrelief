@@ -28,6 +28,7 @@ choose:
   api:
     type: rest
     uri: http://localhost:8082/soap-products/GetProductRequest
+
 internationalization:
   country: RO
   lang: ro

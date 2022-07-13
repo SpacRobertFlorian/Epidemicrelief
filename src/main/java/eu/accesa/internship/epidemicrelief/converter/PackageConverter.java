@@ -3,6 +3,7 @@ package eu.accesa.internship.epidemicrelief.converter;
 import eu.accesa.internship.epidemicrelief.data.PackageData;
 import eu.accesa.internship.epidemicrelief.data.ProductData;
 import eu.accesa.internship.epidemicrelief.model.Package;
+import eu.accesa.internship.epidemicrelief.utils.Internationalization;
 import org.springframework.lang.NonNull;
 
 import javax.validation.constraints.NotNull;
@@ -19,6 +20,7 @@ public class PackageConverter {
      * @param source the {@link Package} to be converted
      * @return PackageData containing data from Package
      */
+
     @NonNull
     public PackageData from(@NonNull Package source) {
         PackageData target = new PackageData();

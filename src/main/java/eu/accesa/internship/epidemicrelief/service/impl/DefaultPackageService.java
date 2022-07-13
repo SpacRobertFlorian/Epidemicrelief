@@ -15,6 +15,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class DefaultPackageService implements PackageService {
@@ -64,7 +65,7 @@ public class DefaultPackageService implements PackageService {
         householdPackage.setStatus(EnumPackageStatus.CREATED);
         Optional<Household> household = householdRepository.findById(idHousehold);
         household.ifPresent(householdPackage::setHousehold);
-        householdPackage.setCreatedDate(LocalDate.now());
+        householdPackage.setCreatedDate(LocalDateTime.now());
 
         packageRepository.save(householdPackage);
     }
@@ -89,7 +90,7 @@ public class DefaultPackageService implements PackageService {
             throw new EntityNotFoundException("Unable to find package to update; id: " + packageStatus.getId());
         }
 
-        packageStatus.setDeliveredDate(LocalDate.now());
+        packageStatus.setDeliveredDate(LocalDateTime.now());
         packageRepository.save(packageStatus);
     }
 

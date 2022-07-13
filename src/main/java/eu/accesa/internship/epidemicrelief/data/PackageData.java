@@ -4,6 +4,7 @@ import eu.accesa.internship.epidemicrelief.model.PackageProducts;
 import eu.accesa.internship.epidemicrelief.utils.enums.EnumPackageStatus;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class PackageData {
@@ -11,8 +12,8 @@ public class PackageData {
     private Long id;
     private HouseholdData household;
     private List<PackageProducts> products;
-    private LocalDate deliveredDate;
-    private LocalDate createdDate;
+    private LocalDateTime deliveredDate;
+    private LocalDateTime createdDate;
     private EnumPackageStatus status;
     private Long dateDiff;
 
@@ -48,19 +49,19 @@ public class PackageData {
         this.products = products;
     }
 
-    public LocalDate getDeliveredDate() {
+    public LocalDateTime getDeliveredDate() {
         return deliveredDate;
     }
 
-    public void setDeliveredDate(LocalDate deliveredDate) {
+    public void setDeliveredDate(LocalDateTime deliveredDate) {
         this.deliveredDate = deliveredDate;
     }
 
-    public LocalDate getCreatedDate() {
+    public LocalDateTime getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(LocalDate createdDate) {
+    public void setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
     }
 

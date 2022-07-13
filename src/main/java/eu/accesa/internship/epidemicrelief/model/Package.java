@@ -7,6 +7,7 @@ import org.hibernate.annotations.NaturalIdCache;
 import javax.persistence.*;
 import javax.validation.Valid;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -28,10 +29,10 @@ public class Package {
     private List<PackageProducts> products;
 
     @Column
-    private LocalDate deliveredDate;
+    private LocalDateTime deliveredDate;
 
     @Column
-    private LocalDate createdDate;
+    private LocalDateTime createdDate;
 
     @Column
     @Enumerated(EnumType.STRING)
@@ -46,7 +47,7 @@ public class Package {
         this.id = id;
     }
 
-    public LocalDate getDeliveredDate() {
+    public LocalDateTime getDeliveredDate() {
         return deliveredDate;
     }
 
@@ -66,7 +67,7 @@ public class Package {
         this.products = products;
     }
 
-    public void setDeliveredDate(LocalDate deliveredDate) {
+    public void setDeliveredDate(LocalDateTime deliveredDate) {
         this.deliveredDate = deliveredDate;
     }
 
@@ -78,11 +79,11 @@ public class Package {
         this.status = status;
     }
 
-    public LocalDate getCreatedDate() {
+    public LocalDateTime getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(LocalDate createdDate) {
+    public void setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
     }
 
