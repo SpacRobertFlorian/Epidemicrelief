@@ -1,5 +1,7 @@
 package eu.accesa.internship.epidemicrelief;
 
+import eu.accesa.internship.epidemicrelief.utils.Internationalization;
+import eu.accesa.internship.epidemicrelief.utils.enums.Currency;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ImportResource;
@@ -10,5 +12,7 @@ public class Launcher {
 
     public static void main(String[] args) {
         SpringApplication.run(Launcher.class, args);
+//        Internationalization internationalization = new Internationalization();
+//        System.out.println(internationalization.calculateCurrency(20L, Currency.EURO));
     }
 }

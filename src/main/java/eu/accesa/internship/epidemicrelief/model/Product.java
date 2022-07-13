@@ -1,7 +1,9 @@
 package eu.accesa.internship.epidemicrelief.model;
 
+import eu.accesa.internship.epidemicrelief.utils.enums.Currency;
 import eu.accesa.internship.epidemicrelief.utils.enums.ProductCategory;
 import org.hibernate.annotations.NaturalIdCache;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -45,15 +47,42 @@ public class Product {
     @OneToMany(mappedBy = "pack", cascade = CascadeType.ALL)
     private List<PackageProducts> packages;
 
+    @Column
+    @NotNull(message = "Price cannot be null")
+    @Min(value = 0, message = "Price should not be less then 0")
+    private Double price;
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    private Currency currency;
+
     public Product() {
 
     }
 
-    public Product(String uuid, String name, Long stock, ProductCategory productCategory) {
+    public Product(String uuid, String name, Long stock, ProductCategory productCategory, Double price, Currency currency) {
         this.uuid = uuid;
         this.name = name;
         this.stock = stock;
         this.productCategory = productCategory;
+        this.price = price;
+        this.currency = currency;
+    }
+
+    public Currency getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(Currency currency) {
+        this.currency = currency;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
     public Necessity getNecessity() {

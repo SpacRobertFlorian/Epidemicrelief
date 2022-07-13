@@ -3,9 +3,11 @@ package eu.accesa.internship.epidemicrelief.converter;
 import eu.accesa.internship.epidemicrelief.data.ProductData;
 import eu.accesa.internship.epidemicrelief.model.Product;
 import eu.accesa.internship.epidemicrelief.utils.Internationalization;
+import eu.accesa.internship.epidemicrelief.utils.enums.Currency;
 import eu.accesa.internship.epidemicrelief.utils.enums.ProductCategory;
 
 import javax.validation.constraints.NotNull;
+import java.util.Locale;
 
 /**
  * Converter responsible for converting {@link ProductData} to {@link Product}
@@ -32,7 +34,9 @@ public class ProductConverter {
         target.setName(internationalization.translateWord(source.getName()));
         target.setStock(source.getStock());
         target.setUuid(source.getUuid());
-
+        target.setPrice(source.getPrice());
+        target.setPrice(internationalization.calculateCurrency(target.getPrice(), source.getCurrency()));
+        target.setCurrency(Currency.valueOf(internationalization.getCurrency(internationalization.getCountry()).toUpperCase()));
         return target;
     }
 
@@ -51,6 +55,7 @@ public class ProductConverter {
         target.setName(source.getName());
         target.setStock(source.getStock());
         target.setUuid(source.getUuid());
+        target.setPrice(source.getPrice());
 
         return target;
     }

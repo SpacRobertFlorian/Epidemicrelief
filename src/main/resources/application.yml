@@ -31,6 +31,7 @@ choose:
 internationalization:
   country: RO
   lang: ro
+
 resilience4j.circuitbreaker:
   configs:
     default:
@@ -52,5 +53,3 @@ resilience4j.circuitbreaker:
   instance:
     mainService:
       baseConfig: default
-
-

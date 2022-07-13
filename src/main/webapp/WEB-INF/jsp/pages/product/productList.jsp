@@ -46,6 +46,8 @@
                                     <br />
                                 </c:otherwise>
                             </c:choose>
+                            <td>${product.price}</td>
+                            <td>${product.currency}</td>
                             <td><a href="/products/edit/${product.id}/" class="btn btn-secondary"><i
                                     class="fas fa-user-edit ml-2"></i></a></td>
                             <td><a href="/products/delete/${product.id}/" class="btn btn-secondary"><i
