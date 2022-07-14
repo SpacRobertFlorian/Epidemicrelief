@@ -138,8 +138,8 @@ public class DefaultJobService implements JobService {
 
         ListOfUuid listName = new ListOfUuid();
 
-        for (Product p : products) {
-            listName.getUuid().add(p.getName());
+        for (Product product : products) {
+            listName.getUuid().add(product.getUuid());
         }
         return listName;
     }
