@@ -10,10 +10,10 @@ import java.util.List;
 
 public class RESTClient {
 
-    public ResponseEntity<List<Product>> getProducts(List<String> name) {
+    public ResponseEntity<List<Product>> getProducts(List<String> uuids) {
         RestTemplate restTemplate = new RestTemplate();
-        String fooResourceUrl = "http://localhost:8082/products?name=";
-        String products = createURL(name);
+        String fooResourceUrl = "http://localhost:8082/products?uuids=";
+        String products = createURL(uuids);
         return restTemplate.exchange(fooResourceUrl + products, HttpMethod.GET,
                 null, new ParameterizedTypeReference<>() {
                 });

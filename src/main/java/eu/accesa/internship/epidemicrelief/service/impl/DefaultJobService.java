@@ -6,8 +6,7 @@ import eu.accesa.internship.epidemicrelief.rest.consuming.RESTClient;
 import eu.accesa.internship.epidemicrelief.service.JobService;
 import eu.accesa.internship.epidemicrelief.soap.consuming.SOAPClient;
 import eu.accesa.internship.wsdl.GetProductResponse;
-import eu.accesa.internship.wsdl.ListName;
-import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import eu.accesa.internship.wsdl.ListOfUuid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +44,7 @@ public class DefaultJobService implements JobService {
     //@Scheduled(cron = "0 0 0 * * *", zone = "Europe/Romania")
     //@Scheduled(fixedRateString = "PT5S", zone = "Europe/Romania")
     @Override
-   // @Scheduled(cron = "*/10 * * * * *", zone = "GMT+3")
+    @Scheduled(cron = "*/10 * * * * *", zone = "GMT+3")
     //@CircuitBreaker(name = MAIN_SERVICE)
     public void updateProduct() {
         logger.info("Cronjob started");
@@ -75,7 +74,7 @@ public class DefaultJobService implements JobService {
         logger.info("Creating request");
         List<String> productNames = new ArrayList<>();
         for (Product p : products) {
-            productNames.add(p.getName());
+            productNames.add(p.getUuid());
         }
         return productNames;
     }
@@ -108,7 +107,7 @@ public class DefaultJobService implements JobService {
         List<Product> products = getNProducts(bachSize, offset);
 
         offset += bachSize;
-        ListName listName = createRequest(products);
+        ListOfUuid listName = createRequest(products);
         GetProductResponse response = executeRequest(listName);
         update(response);
     }
@@ -127,20 +126,20 @@ public class DefaultJobService implements JobService {
         }
     }
 
-    private GetProductResponse executeRequest(ListName request) {
+    private GetProductResponse executeRequest(ListOfUuid request) {
         logger.info("Executing request");
         GetProductResponse response;
         response = client.getProducts(request);
         return response;
     }
 
-    private ListName createRequest(List<Product> products) {
+    private ListOfUuid createRequest(List<Product> products) {
         logger.info("Creating request");
 
-        ListName listName = new ListName();
+        ListOfUuid listName = new ListOfUuid();
 
         for (Product p : products) {
-            listName.getName().add(p.getName());
+            listName.getUuid().add(p.getName());
         }
         return listName;
     }

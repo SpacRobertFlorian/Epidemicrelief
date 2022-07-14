@@ -2,7 +2,7 @@ package eu.accesa.internship.epidemicrelief.soap.consuming;
 
 import eu.accesa.internship.wsdl.GetProductRequest;
 import eu.accesa.internship.wsdl.GetProductResponse;
-import eu.accesa.internship.wsdl.ListName;
+import eu.accesa.internship.wsdl.ListOfUuid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,7 +15,7 @@ public class SOAPClient extends WebServiceGatewaySupport {
     private String CHOSE_URI;
     private static final Logger log = LoggerFactory.getLogger(SOAPClient.class);
 
-    public GetProductResponse getProducts(ListName product) {
+    public GetProductResponse getProducts(ListOfUuid product) {
 
         GetProductRequest request = new GetProductRequest();
         request.setList(product);
