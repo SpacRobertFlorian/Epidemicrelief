@@ -24,7 +24,6 @@ import java.util.Optional;
 @Configuration
 @EnableScheduling
 public class DefaultJobService implements JobService {
-    private static final String MAIN_SERVICE = "mainService";
     @Value("${batch.size}")
     private int bachSize;
     Logger logger = LoggerFactory.getLogger(DefaultJobService.class);
@@ -71,7 +70,8 @@ public class DefaultJobService implements JobService {
     }
 
     private List<String> createRestRequest(List<Product> products) {
-        logger.info("Creating request");
+        logger.info("Creating request for products: " + products.toString());
+        logger.info("Request created with: " + products);
         List<String> productNames = new ArrayList<>();
         for (Product p : products) {
             productNames.add(p.getUuid());
@@ -80,7 +80,7 @@ public class DefaultJobService implements JobService {
     }
 
     private ResponseEntity<List<Product>> executeRequest(List<String> request) {
-        logger.info("Executing request");
+        logger.info("Executing request for request: " + request.toString());
         return restClient.getProducts(request);
     }
 
@@ -91,8 +91,9 @@ public class DefaultJobService implements JobService {
             for (Product p : products) {
                 Optional<Product> getProduct = productRepository.findProductByUuid(p.getUuid());
                 if (getProduct.isPresent()) {
+                    logger.info("Updating product's stock: name:" + p.getName() + " uuid:" + p.getUuid());
+                    logger.info("Old stock: " + getProduct.get().getStock() + " -> New stock: " + p.getStock());
                     getProduct.get().setStock(p.getStock());
-                    logger.info("Updating product's stock: " + p.getName());
                     productRepository.save(getProduct.get());
                 }
             }
@@ -119,23 +120,23 @@ public class DefaultJobService implements JobService {
         for (eu.accesa.internship.wsdl.Product p : products) {
             Optional<Product> product = productRepository.findByUuid(p.getUuid());
             if (product.isPresent()) {
+                logger.info("Updating product's stock: name:" + p.getName() + " uuid:" + p.getUuid());
+                logger.info("Old stock: " + product.get().getStock() + " -> New stock: " + p.getStock());
                 product.get().setStock(p.getStock());
-                logger.info("Updating product's stock: " + p.getName());
                 productRepository.save(product.get());
             }
         }
     }
 
     private GetProductResponse executeRequest(ListOfUuid request) {
-        logger.info("Executing request");
+        logger.info("Executing request: " + request.toString());
         GetProductResponse response;
         response = client.getProducts(request);
         return response;
     }
 
     private ListOfUuid createRequest(List<Product> products) {
-        logger.info("Creating request");
-
+        logger.info("Creating request for products: " + products.toString());
         ListOfUuid listName = new ListOfUuid();
 
         for (Product product : products) {
