@@ -22,7 +22,6 @@ public class ProductData {
     @NotNull(message = "Price cannot be null")
     @Min(value = 0, message = "Price should not be less then 0")
     private Double price;
-
     private Currency currency;
 
     public Currency getCurrency() {

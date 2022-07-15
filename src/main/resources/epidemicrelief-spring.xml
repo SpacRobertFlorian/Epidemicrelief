@@ -6,4 +6,5 @@
     <import resource="epidemicrelief-spring-converter.xml"/>
     <import resource="epidemicrelief-spring-service.xml"/>
     <import resource="epidemicrelief-spring-facade.xml"/>
+    <import resource="epidemicrelief-spring-internationalization.xml"/>
 </beans>

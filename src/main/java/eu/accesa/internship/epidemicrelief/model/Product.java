@@ -40,7 +40,7 @@ public class Product {
     private ProductCategory productCategory;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @Valid
+   // @Valid
     private Necessity necessity;
 
 
@@ -56,17 +56,45 @@ public class Product {
     @Enumerated(EnumType.STRING)
     private Currency currency;
 
+    @Column
+    //@NotNull
+    private String nameRo;
+
+    @Column
+   // @NotNull
+    private String nameFr;
+
+
     public Product() {
 
     }
 
-    public Product(String uuid, String name, Long stock, ProductCategory productCategory, Double price, Currency currency) {
+    public Product(String uuid, String name, Long stock, ProductCategory productCategory,
+                   Double price, Currency currency, String nameRo, String nameFr) {
         this.uuid = uuid;
         this.name = name;
         this.stock = stock;
         this.productCategory = productCategory;
         this.price = price;
         this.currency = currency;
+        this.nameRo = nameRo;
+        this.nameFr = nameFr;
+    }
+
+    public String getNameRo() {
+        return nameRo;
+    }
+
+    public void setNameRo(String nameRo) {
+        this.nameRo = nameRo;
+    }
+
+    public String getNameFr() {
+        return nameFr;
+    }
+
+    public void setNameFr(String nameFr) {
+        this.nameFr = nameFr;
     }
 
     public Currency getCurrency() {

@@ -6,6 +6,7 @@ import eu.accesa.internship.epidemicrelief.exception.CustomException;
 import eu.accesa.internship.epidemicrelief.facade.ProductFacade;
 import eu.accesa.internship.epidemicrelief.service.ProductService;
 import eu.accesa.internship.epidemicrelief.utils.enums.ProductCategory;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.constraints.NotNull;
@@ -19,6 +20,11 @@ public class DefaultProductFacade implements ProductFacade {
     private final ProductService productService;
     private final ProductConverter productConverter;
 
+    @Value("${internationalization.country}")
+    private String country;
+    @Value("${internationalization.lang}")
+    private String lang;
+
     public DefaultProductFacade(ProductService productService, ProductConverter productConverter) {
         this.productService = productService;
         this.productConverter = productConverter;
@@ -27,6 +33,7 @@ public class DefaultProductFacade implements ProductFacade {
     @NotNull
     @Override
     public List<ProductData> getProducts() {
+        productConverter.setLocale(lang, country);
         return this.productService.getAllProducts()
                 .stream()
                 .map(productConverter::from)

@@ -32,6 +32,7 @@ choose:
 internationalization:
   country: RO
   lang: ro
+  locale: ro_RO
 
 resilience4j.circuitbreaker:
   configs:

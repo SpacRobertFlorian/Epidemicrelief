@@ -30,6 +30,8 @@ public class ProductController {
     private static final String ADD_PRODUCT_URL = "product/addProduct";
     @Value("${minim.stock.threshold}")
     private int threshold;
+    @Value("${internationalization.locale}")
+    private String locale;
 
     @Autowired
     public ProductController(ProductFacade productFacade) {
@@ -38,6 +40,7 @@ public class ProductController {
 
     @GetMapping
     public String getAllProducts(Model model) {
+        model.addAttribute("locale", locale);
         model.addAttribute("products", productFacade.getProducts());
         model.addAttribute("categories", Arrays.asList(ProductCategory.values()));
         model.addAttribute("threshold", threshold);

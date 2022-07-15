@@ -10,6 +10,7 @@
                 <form action="/products/save/" method="post">
                     <div class="row">
                         <div class="form-group col-md-6">
+                            <spring:message code="Name"/>
                             <label for="name" class="col-form-label">Name</label>
                             <input type="text" name="name" id="name" class="form-control"
                                    placeholder="Name">
@@ -26,6 +27,15 @@
                         <div class="form-group col-md-6">
                             <label for="stock" class="col-form-label">Stock</label>
                             <input type="number" name="stock" id="stock" class="form-control" placeholder="Stock">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="price" class="col-form-label">Price</label>
+                            <input type="number" name="price" id="price" class="form-control" placeholder="Price">
+                        </div>
+                        <div class="form-group col-md-6">
+
+                            <label for="currency" class="col-form-label">Currency</label>
+                            <input type="text" name="currency" id="currency" class="form-control" placeholder="Currency">
                         </div>
                     </div>
                     <p>${bindingResultMsg}</p>

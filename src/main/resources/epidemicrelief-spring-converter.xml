@@ -9,7 +9,9 @@
 
     <alias name="defaultProductConverter" alias="productConverter"/>
     <bean id="defaultProductConverter"
-          class="eu.accesa.internship.epidemicrelief.converter.ProductConverter"/>
+          class="eu.accesa.internship.epidemicrelief.converter.ProductConverter">
+        <constructor-arg name="internationalization" ref="internationalization"/>
+    </bean>
 
     <alias name="defaultPackageConverter" alias="packageConverter"/>
     <bean id="defaultPackageConverter"
