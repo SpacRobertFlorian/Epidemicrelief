@@ -10,7 +10,6 @@
                 <form action="/products/save/" method="post">
                     <div class="row">
                         <div class="form-group col-md-6">
-                            <spring:message code="Name"/>
                             <label for="name" class="col-form-label">Name</label>
                             <input type="text" name="name" id="name" class="form-control"
                                    placeholder="Name">
